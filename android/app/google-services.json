@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "592514968436",
+    "project_id": "ncu-cs-tutorial-platform",
+    "storage_bucket": "ncu-cs-tutorial-platform.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592514968436:android:e35a74fb000bf328d0da21",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592514968436-pgdohdqgbl8sott41aom4ss9lv8u17b9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4oHlG3so0u0m0P8pxQimGXPwUnNDtBfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592514968436-pgdohdqgbl8sott41aom4ss9lv8u17b9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
