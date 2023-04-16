@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/firebase_options.dart';
-import 'package:flutter_application/test/window_size.dart';
+import 'package:service_learning_website/firebase_options.dart';
+import 'package:service_learning_website/test/window_size.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
