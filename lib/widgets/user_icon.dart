@@ -6,10 +6,14 @@ import 'package:service_learning_website/modules/icon_image.dart';
 class UserIcon extends StatefulWidget {
 
   final double size;
+  final Color hoverBorderColor;
+  final double hoverBorderWidth;
 
   const UserIcon({
     super.key,
-    required this.size
+    required this.size,
+    this.hoverBorderColor = Colors.black26,
+    this.hoverBorderWidth = 6,
   });
 
   @override
@@ -18,8 +22,10 @@ class UserIcon extends StatefulWidget {
 
 class _UserIconState extends State<UserIcon> {
 
+  bool _isHover = false;
+
   List<PopupMenuEntry<dynamic>> _menu = [];
-  ImageProvider<Object> _icon = IconImage(icon: Icons.error);
+  ImageProvider<Object>? _icon;
 
   @override
   void initState() {
@@ -49,9 +55,22 @@ class _UserIconState extends State<UserIcon> {
           items: _menu,
         );
       },
-      child: CircleAvatar(
-        radius: widget.size,
-        backgroundImage: _icon,
+      child: MouseRegion(
+        onEnter: (_) => setState(() => _isHover = true),
+        onExit: (_) => setState(() => _isHover = false),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: _isHover ? widget.hoverBorderColor : Colors.transparent,
+              width: widget.hoverBorderWidth
+            ),
+            shape: BoxShape.circle,
+          ),
+          child: CircleAvatar(
+            radius: widget.size,
+            foregroundImage: _icon,
+          ),
+        ),
       ),
     );
   }
