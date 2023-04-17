@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:service_learning_website/firebase_options.dart';
-import 'package:service_learning_website/test/window_size.dart';
+import 'package:service_learning_website/test/test_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,14 +11,8 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +23,9 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
-      home: const Center(child: WindowSize(),),
+      home: const Scaffold(
+        body: TestPage(),
+      ),
     );
   }
 }
