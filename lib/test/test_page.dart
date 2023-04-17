@@ -6,6 +6,24 @@ import 'package:service_learning_website/widgets/user_icon.dart';
 class TestPage extends StatelessWidget {
   const TestPage({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const WindowSize(),
+            const UserIcon(size: 32),
+            MyMarkdown(mdContent),
+          ],
+        ),
+      ),
+    );
+  }
+
+
+
   final String mdContent = """
   # 3/29 交通
 
@@ -33,18 +51,4 @@ class TestPage extends StatelessWidget {
   ```
   
   """;
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const WindowSize(),
-          const UserIcon(size: 32),
-          MyMarkdown(mdContent),
-        ],
-      ),
-    );
-  }
 }
