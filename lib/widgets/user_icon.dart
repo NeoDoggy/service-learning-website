@@ -78,8 +78,7 @@ class _UserIconState extends State<UserIcon> {
 
   void _updateMenu() {
     final String name = _userData?.name ?? "<name>";
-    final String email = _userData?.name ?? "<email>";
-    final String permission = _userData?.permission.name ?? "<permission>";
+    final String email = _userData?.email ?? "<email>";
 
     // 沒登入顯示的 menu
     if (_userData == null) {
@@ -105,7 +104,6 @@ class _UserIconState extends State<UserIcon> {
               ],
             )
           ),
-          PopupMenuItem(child: Text("身份：$permission")),
           const PopupMenuDivider(height: 10),
           PopupMenuItem(
             onTap: () {
