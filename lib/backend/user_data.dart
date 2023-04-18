@@ -6,8 +6,9 @@ class UserData {
 
   UserData({
     required this.uid,
-    required this.name,
-    required this.email,
+    this.name,
+    this.email,
+    this.photoURL,
     this.studentId = 0,
     this.permission = UserPermission.normal
   });
@@ -15,6 +16,7 @@ class UserData {
   String uid;
   String? name;
   String? email;
+  String? photoURL;
   int studentId;
   UserPermission permission;
 
@@ -22,6 +24,7 @@ class UserData {
     "uid": uid,
     "name": name,
     "email": email,
+    "photoURL": photoURL,
     "studentId": studentId,
     "permission": permission.id,
   };
@@ -30,20 +33,23 @@ class UserData {
     uid: user.uid,
     name: user.displayName,
     email: user.email,
+    photoURL: user.photoURL,
   );
 
   factory UserData.fromJson(Map<String, dynamic> map) => UserData(
     uid: map["uid"],
     name: map["name"],
     email: map["email"],
+    photoURL: map["photoURL"],
     studentId: (map["studentId"] ?? 0) as int,
     permission: UserPermission.fromId(map["permission"] ?? 0),
   );
 
-  void combine(UserData userData) {
+  void update(UserData userData) {
     name = name ?? userData.name;
     email = email ?? userData.email;
+    photoURL = photoURL ?? userData.photoURL;
     studentId = (studentId == 0) ? userData.studentId : studentId;
-    permission = (permission == UserPermission.none) ? userData.permission : permission;
+    permission = (permission == UserPermission.normal) ? userData.permission : permission;
   }
 }

@@ -25,25 +25,19 @@ class UserIcon extends StatefulWidget {
 class _UserIconState extends State<UserIcon> {
 
   final _auth = FirebaseAuth.instance;
-  final _userColl = FirebaseFirestore.instance.collection("users");
+  final _db = FirebaseFirestore.instance;
 
   bool _isHover = false;
 
   List<PopupMenuEntry<dynamic>> _menu = [];
-  ImageProvider<Object>? _icon;
+  ImageProvider<Object>? _image;
   UserData? _userData;
 
   @override
   void initState() {
     super.initState();
-    _menu = _generateMenu();
-    _icon = _generateIcon();
     _auth.authStateChanges().listen((User? user) {
-      setState(() {
-        _updateUserData(user);
-        _menu = _generateMenu();
-        _icon = _generateIcon();
-      });
+      _updateUserData(user);
     });
   }
 
@@ -75,71 +69,95 @@ class _UserIconState extends State<UserIcon> {
           ),
           child: CircleAvatar(
             radius: widget.size,
-            foregroundImage: _icon,
+            foregroundImage: _image,
           ),
         ),
       ),
     );
   }
 
-  List<PopupMenuEntry<dynamic>> _generateMenu() {
-    // 有登入顯示的 menu
-    if (_auth.currentUser != null) {
-      return [
-        PopupMenuItem(
-          child: Row(
-            children: [
-              Text(_auth.currentUser?.displayName ?? "<name>"),
-              const SizedBox(width: 10),
-              Text(_auth.currentUser?.email ?? "<email>"),
-            ],
-          )
-        ),
-        PopupMenuItem(child: Text("身份：${_userData?.permission.name ?? '<permission>'}")),
-        const PopupMenuDivider(height: 10),
-        PopupMenuItem(
-          onTap: () {
-            _auth.signOut();
-            // context.go(MyRouter.root);
-          },
-          child: const Text("登出")
-        ),
-      ];
-    }
+  void _updateMenu() {
+    final String name = _userData?.name ?? "<name>";
+    final String email = _userData?.name ?? "<email>";
+    final String permission = _userData?.permission.name ?? "<permission>";
+
     // 沒登入顯示的 menu
+    if (_userData == null) {
+      setState(() {
+        _menu = [
+          PopupMenuItem(
+            onTap: () => AuthService().signInWithGoogle(),
+            child: const Text("登入")
+          ),
+        ];
+      });
+    }
+    // 有登入顯示的 menu
     else {
-      return [
-        PopupMenuItem(
-          onTap: () => AuthService().signInWithGoogle(),
-          child: const Text("登入")
-        ),
-      ];
+      setState(() {
+        _menu = [
+          PopupMenuItem(
+            child: Row(
+              children: [
+                Text(name),
+                const SizedBox(width: 10),
+                Text(email),
+              ],
+            )
+          ),
+          PopupMenuItem(child: Text("身份：$permission")),
+          const PopupMenuDivider(height: 10),
+          PopupMenuItem(
+            onTap: () {
+              _auth.signOut();
+              // context.go(MyRouter.root);
+            },
+            child: const Text("登出")
+          ),
+        ];
+      });
     }
   }
 
-  ImageProvider<Object> _generateIcon() {
-    // 有登入顯示的 icon
-    if (_auth.currentUser != null) {
-      return NetworkImage(_auth.currentUser?.photoURL ?? "");
-    }
+  void _updateImage() {
+    final String? photoURL = _userData?.photoURL;
+
     // 沒登入顯示的 icon
+    if (photoURL == null) {
+      setState(() {
+        _image = IconImage(
+          icon: Icons.person,
+          background: Colors.grey,
+          color: Colors.white
+        );
+      });
+    }
+    // 有登入顯示的 icon
     else {
-      return IconImage(
-        icon: Icons.person,
-        color: Colors.grey,
-        background: Colors.white
-      );
+      setState(() {
+        _image = NetworkImage(photoURL);
+      });
     }
   }
 
-  void _updateUserData(User? user) {
-    if (user == null) return;
-    final uidDoc = _userColl.doc(user.uid);
-    uidDoc.snapshots().map((doc) => doc.data()).listen((map) {
-      _userData = (map == null) ?
-        UserData.fromUser(user) : UserData.fromJson(map);
-      _userData!.combine(UserData.fromUser(user));
-      uidDoc.set(_userData!.toJson());
+  void _updateUserData(User? user) async {
+    if (user == null) {
+      _updateMenu();
+      _updateImage();
+      return;
+    }
+
+    final doc = _db.collection("users").doc(user.uid);
+    doc.get().then((value) {
+      final data = value.data();
+      setState(() {
+        _userData = (data == null) ?
+          UserData.fromUser(user) : UserData.fromJson(data);
+        _userData!.update(UserData.fromUser(user));
+      });
+      doc.set(_userData!.toJson());
+      _updateMenu();
+      _updateImage();
     });
   }
 }
