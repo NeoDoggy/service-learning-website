@@ -7,6 +7,19 @@ enum UserPermission {
   const UserPermission(this.id);
   final int id;
 
+  String get name {
+    switch (id) {
+      case 10:
+        return "一般";
+      case 20:
+        return "學生";
+      case 30:
+        return "助教";
+      default:
+        return "無";
+    }
+  }
+
   factory UserPermission.fromId(int id)
     => values.firstWhere((element) => element.id == id);
 
