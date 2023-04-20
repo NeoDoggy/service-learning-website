@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:service_learning_website/test/window_size.dart';
-import 'package:service_learning_website/widgets/course_name_box.dart';
-import 'package:service_learning_website/widgets/my_markdown.dart';
-import 'package:service_learning_website/widgets/user_icon.dart';
+import 'package:service_learning_website/widgets/side_menu.dart';
+import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 
 class TestPage extends StatelessWidget {
   const TestPage({super.key});
@@ -19,12 +18,14 @@ class TestPage extends StatelessWidget {
                 UserIcon(size: 32),
               ],
             ),
-            const CourseNameBox(coursename: "test"),
-            MyMarkdown(mdContent),
-            const WindowSize(),
+            const SideMenu(items: [
+              "營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"
+            ]),
+            // MyMarkdown(mdContent),
           ],
         ),
       ),
+      bottomSheet: const WindowSize(),
     );
   }
 
