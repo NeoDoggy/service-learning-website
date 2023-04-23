@@ -19,7 +19,11 @@ class UserIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    String name = authProvider.userData?.name ?? "<name>";
+    String email = authProvider.userData?.email ?? "<email>";
+
     List<PopupMenuEntry<dynamic>> menu = [
       // 沒登入顯示的 menu
       if (!authProvider.isAuthed)
@@ -31,13 +35,16 @@ class UserIcon extends StatelessWidget {
       // 有登入顯示的 menu
       if (authProvider.isAuthed)
         PopupMenuItem(
-            child: Row(
-          children: [
-            Text(authProvider.userData?.name ?? "<name>"),
-            const SizedBox(width: 10),
-            Text(authProvider.userData?.email ?? "<email>"),
-          ],
-        )),
+          // 這東西最多只能顯示 31 個字
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(_cutdown(name, 31)),
+              Text(_cutdown(email, 31)),
+            ],
+          ),
+        ),
       if (authProvider.isAuthed) const PopupMenuDivider(height: 10),
       if (authProvider.isAuthed)
         PopupMenuItem(
@@ -67,5 +74,12 @@ class UserIcon extends StatelessWidget {
             size: size,
             hoverBorderColor: hoverBorderColor,
             hoverBorderWidth: hoverBorderWidth));
+  }
+
+  String _cutdown(String str, int n) {
+    if (str.length <= n) {
+      return str;
+    }
+    return "${str.substring(0, n - 3)}...";
   }
 }

@@ -23,6 +23,8 @@ enum UserPermission {
   factory UserPermission.fromId(int id)
     => values.firstWhere((element) => element.id == id);
 
+  bool operator<=(UserPermission other) => id <= other.id;
+  bool operator>=(UserPermission other) => id >= other.id;
   bool operator<(UserPermission other) => id < other.id;
   bool operator>(UserPermission other) => id > other.id;
 }

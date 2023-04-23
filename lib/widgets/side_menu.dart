@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:service_learning_website/widgets/enhanced_text.dart';
+import 'package:service_learning_website/widgets/text/enhanced_text.dart';
 
 class SideMenu extends StatelessWidget {
 

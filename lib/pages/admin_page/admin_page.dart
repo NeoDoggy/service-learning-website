@@ -46,7 +46,7 @@ class _AdminPageState extends State<AdminPage> {
     }
 
     return PageSkeleton(
-      navigationBar: const UserIcon(size: 32),
+      navigationBar: const Align(alignment: Alignment.topRight, child: UserIcon(size: 32)),
       body: Container(
         padding: const EdgeInsets.only(
           left: 100, right: 100, top: 60, bottom: 100

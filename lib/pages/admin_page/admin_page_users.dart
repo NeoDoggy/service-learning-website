@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:service_learning_website/modules/backend/user_permission.dart';
 import 'package:service_learning_website/providers/admin_page_users_provider.dart';
+import 'package:service_learning_website/providers/auth_provider.dart';
+import 'package:service_learning_website/widgets/text/modifiable_text.dart';
 
-class AdminPageUsers extends StatefulWidget {
+class AdminPageUsers extends StatelessWidget {
 
   const AdminPageUsers({super.key});
 
   @override
-  State<AdminPageUsers> createState() => _AdminPageUsersState();
-}
-
-class _AdminPageUsersState extends State<AdminPageUsers> {
-
-  @override
   Widget build(BuildContext context) {
-    return Consumer<AdminPageUsersProvider>(
-      builder: (context, value, child) {
-        value.load();
+
+    final pageProvider = Provider.of<AdminPageUsersProvider>(context);
+    pageProvider.load();
+
+    return Consumer2<AdminPageUsersProvider, AuthProvider>(
+      builder: (context, pageProvider, authProvider, child) {
+
+        UserPermission permission = authProvider.userData?.permission
+          ?? UserPermission.none;
+
+        if (permission < UserPermission.ta) {
+          return const Text("你沒有權限");
+        }
+
         return DataTable(
           columns: const [
             DataColumn(label: Text("名稱")),
@@ -26,19 +34,35 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
             DataColumn(label: Text("學號")),
           ],
           rows: [
-            for (var userData in value.usersData)
+            for (var userData in pageProvider.usersData)
               DataRow(
                 cells: [
                   DataCell(SelectableText(userData.name ?? "<name>")),
                   DataCell(SelectableText(userData.uid)),
                   DataCell(SelectableText(userData.email ?? "<email>")),
-                  DataCell(SelectableText(userData.permission.name)),
-                  DataCell(SelectableText(userData.studentId.toString())),
+                  DataCell(
+                    Text(userData.permission.name),
+                    showEditIcon: true,
+                  ),
+                  DataCell(
+                    ModifiableText(
+                      userData.studentId.toString(),
+                      restriction: (input)
+                        => _isInteger(input) && int.parse(input) >= 0,
+                      onEditingCompleted: (input)
+                        => pageProvider.updateStudentId(userData.uid, int.parse(input)),
+                    ),
+                    showEditIcon: true,
+                  ),
                 ]
               )
           ],
         );
       }
     );
+  }
+
+  bool _isInteger(String str) {
+    return int.tryParse(str) != null;
   }
 }
