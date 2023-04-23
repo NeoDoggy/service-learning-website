@@ -1,6 +1,5 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:service_learning_website/backend/user_permission.dart';
+import 'package:service_learning_website/modules/backend/user_permission.dart';
 
 class UserData {
 
@@ -45,7 +44,7 @@ class UserData {
     permission: UserPermission.fromId(map["permission"] ?? 0),
   );
 
-  void update(UserData userData) {
+  void combine(UserData userData) {
     name = name ?? userData.name;
     email = email ?? userData.email;
     photoURL = photoURL ?? userData.photoURL;

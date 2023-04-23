@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:service_learning_website/pages/admin_page/admin_page_users.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
@@ -34,7 +35,7 @@ class _AdminPageState extends State<AdminPage> {
         _showingWidget = Container(height: 2000, color: Colors.yellow);
         break;
       case 3:
-        _showingWidget = Container(height: 2000, color: Colors.green);
+        _showingWidget = const AdminPageUsers();
         break;
       case 4:
         _showingWidget = Container(height: 2000, color: Colors.blue);
@@ -45,7 +46,7 @@ class _AdminPageState extends State<AdminPage> {
     }
 
     return PageSkeleton(
-      navigationBar: const UserIcon(size: 32),
+      navigationBar: const Align(alignment: Alignment.topRight, child: UserIcon(size: 32)),
       body: Container(
         padding: const EdgeInsets.only(
           left: 100, right: 100, top: 60, bottom: 100

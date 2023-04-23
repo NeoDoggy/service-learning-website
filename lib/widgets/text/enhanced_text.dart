@@ -23,19 +23,20 @@ class _EnhancedTextState extends State<EnhancedText> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (event) => setState(() => _isHovered = true),
-      onExit: (event) => setState(() => _isHovered = false),
-      cursor: _isHovered ? SystemMouseCursors.click : SystemMouseCursors.basic,
-      child: GestureDetector(
-        onTap: widget.onTap,
+
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: MouseRegion(
+        onEnter: (event) => setState(() => _isHovered = true),
+        onExit: (event) => setState(() => _isHovered = false),
+        cursor: _isHovered ? SystemMouseCursors.click : SystemMouseCursors.basic,
         child: Text(
           widget.text,
           style: widget.style.copyWith(
             fontWeight: _isHovered ? FontWeight.bold : FontWeight.normal
           ),
         ),
-      ),
+      )
     );
   }
 }

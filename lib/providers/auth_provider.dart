@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:service_learning_website/backend/user_data.dart';
+import 'package:service_learning_website/modules/backend/user_data.dart';
 
 class AuthProvider with ChangeNotifier {
 
@@ -42,8 +42,8 @@ class AuthProvider with ChangeNotifier {
         _userData = (data == null)
             ? UserData.fromUser(_user!)
             : UserData.fromJson(data);
-        _userData!.update(UserData.fromUser(_user!));
-        doc.update(_userData!.toJson());
+        _userData!.combine(UserData.fromUser(_user!));
+        doc.set(_userData!.toJson());
         notifyListeners();
       });
     }

@@ -31,7 +31,7 @@ class _UserIconImageState extends State<UserIconImage> {
     ImageProvider<Object> image;
 
     // 沒登入顯示的 image
-    if (!authProvider.isAuthed) {
+    if (!authProvider.isAuthed || authProvider.userData?.photoURL == null) {
       image = IconImage(
           icon: Icons.person,
           background: Colors.grey,
@@ -40,7 +40,7 @@ class _UserIconImageState extends State<UserIconImage> {
     }
     // 有登入顯示的 image
     else {
-      image = NetworkImage(authProvider.userData?.photoURL ?? "");
+      image = NetworkImage(authProvider.userData!.photoURL!);
     }
 
     return MouseRegion(
