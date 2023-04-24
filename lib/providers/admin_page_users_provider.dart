@@ -11,8 +11,21 @@ class AdminPageUsersProvider with ChangeNotifier {
 
   final _collection = FirebaseFirestore.instance.collection("users");
 
+  String _keyword = "";
   List<UserData> _usersData = [];
-  List<UserData> get usersData => _usersData;
+  List<UserData> get usersData {
+    if (_keyword == "") {
+      return _usersData;
+    }
+
+    return _usersData.where((element) => (
+      element.uid.contains(_keyword) ||
+      (element.name != null ? element.name!.contains(_keyword) : false) ||
+      (element.email != null ? element.email!.contains(_keyword) : false) ||
+      element.studentId.toString().contains(_keyword) ||
+      element.permission.name.contains(_keyword)
+    )).toList();
+  }
 
   void _load() {
     _collection.get().then((snapshot) {
@@ -21,6 +34,18 @@ class AdminPageUsersProvider with ChangeNotifier {
       if (kDebugMode) {
         print("admin_page_users_provider -> loaded");
       }
+      _usersData.sort((x, y) {
+        if (x.permission < y.permission) {
+          return -1;
+        } else if (x.permission > y.permission) {
+          return 1;
+        }
+        if (x.name != null && y.name != null) {
+          return x.name!.compareTo(y.name!);
+        }
+        return 0;
+      });
+      _usersData = _usersData.reversed.toList();
       notifyListeners();
     });
   }
@@ -34,7 +59,7 @@ class AdminPageUsersProvider with ChangeNotifier {
           final index = usersData.indexWhere((element) => element.uid == uid);
           usersData[index] = UserData.fromJson(data!);
           if (kDebugMode) {
-            print("admin_page_users_provider -> update");
+            print("admin_page_users_provider -> updated");
           }
           notifyListeners();
         });
@@ -42,6 +67,11 @@ class AdminPageUsersProvider with ChangeNotifier {
     } on Exception {
       return;
     }
+  }
+
+  void filter(String? keyword) {
+    _keyword = keyword ?? "";
+    notifyListeners();
   }
 
   void updatePermission(String uid, UserPermission permission) {
