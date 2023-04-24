@@ -88,6 +88,7 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
                           ChoosableText(
                             items: UserPermission.values.map((e) => e.name).toList(),
                             defaultIndex: userData.permission.index,
+                            disabledIndex: const [0],
                             onSelected: (index)
                               => pageProvider.updatePermission(userData.uid, UserPermission.values[index]),
                           ),

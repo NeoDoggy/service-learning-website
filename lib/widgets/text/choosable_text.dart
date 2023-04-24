@@ -7,11 +7,13 @@ class ChoosableText extends StatelessWidget {
     required this.defaultIndex,
     required this.items,
     this.onSelected,
+    this.disabledIndex = const [],
   });
 
   final int defaultIndex;
   final List<String> items;
   final void Function(int)? onSelected;
+  final List<int> disabledIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class ChoosableText extends StatelessWidget {
               onSelected!(i);
             }
           },
-          enabled: i != defaultIndex,
+          enabled: i != defaultIndex && !disabledIndex.contains(i),
           child: Text(items[i])
         ),
     ];
