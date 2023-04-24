@@ -7,6 +7,7 @@ import 'package:service_learning_website/firebase_options.dart';
 import 'package:service_learning_website/providers/admin_page_courses_provider.dart';
 import 'package:service_learning_website/providers/admin_page_users_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
+import 'package:service_learning_website/providers/course_editing_page_provider.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
@@ -32,6 +33,8 @@ class MyApp extends StatelessWidget {
           create: (_) => AdminPageUsersProvider()),
         ChangeNotifierProvider<AdminPageCoursesProvider>(
           create: (_) => AdminPageCoursesProvider()),
+        ChangeNotifierProvider<CourseEditingPageProvider>(
+          create: (_) => CourseEditingPageProvider()),
       ],
       child: MaterialApp.router(
         title: "NCU CS Tutorial Platform",

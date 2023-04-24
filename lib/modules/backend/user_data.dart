@@ -5,17 +5,17 @@ class UserData {
 
   UserData({
     required this.uid,
-    this.name,
-    this.email,
-    this.photoURL,
+    this.name = "",
+    this.email = "",
+    this.photoURL = "",
     this.studentId = 0,
     this.permission = UserPermission.normal
   });
 
   String uid;
-  String? name;
-  String? email;
-  String? photoURL;
+  String name;
+  String email;
+  String photoURL;
   int studentId;
   UserPermission permission;
 
@@ -30,24 +30,24 @@ class UserData {
 
   factory UserData.fromUser(User user) => UserData(
     uid: user.uid,
-    name: user.displayName,
-    email: user.email,
-    photoURL: user.photoURL,
+    name: user.displayName ?? "<name>",
+    email: user.email ?? "<email>",
+    photoURL: user.photoURL ?? "<photoURL>",
   );
 
   factory UserData.fromJson(Map<String, dynamic> map) => UserData(
     uid: map["uid"],
-    name: map["name"],
-    email: map["email"],
-    photoURL: map["photoURL"],
+    name: map["name"] ?? "",
+    email: map["email"] ?? "",
+    photoURL: map["photoURL"] ?? "",
     studentId: (map["studentId"] ?? 0) as int,
     permission: UserPermission.fromId(map["permission"] ?? 0),
   );
 
   void combine(UserData userData) {
-    name = name ?? userData.name;
-    email = email ?? userData.email;
-    photoURL = photoURL ?? userData.photoURL;
+    name = (name == "") ? userData.name : name;
+    email = (email == "") ? userData.email : email;
+    photoURL = (photoURL == "") ? userData.photoURL : photoURL;
     studentId = (studentId == 0) ? userData.studentId : studentId;
     permission = (permission == UserPermission.normal) ? userData.permission : permission;
   }

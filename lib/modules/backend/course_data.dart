@@ -49,8 +49,9 @@ class CourseData {
     "members": members,
     "imageRef": imageRef,
     "outline": outline,
-    "participants": participants.map((e) => e.toJson()).toList(),
   };
+
+  factory CourseData.empty() => CourseData(id: "");
 
   factory CourseData.fromJson(Map<String, dynamic> map) => CourseData(
     id: map["id"],
@@ -60,9 +61,8 @@ class CourseData {
     audience: map["audience"] ?? "",
     environment: map["environment"] ?? "",
     leader: map["leader"] ?? "",
-    members: <String>[],
+    members: map["member"] ?? <String>[],
     imageRef: map["imageRef"] ?? "",
     outline: map["outline"] ?? "",
-    participants: <CourseParticipantData>[],
   );
 }

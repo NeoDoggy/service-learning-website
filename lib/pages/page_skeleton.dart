@@ -27,7 +27,12 @@ class PageSkeleton extends StatelessWidget {
             if (navigationBar != null)
               navigationBar!,
             if (body != null)
-              body!,
+              Container(
+                padding: const EdgeInsets.only(
+                  left: 100, right: 100, top: 60, bottom: 100
+                ),
+                child: body!,
+              ),
             if (footer != null)
               footer!,
           ],

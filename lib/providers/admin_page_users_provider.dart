@@ -20,8 +20,8 @@ class AdminPageUsersProvider with ChangeNotifier {
 
     return _usersData.where((element) => (
       element.uid.contains(_keyword) ||
-      (element.name != null ? element.name!.contains(_keyword) : false) ||
-      (element.email != null ? element.email!.contains(_keyword) : false) ||
+      element.name.contains(_keyword) ||
+      element.email.contains(_keyword) ||
       element.studentId.toString().contains(_keyword) ||
       element.permission.name.contains(_keyword)
     )).toList();
@@ -40,10 +40,7 @@ class AdminPageUsersProvider with ChangeNotifier {
         } else if (x.permission > y.permission) {
           return 1;
         }
-        if (x.name != null && y.name != null) {
-          return x.name!.compareTo(y.name!);
-        }
-        return 0;
+        return x.name.compareTo(y.name);
       });
       _usersData = _usersData.reversed.toList();
       notifyListeners();
