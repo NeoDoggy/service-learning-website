@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page.dart';
-import 'package:service_learning_website/pages/admin_page/course_editing_page.dart';
+import 'package:service_learning_website/pages/course_editing_page/course_editing_page.dart';
 import 'package:service_learning_website/pages/home_page.dart';
 import 'package:service_learning_website/pages/login_page.dart';
 import 'package:service_learning_website/test/test_page.dart';

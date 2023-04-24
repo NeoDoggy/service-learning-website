@@ -76,12 +76,12 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
                 const SizedBox(height: 40),
                 Scrollbar(
                   controller: _scrollController,
-                  trackVisibility: true,
                   thumbVisibility: true,
                   child: SingleChildScrollView(
                     controller: _scrollController,
                     scrollDirection: Axis.horizontal,
                     child: DataTable(
+                      showBottomBorder: true,
                       columns: const [
                         DataColumn(label: Text("名稱")),
                         DataColumn(label: Text("UID")),
@@ -92,9 +92,9 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
                       rows: [
                         for (var userData in pageProvider.usersData)
                           DataRow(cells: [
-                            DataCell(SelectableText(userData.name ?? "<name>")),
+                            DataCell(SelectableText(userData.name)),
                             DataCell(SelectableText(userData.uid)),
-                            DataCell(SelectableText(userData.email ?? "<email>")),
+                            DataCell(SelectableText(userData.email)),
                             DataCell(
                               ChoosableText(
                                 items: UserPermission.values.map((e) => e.name).toList(),

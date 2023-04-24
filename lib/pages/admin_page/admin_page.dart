@@ -48,41 +48,36 @@ class _AdminPageState extends State<AdminPage> {
 
     return PageSkeleton(
       navigationBar: const Align(alignment: Alignment.topRight, child: UserIcon(size: 32)),
-      body: Container(
-        padding: const EdgeInsets.only(
-          left: 100, right: 100, top: 60, bottom: 100
-        ),
-        child: Row (
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SideMenu(
-              items: _items,
-              onDestinationSelected: (index)
-                => setState(() => _selectedIndex = index),
-            ),
-            const SizedBox(width: 100),
-            Flexible(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(_items[_selectedIndex],
-                    style: const TextStyle(
-                      fontSize: 48,
-                      height: 58 / 48,
-                      fontWeight: FontWeight.bold,
-                    ),
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SideMenu(
+            items: _items,
+            onDestinationSelected: (index)
+              => setState(() => _selectedIndex = index),
+          ),
+          const SizedBox(width: 100),
+          Flexible(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(_items[_selectedIndex],
+                  style: const TextStyle(
+                    fontSize: 48,
+                    height: 58 / 48,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(height: 40),
-                  _showingWidget,
-                  // Flexible(child: _showingWidget),
-                ],
-              ),
-            )
-          ],
-        ),
+                ),
+                const SizedBox(height: 40),
+                _showingWidget,
+                // Flexible(child: _showingWidget),
+              ],
+            ),
+          )
+        ],
       ),
       bottomSheet: const WindowSize(),
     );

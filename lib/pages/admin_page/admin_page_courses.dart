@@ -6,8 +6,28 @@ import 'package:service_learning_website/modules/my_router.dart';
 import 'package:service_learning_website/providers/admin_page_courses_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 
-class AdminPageCourses extends StatelessWidget {
+class AdminPageCourses extends StatefulWidget {
   const AdminPageCourses({super.key});
+
+  @override
+  State<AdminPageCourses> createState() => _AdminPageCoursesState();
+}
+
+class _AdminPageCoursesState extends State<AdminPageCourses> {
+
+  late final ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,34 +56,41 @@ class AdminPageCourses extends StatelessWidget {
                 if (permission >= UserPermission.ta)
                   const SizedBox(height: 40),
 
-                DataTable(
-                  columns: const [
-                    DataColumn(label: Text("標題")),
-                    DataColumn(label: Text("學期")),
-                    DataColumn(label: Text("組長")),
-                    DataColumn(label: Text("瀏覽／編輯")),
-                  ],
-                  rows: [
-                    for (var courseData in pageProvider.coursesData)
-                      DataRow(cells: [
-                        DataCell(SelectableText(courseData.title)),
-                        DataCell(SelectableText(courseData.semester)),
-                        DataCell(SelectableText(courseData.leader)),
-                        DataCell(
-                          IconButton(
-                            onPressed: () => context.push("${MyRouter.admin}/${MyRouter.course(courseData.id)}"),
-                            icon: (permission >= UserPermission.ta
-                                || courseData.leader == authProvider.userData!.uid
-                                || courseData.members.contains(authProvider.userData!.uid))
-                              ? const Icon(Icons.edit)
-                              : const Icon(Icons.visibility),
-                          )
-                        ),
-                      ]),
-                  ],
+                Scrollbar(
+                  controller: _scrollController,
+                  thumbVisibility: true,
+                  child: SingleChildScrollView(
+                    controller: _scrollController,
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      showBottomBorder: true,
+                      columns: const [
+                        DataColumn(label: Text("標題")),
+                        DataColumn(label: Text("學期")),
+                        DataColumn(label: Text("組長")),
+                        DataColumn(label: Text("瀏覽／編輯")),
+                      ],
+                      rows: [
+                        for (var courseData in pageProvider.coursesData)
+                          DataRow(cells: [
+                            DataCell(SelectableText(courseData.title)),
+                            DataCell(SelectableText(courseData.semester)),
+                            DataCell(SelectableText(courseData.leader)),
+                            DataCell(
+                              IconButton(
+                                onPressed: () => context.push("${MyRouter.admin}/${MyRouter.course(courseData.id)}"),
+                                icon: (permission >= UserPermission.ta
+                                    || courseData.leader == authProvider.userData!.uid
+                                    || courseData.members.contains(authProvider.userData!.uid))
+                                  ? const Icon(Icons.edit)
+                                  : const Icon(Icons.visibility),
+                              )
+                            ),
+                          ]),
+                      ],
+                    ),
+                  ),
                 ),
-
-
               ],
             );
           },

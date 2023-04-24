@@ -40,7 +40,7 @@ class _UserIconImageState extends State<UserIconImage> {
     }
     // 有登入顯示的 image
     else {
-      image = NetworkImage(authProvider.userData!.photoURL!);
+      image = NetworkImage(authProvider.userData!.photoURL);
     }
 
     return MouseRegion(
