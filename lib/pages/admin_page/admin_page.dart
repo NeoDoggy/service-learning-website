@@ -76,7 +76,8 @@ class _AdminPageState extends State<AdminPage> {
                     ),
                   ),
                   const SizedBox(height: 40),
-                  Flexible(child: _showingWidget),
+                  _showingWidget,
+                  // Flexible(child: _showingWidget),
                 ],
               ),
             )
