@@ -80,32 +80,30 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
                   ],
                   rows: [
                     for (var userData in pageProvider.usersData)
-                      DataRow(
-                        cells: [
-                          DataCell(SelectableText(userData.name ?? "<name>")),
-                          DataCell(SelectableText(userData.uid)),
-                          DataCell(SelectableText(userData.email ?? "<email>")),
-                          DataCell(
-                            ChoosableText(
-                              items: UserPermission.values.map((e) => e.name).toList(),
-                              defaultIndex: userData.permission.index,
-                              onSelected: (index)
-                                => pageProvider.updatePermission(userData.uid, UserPermission.values[index]),
-                            ),
-                            showEditIcon: true,
+                      DataRow(cells: [
+                        DataCell(SelectableText(userData.name ?? "<name>")),
+                        DataCell(SelectableText(userData.uid)),
+                        DataCell(SelectableText(userData.email ?? "<email>")),
+                        DataCell(
+                          ChoosableText(
+                            items: UserPermission.values.map((e) => e.name).toList(),
+                            defaultIndex: userData.permission.index,
+                            onSelected: (index)
+                              => pageProvider.updatePermission(userData.uid, UserPermission.values[index]),
                           ),
-                          DataCell(
-                            ModifiableText(
-                              userData.studentId.toString(),
-                              restriction: (input)
-                                => _isInteger(input) && int.parse(input) != userData.studentId,
-                              onEditingCompleted: (input)
-                                => pageProvider.updateStudentId(userData.uid, int.parse(input)),
-                            ),
-                            showEditIcon: true,
+                          showEditIcon: true,
+                        ),
+                        DataCell(
+                          ModifiableText(
+                            userData.studentId.toString(),
+                            restriction: (input)
+                              => _isInteger(input) && int.parse(input) != userData.studentId,
+                            onEditingCompleted: (input)
+                              => pageProvider.updateStudentId(userData.uid, int.parse(input)),
                           ),
-                        ]
-                      )
+                          showEditIcon: true,
+                        ),
+                      ])
                   ],
                 ),
               ],

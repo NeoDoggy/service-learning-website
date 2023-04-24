@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:service_learning_website/pages/admin_page/admin_page_courses.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page_users.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/test/window_size.dart';
@@ -32,7 +33,7 @@ class _AdminPageState extends State<AdminPage> {
         _showingWidget = Container(height: 2000, color: Colors.orange);
         break;
       case 2:
-        _showingWidget = Container(height: 2000, color: Colors.yellow);
+        _showingWidget = const AdminPageCourses();
         break;
       case 3:
         _showingWidget = const AdminPageUsers();

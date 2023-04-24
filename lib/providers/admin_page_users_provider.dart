@@ -59,7 +59,7 @@ class AdminPageUsersProvider with ChangeNotifier {
           final index = usersData.indexWhere((element) => element.uid == uid);
           usersData[index] = UserData.fromJson(data!);
           if (kDebugMode) {
-            print("admin_page_users_provider -> update");
+            print("admin_page_users_provider -> updated");
           }
           notifyListeners();
         });
