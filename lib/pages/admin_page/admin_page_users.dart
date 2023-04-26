@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/backend/user_permission.dart';
 import 'package:service_learning_website/providers/admin_page_users_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
+import 'package:service_learning_website/widgets/permission_denied.dart';
 import 'package:service_learning_website/widgets/text/choosable_text.dart';
 import 'package:service_learning_website/widgets/text/modifiable_text.dart';
 
 class AdminPageUsers extends StatefulWidget {
-
   const AdminPageUsers({super.key});
 
   @override
@@ -15,7 +15,6 @@ class AdminPageUsers extends StatefulWidget {
 }
 
 class _AdminPageUsersState extends State<AdminPageUsers> {
-
   late final TextEditingController _textController;
   late final ScrollController _scrollController;
   final _focusNode = FocusNode();
@@ -36,15 +35,13 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
 
   @override
   Widget build(BuildContext context) {
-
     return Consumer<AuthProvider>(
       builder: (context, authProvider, child) {
-
-        UserPermission permission = authProvider.userData?.permission
-          ?? UserPermission.none;
+        UserPermission permission =
+            authProvider.userData?.permission ?? UserPermission.none;
 
         if (permission < UserPermission.ta) {
-          return const Text("你沒有權限");
+          return const PermissionDenied();
         }
 
         return Consumer<AdminPageUsersProvider>(
@@ -58,17 +55,20 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
                   children: [
                     const Text("搜尋"),
                     const SizedBox(width: 20),
-                    SizedBox(
-                      width: 400,
-                      child: TextFormField(
-                        controller: _textController,
-                        focusNode: _focusNode,
-                        textInputAction: TextInputAction.done,
-                        onTapOutside: (_) {
-                          _focusNode.unfocus();
-                          pageProvider.filter(_textController.text);
-                        },
-                        onEditingComplete: () => pageProvider.filter(_textController.text),
+                    Flexible(
+                      child: Container(
+                        constraints: const BoxConstraints(maxWidth: 300),
+                        child: TextField(
+                          controller: _textController,
+                          focusNode: _focusNode,
+                          textInputAction: TextInputAction.done,
+                          onTapOutside: (_) {
+                            _focusNode.unfocus();
+                            pageProvider.filter(_textController.text);
+                          },
+                          onEditingComplete: () =>
+                              pageProvider.filter(_textController.text),
+                        ),
                       ),
                     ),
                   ],
@@ -97,21 +97,26 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
                             DataCell(SelectableText(userData.email)),
                             DataCell(
                               ChoosableText(
-                                items: UserPermission.values.map((e) => e.name).toList(),
+                                items: UserPermission.values
+                                    .map((e) => e.name)
+                                    .toList(),
                                 defaultIndex: userData.permission.index,
                                 disabledIndex: const [0],
-                                onSelected: (index)
-                                  => pageProvider.updatePermission(userData.uid, UserPermission.values[index]),
+                                onSelected: (index) =>
+                                    pageProvider.updatePermission(userData.uid,
+                                        UserPermission.values[index]),
                               ),
                               showEditIcon: true,
                             ),
                             DataCell(
                               ModifiableText(
                                 userData.studentId.toString(),
-                                restriction: (input)
-                                  => _isInteger(input) && int.parse(input) != userData.studentId,
-                                onEditingCompleted: (input)
-                                  => pageProvider.updateStudentId(userData.uid, int.parse(input)),
+                                restriction: (input) =>
+                                    _isInteger(input) &&
+                                    int.parse(input) != userData.studentId,
+                                onEditingCompleted: (input) =>
+                                    pageProvider.updateStudentId(
+                                        userData.uid, int.parse(input)),
                               ),
                               showEditIcon: true,
                             ),
