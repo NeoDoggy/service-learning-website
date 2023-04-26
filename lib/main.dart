@@ -1,8 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/my_router.dart';
 import 'package:service_learning_website/firebase_options.dart';
+import 'package:service_learning_website/providers/admin_page_courses_provider.dart';
+import 'package:service_learning_website/providers/admin_page_users_provider.dart';
+import 'package:service_learning_website/providers/auth_provider.dart';
+import 'package:service_learning_website/providers/course_editing_page_provider.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
@@ -11,6 +16,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseAuth.instance.authStateChanges().first;
   runApp(const MyApp());
 }
 
@@ -19,19 +25,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    if (FirebaseAuth.instance.currentUser != null) {
-      FirebaseAuth.instance.signOut();
-    }
-
-    return MaterialApp.router(
-      title: "NCU CS Tutorial Platform",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AuthProvider>(
+          create: (_) => AuthProvider()),
+        ChangeNotifierProvider<AdminPageUsersProvider>(
+          create: (_) => AdminPageUsersProvider()),
+        ChangeNotifierProvider<AdminPageCoursesProvider>(
+          create: (_) => AdminPageCoursesProvider()),
+        ChangeNotifierProvider<CourseEditingPageProvider>(
+          create: (_) => CourseEditingPageProvider()),
+      ],
+      child: MaterialApp.router(
+        title: "NCU CS Tutorial Platform",
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        ),
+        routerConfig: MyRouter(),
       ),
-      routerConfig: MyRouter(),
     );
   }
 
