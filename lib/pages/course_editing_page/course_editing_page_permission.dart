@@ -27,7 +27,7 @@ class _CourseEditingPagePermissionState
   final _focusNode = FocusNode();
 
   List<String> _membersUid = [];
-  bool _isChanged = false;
+  bool _isEdited = false;
   String _keyword = "";
 
   @override
@@ -56,15 +56,15 @@ class _CourseEditingPagePermissionState
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (_isChanged)
+                if (_isEdited)
                   TextButton(
                     onPressed: () {
-                      coursesProvider.updateMembers(widget.id, _membersUid);
-                      _isChanged = false;
+                      coursesProvider.updateCourse(widget.id);
+                      _isEdited = false;
                     },
                     child: const Text("儲存變更"),
                   ),
-                if (_isChanged) const SizedBox(height: 40),
+                if (_isEdited) const SizedBox(height: 40),
                 const Text("組員",
                     style:
                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
@@ -88,7 +88,7 @@ class _CourseEditingPagePermissionState
                         IconButton(
                             onPressed: () => setState(() {
                                   _membersUid.remove(uid);
-                                  _isChanged = true;
+                                  _isEdited = true;
                                 }),
                             icon: const Icon(Icons.remove_circle,
                                 color: Colors.red)),
@@ -145,7 +145,7 @@ class _CourseEditingPagePermissionState
                         IconButton(
                             onPressed: () => setState(() {
                                   _membersUid.add(userData.uid);
-                                  _isChanged = true;
+                                  _isEdited = true;
                                 }),
                             icon: const Icon(Icons.add_circle,
                                 color: Colors.green)),

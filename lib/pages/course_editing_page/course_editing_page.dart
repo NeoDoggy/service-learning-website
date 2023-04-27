@@ -42,10 +42,13 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
       _loaded = true;
       courseProvider.loadCourse(widget.id);
     }
+    if (courseProvider.coursesData[widget.id] == null) {
+      return const Scaffold(body: Center(child: Text("Loading")));
+    }
 
     switch (_selectedIndex) {
       case 0:
-        _showingWidget = const CourseEditingPageInfo();
+        _showingWidget = CourseEditingPageInfo(id: widget.id);
         break;
       case 1:
         _showingWidget = Container(height: 2000, color: Colors.orange);
@@ -75,6 +78,7 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
           TitleTextBox(courseProvider.coursesData[widget.id]?.title ?? ""),
           const SizedBox(height: 60),
           Row(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -88,7 +92,7 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       _items[_selectedIndex],

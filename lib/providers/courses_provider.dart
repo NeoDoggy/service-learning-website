@@ -48,9 +48,10 @@ class CoursesProvider with ChangeNotifier {
     });
   }
 
-  void updateMembers(String id, List<String> membersUid) {
+  void updateCourse(String id) {
     _collection
         .doc(id)
-        .update({"members": membersUid}).then((_) => notifyListeners());
+        .update(coursesData[id]!.toJson())
+        .then((_) => notifyListeners());
   }
 }
