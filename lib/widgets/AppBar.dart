@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 
 class AppBar_G extends StatelessWidget {
   AppBar_G({
@@ -7,16 +8,25 @@ class AppBar_G extends StatelessWidget {
     // required this.bottom,
   });
 
-
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      iconTheme: IconThemeData(color: Color(0xFF858585),),
+      iconTheme: IconThemeData(
+        color: Color(0xFF858585),
+      ),
       title: Row(
         children: [
-          Icon(Icons.logo_dev,color: Color(0xFF474747),),
+          Icon(
+            Icons.logo_dev,
+            color: Color(0xFF474747),
+          ),
           SizedBox(width: 3),
-          Text('ServiceSite_LOGO',style: TextStyle(color: Color(0xFF474747),),),
+          Text(
+            'ServiceSite_LOGO',
+            style: TextStyle(
+              color: Color(0xFF474747),
+            ),
+          ),
         ],
       ),
       backgroundColor: Color(0xFFffffff),
@@ -29,56 +39,81 @@ class AppBar_G extends StatelessWidget {
           padding: const EdgeInsets.all(5.0),
           child: Row(
             children: [
-              Builder(builder: (BuildContext context){
+              Builder(builder: (BuildContext context) {
                 return InkWell(
                   hoverColor: Colors.transparent,
-                  onTap: (){
+                  onTap: () {
                     context.push('/');
                   },
-                  child: Text("關於我們",style: TextStyle(color: Color(0xFF474747),fontSize: 16),),
+                  child: Text(
+                    "關於我們",
+                    style: TextStyle(color: Color(0xFF474747), fontSize: 16),
+                  ),
                 );
               }),
-              SizedBox(width: 50,),
-              Builder(builder: (BuildContext context){
+              SizedBox(
+                width: 50,
+              ),
+              Builder(builder: (BuildContext context) {
                 return InkWell(
                   hoverColor: Colors.transparent,
-                  onTap: (){
+                  onTap: () {
                     context.push('/');
                   },
-                  child: Text("營隊活動",style: TextStyle(color: Color(0xFF474747),fontSize: 16),),
+                  child: Text(
+                    "營隊活動",
+                    style: TextStyle(color: Color(0xFF474747), fontSize: 16),
+                  ),
                 );
               }),
-              SizedBox(width: 50,),
-              Builder(builder: (BuildContext context){
+              SizedBox(
+                width: 50,
+              ),
+              Builder(builder: (BuildContext context) {
                 return InkWell(
                   hoverColor: Colors.transparent,
-                  onTap: (){
+                  onTap: () {
                     context.push('/');
                   },
-                  child: Text("教學文章",style: TextStyle(color: Color(0xFF474747),fontSize: 16),),
+                  child: Text(
+                    "教學文章",
+                    style: TextStyle(color: Color(0xFF474747), fontSize: 16),
+                  ),
                 );
               }),
-              SizedBox(width: 50,),
-              Builder(builder: (BuildContext context){
+              SizedBox(
+                width: 50,
+              ),
+              Builder(builder: (BuildContext context) {
                 return InkWell(
                   hoverColor: Colors.transparent,
-                  onTap: (){
+                  onTap: () {
                     context.push('/');
                   },
-                  child: Text("線上課程",style: TextStyle(color: Color(0xFF474747),fontSize: 16),),
+                  child: Text(
+                    "線上課程",
+                    style: TextStyle(color: Color(0xFF474747), fontSize: 16),
+                  ),
                 );
               }),
-              SizedBox(width: 50,),
-              Builder(builder: (BuildContext context){
+              SizedBox(
+                width: 50,
+              ),
+              Builder(builder: (BuildContext context) {
                 return InkWell(
                   hoverColor: Colors.transparent,
-                  onTap: (){
+                  onTap: () {
                     context.push('/');
                   },
-                  child: Text("Q&A",style: TextStyle(color: Color(0xFF474747),fontSize: 16),),
+                  child: Text(
+                    "Q&A",
+                    style: TextStyle(color: Color(0xFF474747), fontSize: 16),
+                  ),
                 );
               }),
-              SizedBox(width: MediaQuery.of(context).size.width/2.5,),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 2.5,
+              ),
               // Builder(builder: (BuildContext context) {
               //   return IconButton(
               //     onPressed: () {
@@ -88,13 +123,7 @@ class AppBar_G extends StatelessWidget {
               //     icon: Icon(Icons.favorite),color: Color(0xFF858585),);
               // }),
               // SizedBox(width: 10),
-              Builder(builder: (BuildContext context){
-                return IconButton(
-                  onPressed: (){
-                    context.push('/login');
-                  },
-                  icon: Icon(Icons.account_circle),color: Color(0xFF858585),);
-              }),
+              UserIcon(size: 10),
               SizedBox(width: 10),
               // Icon(Icons.more_vert),
             ],

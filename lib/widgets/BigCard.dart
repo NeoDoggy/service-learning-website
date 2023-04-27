@@ -2,8 +2,6 @@ import 'dart:math';
 
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 
 class BigCard extends StatelessWidget {
   BigCard({
@@ -12,7 +10,7 @@ class BigCard extends StatelessWidget {
   });
 
   final WordPair card;
-  var rndS = ['This is a ','Such a ','What a '];
+  var rndS = ['This is a ', 'Such a ', 'What a '];
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +24,9 @@ class BigCard extends StatelessWidget {
       elevation: 0,
       shadowColor: Color(0xFF151515),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20 ,vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Text(
-          card.first.toLowerCase()+' '+card.second.toLowerCase(),
+          card.first.toLowerCase() + ' ' + card.second.toLowerCase(),
           style: style,
           semanticsLabel: "${card.first} ${card.second}",
         ),
