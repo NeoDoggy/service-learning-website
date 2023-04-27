@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shake_animated/flutter_shake_animated.dart';
-import 'package:flutter/src/widgets/implicit_animations.dart';
-import '../Widgets/NavBar.dart';
-import '../Widgets/AppBar.dart';
+import 'package:service_learning_website/widgets/AppBar.dart';
+import 'package:service_learning_website/widgets/NavBar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

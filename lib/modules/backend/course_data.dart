@@ -1,7 +1,6 @@
 import 'package:service_learning_website/modules/backend/course_participant_data.dart';
 
 class CourseData {
-  
   CourseData({
     required this.id,
     this.title = "",
@@ -9,7 +8,6 @@ class CourseData {
     this.description = "",
     this.audience = "",
     this.environment = "",
-    this.leader = "",
     this.members = const [],
     this.imageRef = "",
     this.outline = "",
@@ -23,9 +21,6 @@ class CourseData {
   String audience;
   String environment;
 
-  /// Leader's uid
-  String leader;
-
   /// Members' uid
   List<String> members;
 
@@ -37,32 +32,31 @@ class CourseData {
 
   List<CourseParticipantData> participants;
 
-
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "title": title,
-    "semester": semester,
-    "description": description,
-    "audience": audience,
-    "environment": environment,
-    "leader": leader,
-    "members": members,
-    "imageRef": imageRef,
-    "outline": outline,
-  };
+        "id": id,
+        "title": title,
+        "semester": semester,
+        "description": description,
+        "audience": audience,
+        "environment": environment,
+        "members": members,
+        "imageRef": imageRef,
+        "outline": outline,
+      };
 
   factory CourseData.empty() => CourseData(id: "");
 
   factory CourseData.fromJson(Map<String, dynamic> map) => CourseData(
-    id: map["id"],
-    title: map["title"] ?? "",
-    semester: map["semester"] ?? "",
-    description: map["description"] ?? "",
-    audience: map["audience"] ?? "",
-    environment: map["environment"] ?? "",
-    leader: map["leader"] ?? "",
-    members: map["member"] ?? <String>[],
-    imageRef: map["imageRef"] ?? "",
-    outline: map["outline"] ?? "",
-  );
+        id: map["id"],
+        title: map["title"] ?? "",
+        semester: map["semester"] ?? "",
+        description: map["description"] ?? "",
+        audience: map["audience"] ?? "",
+        environment: map["environment"] ?? "",
+        members: (map["members"] != null)
+            ? (map["members"] as List).map((e) => e.toString()).toList()
+            : <String>[],
+        imageRef: map["imageRef"] ?? "",
+        outline: map["outline"] ?? "",
+      );
 }

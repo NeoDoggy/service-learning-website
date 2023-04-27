@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hiflutter/main.dart';
 
 class PopUpCard extends StatelessWidget {
   PopUpCard({

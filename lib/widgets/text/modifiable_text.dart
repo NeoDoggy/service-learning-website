@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ModifiableText extends StatefulWidget {
-
   const ModifiableText(
     this.text, {
     super.key,
+    this.width,
     this.onEditingCompleted,
     this.restriction,
   });
 
   final String text;
-
+  final double? width;
 
   final void Function(String)? onEditingCompleted;
 
@@ -22,7 +22,6 @@ class ModifiableText extends StatefulWidget {
 }
 
 class _ModifiableTextState extends State<ModifiableText> {
-  
   late final TextEditingController _controller;
   bool _isEditing = false;
   Widget? _showingWidget;
@@ -41,23 +40,25 @@ class _ModifiableTextState extends State<ModifiableText> {
 
   @override
   Widget build(BuildContext context) {
-
     if (_isEditing) {
-      _showingWidget = TextFormField(
+      _showingWidget = TextField(
         controller: _controller,
         autofocus: true,
         textInputAction: TextInputAction.done,
         onTapOutside: (_) => _handleEditingComplete(),
         onEditingComplete: () => _handleEditingComplete(),
       );
-    }
-    else {
+    } else {
       _showingWidget = InkWell(
         onTap: () => _toggleEditing(true),
         child: Text(widget.text),
       );
     }
-    
+
+    if (widget.width != null) {
+      _showingWidget = SizedBox(width: widget.width, child: _showingWidget);
+    }
+
     return _showingWidget ?? const Placeholder();
   }
 
@@ -71,8 +72,7 @@ class _ModifiableTextState extends State<ModifiableText> {
     final String currentText = _controller.text;
     if (widget.restriction != null && !widget.restriction!(currentText)) {
       _controller.text = widget.text;
-    }
-    else if (widget.onEditingCompleted != null) {
+    } else if (widget.onEditingCompleted != null) {
       widget.onEditingCompleted!(currentText);
     }
     _toggleEditing(false);

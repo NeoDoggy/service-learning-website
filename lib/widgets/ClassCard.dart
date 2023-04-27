@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hiflutter/main.dart';
-import './EditCard.dart';
+import 'package:service_learning_website/widgets/EditCard.dart';
 
 class ClassCard extends StatelessWidget {
   ClassCard({

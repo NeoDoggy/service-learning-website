@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'CustomPageRoute.dart';
-import '../Pages/FavPage.dart';
-import '../Pages/LoginPage.dart';
 import 'package:go_router/go_router.dart';
 
 class AppBar_G extends StatelessWidget {
