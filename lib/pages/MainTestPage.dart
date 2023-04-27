@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:like_button/like_button.dart';
-import 'package:flutter/src/widgets/implicit_animations.dart';
-import '../Widgets/BigCard.dart';
-import '../AppStates/MyAppState.dart';
-import '../Widgets/NavBar.dart';
-import '../Widgets/AppBar.dart';
-import '../Widgets/ClassCard.dart';
+import 'package:service_learning_website/AppStates/MyAppState.dart';
+import 'package:service_learning_website/widgets/AppBar.dart';
+import 'package:service_learning_website/widgets/BigCard.dart';
+import 'package:service_learning_website/widgets/ClassCard.dart';
+import 'package:service_learning_website/widgets/NavBar.dart';
 
 class MainTestPage extends StatefulWidget {
   const MainTestPage({super.key});

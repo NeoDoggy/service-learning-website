@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import '../Widgets/NavBar.dart';
-import '../Widgets/AppBar.dart';
-import '../Widgets/ClassCard.dart';
+import 'package:service_learning_website/widgets/AppBar.dart';
+import 'package:service_learning_website/widgets/Footer.dart';
+import 'package:service_learning_website/widgets/NavBar.dart';
+import 'package:service_learning_website/widgets/OpinionCard.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_shake_animated/flutter_shake_animated.dart';
-import '../Widgets/Footer.dart';
-import '../Widgets/OpinionCard.dart';
 
 
 class WelcomePage extends StatefulWidget {

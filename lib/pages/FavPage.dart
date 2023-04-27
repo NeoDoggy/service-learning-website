@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../Widgets/NavBar.dart';
-import '../Widgets/AppBar.dart';
-import '../Widgets/ClassCard.dart';
+import 'package:service_learning_website/widgets/AppBar.dart';
+import 'package:service_learning_website/widgets/ClassCard.dart';
+import 'package:service_learning_website/widgets/NavBar.dart';
 
 class FavPage extends StatefulWidget {
   const FavPage({super.key});
