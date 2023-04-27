@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/backend/user_permission.dart';
-import 'package:service_learning_website/providers/admin_page_users_provider.dart';
+import 'package:service_learning_website/providers/users_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/widgets/permission_denied.dart';
 import 'package:service_learning_website/widgets/text/choosable_text.dart';
@@ -44,8 +44,8 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
           return const PermissionDenied();
         }
 
-        return Consumer<AdminPageUsersProvider>(
-          builder: (context, pageProvider, child) {
+        return Consumer<UsersProvider>(
+          builder: (context, usersProvider, child) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,10 +64,10 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
                           textInputAction: TextInputAction.done,
                           onTapOutside: (_) {
                             _focusNode.unfocus();
-                            pageProvider.filter(_textController.text);
+                            usersProvider.filter(_textController.text);
                           },
                           onEditingComplete: () =>
-                              pageProvider.filter(_textController.text),
+                              usersProvider.filter(_textController.text),
                         ),
                       ),
                     ),
@@ -90,7 +90,7 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
                         DataColumn(label: Text("學號")),
                       ],
                       rows: [
-                        for (var userData in pageProvider.usersData)
+                        for (var userData in usersProvider.usersData.values)
                           DataRow(cells: [
                             DataCell(SelectableText(userData.name)),
                             DataCell(SelectableText(userData.uid)),
@@ -103,7 +103,7 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
                                 defaultIndex: userData.permission.index,
                                 disabledIndex: const [0],
                                 onSelected: (index) =>
-                                    pageProvider.updatePermission(userData.uid,
+                                    usersProvider.updatePermission(userData.uid,
                                         UserPermission.values[index]),
                               ),
                               showEditIcon: true,
@@ -115,7 +115,7 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
                                     _isInteger(input) &&
                                     int.parse(input) != userData.studentId,
                                 onEditingCompleted: (input) =>
-                                    pageProvider.updateStudentId(
+                                    usersProvider.updateStudentId(
                                         userData.uid, int.parse(input)),
                               ),
                               showEditIcon: true,

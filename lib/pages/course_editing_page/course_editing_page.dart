@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/pages/course_editing_page/course_editing_page_permission.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
-import 'package:service_learning_website/providers/course_editing_page_provider.dart';
+import 'package:service_learning_website/providers/courses_provider.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
@@ -37,6 +37,15 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final courseProvider = Provider.of<CoursesProvider>(context);
+    if (!_loaded) {
+      _loaded = true;
+      courseProvider.loadCourse(widget.id);
+    }
+    if (courseProvider.coursesData[widget.id] == null) {
+      return const Scaffold(body: Center(child: Text("Loading")));
+    }
+
     switch (_selectedIndex) {
       case 0:
         _showingWidget = Container(height: 2000, color: Colors.red);
@@ -57,7 +66,7 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
         _showingWidget = Container(height: 2000, color: Colors.blueAccent);
         break;
       case 6:
-        _showingWidget = const CourseEditingPagePermission();
+        _showingWidget = CourseEditingPagePermission(id: widget.id);
         break;
     }
 
@@ -68,16 +77,17 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Consumer<CourseEditingPageProvider>(
-            builder: (context, pageProvider, child) {
-              if (!_loaded) {
-                _loaded = true;
-                pageProvider.loadCourse(widget.id);
-              }
+          // Consumer<CoursesProvider>(
+          //   builder: (context, courseProvider, child) {
+          //     if (!_loaded) {
+          //       _loaded = true;
+          //       courseProvider.loadCourse(widget.id);
+          //     }
 
-              return TitleTextBox(pageProvider.courseData.title);
-            },
-          ),
+          //     return TitleTextBox(courseProvider.coursesData[widget.id]!.title);
+          //   },
+          // ),
+          TitleTextBox(courseProvider.coursesData[widget.id]!.title),
           const SizedBox(height: 60),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,

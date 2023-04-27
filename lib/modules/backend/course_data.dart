@@ -8,7 +8,6 @@ class CourseData {
     this.description = "",
     this.audience = "",
     this.environment = "",
-    this.leader = "",
     this.members = const [],
     this.imageRef = "",
     this.outline = "",
@@ -21,9 +20,6 @@ class CourseData {
   String description;
   String audience;
   String environment;
-
-  /// Leader's uid
-  String leader;
 
   /// Members' uid
   List<String> members;
@@ -43,7 +39,6 @@ class CourseData {
         "description": description,
         "audience": audience,
         "environment": environment,
-        "leader": leader,
         "members": members,
         "imageRef": imageRef,
         "outline": outline,
@@ -58,7 +53,6 @@ class CourseData {
         description: map["description"] ?? "",
         audience: map["audience"] ?? "",
         environment: map["environment"] ?? "",
-        leader: map["leader"] ?? "",
         members: (map["members"] != null)
             ? (map["members"] as List).map((e) => e.toString()).toList()
             : <String>[],
