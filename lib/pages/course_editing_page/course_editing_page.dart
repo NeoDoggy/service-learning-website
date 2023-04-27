@@ -71,8 +71,6 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
     }
 
     return PageSkeleton(
-      navigationBar:
-          const Align(alignment: Alignment.topRight, child: UserIcon(size: 32)),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

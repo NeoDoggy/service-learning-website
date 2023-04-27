@@ -123,7 +123,7 @@ class AppBar_G extends StatelessWidget {
               //     icon: Icon(Icons.favorite),color: Color(0xFF858585),);
               // }),
               // SizedBox(width: 10),
-              UserIcon(size: 10),
+              UserIcon(size: 36),
               SizedBox(width: 10),
               // Icon(Icons.more_vert),
             ],

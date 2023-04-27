@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:service_learning_website/modules/backend/user_permission.dart';
 import 'package:service_learning_website/modules/my_router.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon_image.dart';
@@ -19,7 +20,6 @@ class UserIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final AuthProvider authProvider = Provider.of<AuthProvider>(context);
     String name = authProvider.userData?.name ?? "<name>";
     String email = authProvider.userData?.email ?? "<email>";
@@ -35,6 +35,10 @@ class UserIcon extends StatelessWidget {
       // 有登入顯示的 menu
       if (authProvider.isAuthed)
         PopupMenuItem(
+          onTap: () => context.push(
+              authProvider.userData!.permission >= UserPermission.student
+                  ? MyRouter.admin
+                  : MyRouter.root),
           // 這東西最多只能顯示 31 個字
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -57,23 +61,27 @@ class UserIcon extends StatelessWidget {
             child: const Text("登出")),
     ];
 
-    return GestureDetector(
-        onTap: () {
-          final RenderBox box = context.findRenderObject() as RenderBox;
-          final Offset offset = box.localToGlobal(Offset.zero);
-          showMenu(
-            context: context,
-            position: RelativeRect.fromSize(
-                offset.translate(0, box.size.height + 10) &
-                    Size(box.size.width, 0),
-                MediaQuery.of(context).size),
-            items: menu,
-          );
-        },
-        child: UserIconImage(
-            size: size,
-            hoverBorderColor: hoverBorderColor,
-            hoverBorderWidth: hoverBorderWidth));
+    return SizedBox(
+      height: size + hoverBorderWidth * 2,
+      width: size + hoverBorderWidth * 2,
+      child: GestureDetector(
+          onTap: () {
+            final RenderBox box = context.findRenderObject() as RenderBox;
+            final Offset offset = box.localToGlobal(Offset.zero);
+            showMenu(
+              context: context,
+              position: RelativeRect.fromSize(
+                  offset.translate(0, box.size.height + 10) &
+                      Size(box.size.width, 0),
+                  MediaQuery.of(context).size),
+              items: menu,
+            );
+          },
+          child: UserIconImage(
+              size: size,
+              hoverBorderColor: hoverBorderColor,
+              hoverBorderWidth: hoverBorderWidth)),
+    );
   }
 
   String _cutdown(String str, int n) {

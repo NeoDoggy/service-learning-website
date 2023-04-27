@@ -14,17 +14,13 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
-
-  final List<String> _items = [
-    "營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"
-  ];
+  final List<String> _items = ["營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"];
 
   int _selectedIndex = 0;
   Widget _showingWidget = const SizedBox(height: 2000, child: Placeholder());
 
   @override
   Widget build(BuildContext context) {
-
     switch (_selectedIndex) {
       case 0:
         _showingWidget = Container(height: 2000, color: Colors.red);
@@ -47,15 +43,14 @@ class _AdminPageState extends State<AdminPage> {
     }
 
     return PageSkeleton(
-      navigationBar: const Align(alignment: Alignment.topRight, child: UserIcon(size: 32)),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SideMenu(
             items: _items,
-            onDestinationSelected: (index)
-              => setState(() => _selectedIndex = index),
+            onDestinationSelected: (index) =>
+                setState(() => _selectedIndex = index),
           ),
           const SizedBox(width: 100),
           Flexible(
@@ -64,7 +59,8 @@ class _AdminPageState extends State<AdminPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(_items[_selectedIndex],
+                Text(
+                  _items[_selectedIndex],
                   style: const TextStyle(
                     fontSize: 48,
                     height: 58 / 48,
