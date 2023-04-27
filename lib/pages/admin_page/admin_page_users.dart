@@ -19,6 +19,8 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
   late final ScrollController _scrollController;
   final _focusNode = FocusNode();
 
+  String _keyword = "";
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +32,7 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
   void dispose() {
     _textController.dispose();
     _scrollController.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -64,10 +67,10 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
                           textInputAction: TextInputAction.done,
                           onTapOutside: (_) {
                             _focusNode.unfocus();
-                            usersProvider.filter(_textController.text);
+                            _filter(_textController.text);
                           },
                           onEditingComplete: () =>
-                              usersProvider.filter(_textController.text),
+                              _filter(_textController.text),
                         ),
                       ),
                     ),
@@ -90,7 +93,15 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
                         DataColumn(label: Text("學號")),
                       ],
                       rows: [
-                        for (var userData in usersProvider.usersData.values)
+                        for (var userData in usersProvider.usersData.values
+                            .where((element) => (element.uid
+                                    .contains(_keyword) ||
+                                element.name.contains(_keyword) ||
+                                element.email.contains(_keyword) ||
+                                element.studentId
+                                    .toString()
+                                    .contains(_keyword) ||
+                                element.permission.name.contains(_keyword))))
                           DataRow(cells: [
                             DataCell(SelectableText(userData.name)),
                             DataCell(SelectableText(userData.uid)),
@@ -135,5 +146,9 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
 
   bool _isInteger(String str) {
     return int.tryParse(str) != null;
+  }
+
+  void _filter(String keyword) {
+    setState(() => _keyword = keyword);
   }
 }

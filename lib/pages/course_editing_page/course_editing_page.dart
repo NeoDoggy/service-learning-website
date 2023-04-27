@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:service_learning_website/pages/course_editing_page/course_editing_page_info.dart';
 import 'package:service_learning_website/pages/course_editing_page/course_editing_page_permission.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
-import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 
 class CourseEditingPage extends StatefulWidget {
   const CourseEditingPage(
@@ -42,13 +42,10 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
       _loaded = true;
       courseProvider.loadCourse(widget.id);
     }
-    if (courseProvider.coursesData[widget.id] == null) {
-      return const Scaffold(body: Center(child: Text("Loading")));
-    }
 
     switch (_selectedIndex) {
       case 0:
-        _showingWidget = Container(height: 2000, color: Colors.red);
+        _showingWidget = const CourseEditingPageInfo();
         break;
       case 1:
         _showingWidget = Container(height: 2000, color: Colors.orange);
@@ -75,17 +72,7 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Consumer<CoursesProvider>(
-          //   builder: (context, courseProvider, child) {
-          //     if (!_loaded) {
-          //       _loaded = true;
-          //       courseProvider.loadCourse(widget.id);
-          //     }
-
-          //     return TitleTextBox(courseProvider.coursesData[widget.id]!.title);
-          //   },
-          // ),
-          TitleTextBox(courseProvider.coursesData[widget.id]!.title),
+          TitleTextBox(courseProvider.coursesData[widget.id]?.title ?? ""),
           const SizedBox(height: 60),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
