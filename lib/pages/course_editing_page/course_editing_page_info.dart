@@ -1,4 +1,8 @@
+import 'dart:typed_data';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/backend/user_permission.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
@@ -24,6 +28,9 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
   final _outlineTextController = TextEditingController();
 
   bool _isEdited = false;
+  bool _canEdit = false;
+  bool _imageEdited = false;
+  Uint8List? _imageByte;
 
   @override
   void dispose() {
@@ -40,11 +47,9 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
     return Consumer2<AuthProvider, CoursesProvider>(
       builder: (context, authProvider, coursesProvider, child) {
         final courseData = coursesProvider.coursesData[widget.id]!;
-        final bool canEdit =
-            (authProvider.userData?.permission ?? UserPermission.none) >=
-                    UserPermission.ta ||
-                courseData.members.contains(authProvider.userData?.uid);
-        // final bool canEdit = false;
+        _canEdit = (authProvider.userData?.permission ?? UserPermission.none) >=
+                UserPermission.ta ||
+            courseData.members.contains(authProvider.userData?.uid);
 
         if (!_isEdited) {
           _titleTextController.text = courseData.title;
@@ -52,6 +57,14 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
           _audienceTextController.text = courseData.audience;
           _environmentTextController.text = courseData.environment;
           _outlineTextController.text = courseData.outline;
+          if (_imageByte == null) {
+            http
+                .get(Uri.parse(courseData.imageUrl))
+                .timeout(const Duration(seconds: 5))
+                .then((response) =>
+                    setState(() => _imageByte = response.bodyBytes))
+                .catchError((_) => setState(() => _imageByte = null));
+          }
         }
 
         return Column(
@@ -59,7 +72,7 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextField(
-                enabled: canEdit,
+                readOnly: !_canEdit,
                 controller: _titleTextController,
                 onChanged: (_) => setState(() => _isEdited = true),
                 decoration: const InputDecoration(
@@ -68,7 +81,7 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
                 ),
               ),
               TextField(
-                enabled: canEdit,
+                readOnly: !_canEdit,
                 controller: _descriptionTextController,
                 onChanged: (_) => setState(() => _isEdited = true),
                 decoration: const InputDecoration(
@@ -77,7 +90,7 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
                 ),
               ),
               TextField(
-                enabled: canEdit,
+                readOnly: !_canEdit,
                 controller: _audienceTextController,
                 onChanged: (_) => setState(() => _isEdited = true),
                 decoration: const InputDecoration(
@@ -86,7 +99,7 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
                 ),
               ),
               TextField(
-                enabled: canEdit,
+                readOnly: !_canEdit,
                 controller: _environmentTextController,
                 onChanged: (_) => setState(() => _isEdited = true),
                 decoration: const InputDecoration(
@@ -95,7 +108,7 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
                 ),
               ),
               TextField(
-                enabled: canEdit,
+                readOnly: !_canEdit,
                 controller: _outlineTextController,
                 onChanged: (_) => setState(() => _isEdited = true),
                 maxLines: null,
@@ -105,28 +118,43 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
                   icon: Icon(Icons.list),
                 ),
               ),
-              TextField(
-                enabled: canEdit,
-                decoration: const InputDecoration(
-                  labelText: "課程預覽圖",
-                  icon: Icon(Icons.image),
-                ),
-              ),
+              const SizedBox(height: 40),
+              Row(children: [
+                const Text("課程預覽圖片"),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                    onPressed: () => _pickFile(), child: const Text("瀏覽檔案")),
+              ]),
+              if (_imageByte != null) const SizedBox(height: 20),
+              if (_imageByte != null) Image.memory(_imageByte!),
               const SizedBox(height: 40),
               if (_isEdited)
-                TextButton(
+                ElevatedButton(
                     onPressed: () {
                       courseData.title = _titleTextController.text;
                       courseData.description = _descriptionTextController.text;
                       courseData.audience = _audienceTextController.text;
                       courseData.environment = _environmentTextController.text;
                       courseData.outline = _outlineTextController.text;
-                      coursesProvider.updateCourse(widget.id);
+                      coursesProvider.updateCourse(widget.id,
+                          image: _imageEdited ? _imageByte : null);
                       setState(() => _isEdited = false);
                     },
                     child: const Text("儲存變更")),
             ]);
       },
     );
+  }
+
+  Future<void> _pickFile() async {
+    final result = await FilePicker.platform
+        .pickFiles(type: FileType.image, allowMultiple: false);
+    if (result != null) {
+      setState(() {
+        _imageByte = result.files.first.bytes;
+        _isEdited = true;
+        _imageEdited = true;
+      });
+    }
   }
 }

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:service_learning_website/modules/backend/user_permission.dart';
 import 'package:service_learning_website/pages/course_editing_page/course_editing_page_info.dart';
 import 'package:service_learning_website/pages/course_editing_page/course_editing_page_permission.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
+import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
 import 'package:service_learning_website/test/window_size.dart';
+import 'package:service_learning_website/widgets/permission_denied.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
 
@@ -37,6 +40,12 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    if ((authProvider.userData?.permission ?? UserPermission.none) <
+        UserPermission.student) {
+      return const PermissionDenied();
+    }
+
     final courseProvider = Provider.of<CoursesProvider>(context);
     if (!_loaded) {
       _loaded = true;

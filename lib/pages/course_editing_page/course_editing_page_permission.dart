@@ -57,7 +57,7 @@ class _CourseEditingPagePermissionState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (_isEdited)
-                  TextButton(
+                  ElevatedButton(
                     onPressed: () {
                       coursesProvider.updateCourse(widget.id);
                       _isEdited = false;

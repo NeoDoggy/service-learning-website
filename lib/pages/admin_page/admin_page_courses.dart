@@ -47,7 +47,7 @@ class _AdminPageCoursesState extends State<AdminPageCourses> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (permission >= UserPermission.ta)
-                  TextButton(
+                  ElevatedButton(
                     onPressed: () => coursesProvider.create(),
                     child: const Text("建立課程"),
                   ),

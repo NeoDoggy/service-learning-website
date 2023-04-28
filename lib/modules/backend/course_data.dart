@@ -10,9 +10,9 @@ class CourseData {
     this.audience = "",
     this.environment = "",
     this.members = const [],
-    this.imageRef = "",
+    this.imageUrl = "",
     this.outline = "",
-    this.participants = const [],
+    this.participants = const {},
   }) : createdTime = createdTime ?? DateTime.now();
 
   String id;
@@ -26,12 +26,13 @@ class CourseData {
   List<String> members;
 
   /// Firebase Storage file referace path
-  String imageRef;
+  String imageUrl;
 
   /// With MarkDown format
   String outline;
 
-  List<CourseParticipantData> participants;
+  /// <uid, participants data>
+  Map<String, CourseParticipantData> participants;
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -41,7 +42,7 @@ class CourseData {
         "audience": audience,
         "environment": environment,
         "members": members,
-        "imageRef": imageRef,
+        "imageUrl": imageUrl,
         "outline": outline,
       };
 
@@ -55,7 +56,7 @@ class CourseData {
         audience: map["audience"],
         environment: map["environment"],
         members: (map["members"] as List).map((e) => e.toString()).toList(),
-        imageRef: map["imageRef"],
+        imageUrl: map["imageUrl"],
         outline: map["outline"],
       );
 }

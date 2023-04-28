@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:service_learning_website/modules/backend/course_data.dart';
 import 'package:service_learning_website/modules/backend/course_participant_data.dart';
@@ -10,6 +11,7 @@ class CoursesProvider with ChangeNotifier {
   }
 
   final _collection = FirebaseFirestore.instance.collection("courses");
+  final _storage = FirebaseStorage.instance.ref("images/courses");
 
   Map<String, CourseData> _coursesData = {};
   Map<String, CourseData> get coursesData => _coursesData;
@@ -40,18 +42,25 @@ class CoursesProvider with ChangeNotifier {
 
   void loadCourse(String id) {
     _collection.doc(id).collection("participants").get().then((snapshot) {
-      Map.fromIterable(
+      _coursesData[id]!.participants = Map.fromIterable(
           snapshot.docs
               .map((doc) => CourseParticipantData.fromJson(doc.data()))
               .toList(),
           key: (v) => (v as CourseParticipantData).uid);
     });
+    // _storage
+    //     .child("$id.jpg")
+    //     .getDownloadURL()
+    //     .then((url) => _coursesData[id]!.imageUrl = url)
+    //     .catchError((_) => _coursesData[id]!.imageUrl = "");
   }
 
-  void updateCourse(String id) {
-    _collection
-        .doc(id)
-        .update(coursesData[id]!.toJson())
-        .then((_) => notifyListeners());
+  void updateCourse(String id, {Uint8List? image}) async {
+    if (image != null) {
+      await _storage.child(id).putData(image);
+      _coursesData[id]!.imageUrl = await _storage.child(id).getDownloadURL();
+    }
+    await _collection.doc(id).update(coursesData[id]!.toJson());
+    notifyListeners();
   }
 }
