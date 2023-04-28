@@ -26,12 +26,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<AuthProvider>(
-          create: (_) => AuthProvider()),
-        ChangeNotifierProvider<UsersProvider>(
-          create: (_) => UsersProvider()),
+        ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
+        ChangeNotifierProvider<UsersProvider>(create: (_) => UsersProvider()),
         ChangeNotifierProvider<CoursesProvider>(
-          create: (_) => CoursesProvider()),
+            create: (_) => CoursesProvider()),
       ],
       child: MaterialApp.router(
         title: "NCU CS Tutorial Platform",
@@ -44,6 +42,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-
-  
 }

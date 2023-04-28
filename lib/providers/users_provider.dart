@@ -10,25 +10,8 @@ class UsersProvider with ChangeNotifier {
 
   final _collection = FirebaseFirestore.instance.collection("users");
 
-  String _keyword = "";
   Map<String, UserData> _usersData = {};
-  Map<String, UserData> get usersData {
-    if (_keyword == "") {
-      return _usersData;
-    }
-
-    Map<String, UserData> queryUsers = {};
-    for (var data in _usersData.values
-        .where((element) => (element.uid.contains(_keyword) ||
-            element.name.contains(_keyword) ||
-            element.email.contains(_keyword) ||
-            element.studentId.toString().contains(_keyword) ||
-            element.permission.name.contains(_keyword)))
-        .toList()) {
-      queryUsers[data.uid] = data;
-    }
-    return queryUsers;
-  }
+  Map<String, UserData> get usersData => _usersData;
 
   void _load() {
     _collection.get().then((snapshot) {
@@ -66,11 +49,6 @@ class UsersProvider with ChangeNotifier {
     } on Exception {
       return;
     }
-  }
-
-  void filter(String? keyword) {
-    _keyword = keyword ?? "";
-    notifyListeners();
   }
 
   void updatePermission(String uid, UserPermission permission) {

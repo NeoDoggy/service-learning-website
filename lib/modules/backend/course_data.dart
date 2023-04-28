@@ -1,22 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:service_learning_website/modules/backend/course_participant_data.dart';
 
 class CourseData {
   CourseData({
     required this.id,
     this.title = "",
-    this.semester = "",
+    DateTime? createdTime,
     this.description = "",
     this.audience = "",
     this.environment = "",
     this.members = const [],
-    this.imageRef = "",
+    this.imageUrl = "",
     this.outline = "",
-    this.participants = const [],
-  });
+    this.participants = const {},
+  }) : createdTime = createdTime ?? DateTime.now();
 
   String id;
   String title;
-  String semester;
+  DateTime createdTime;
   String description;
   String audience;
   String environment;
@@ -25,22 +26,23 @@ class CourseData {
   List<String> members;
 
   /// Firebase Storage file referace path
-  String imageRef;
+  String imageUrl;
 
   /// With MarkDown format
   String outline;
 
-  List<CourseParticipantData> participants;
+  /// <uid, participants data>
+  Map<String, CourseParticipantData> participants;
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
-        "semester": semester,
+        "createdTime": Timestamp.fromDate(createdTime),
         "description": description,
         "audience": audience,
         "environment": environment,
         "members": members,
-        "imageRef": imageRef,
+        "imageUrl": imageUrl,
         "outline": outline,
       };
 
@@ -48,15 +50,13 @@ class CourseData {
 
   factory CourseData.fromJson(Map<String, dynamic> map) => CourseData(
         id: map["id"],
-        title: map["title"] ?? "",
-        semester: map["semester"] ?? "",
-        description: map["description"] ?? "",
-        audience: map["audience"] ?? "",
-        environment: map["environment"] ?? "",
-        members: (map["members"] != null)
-            ? (map["members"] as List).map((e) => e.toString()).toList()
-            : <String>[],
-        imageRef: map["imageRef"] ?? "",
-        outline: map["outline"] ?? "",
+        title: map["title"],
+        createdTime: (map["createdTime"] as Timestamp).toDate(),
+        description: map["description"],
+        audience: map["audience"],
+        environment: map["environment"],
+        members: (map["members"] as List).map((e) => e.toString()).toList(),
+        imageUrl: map["imageUrl"],
+        outline: map["outline"],
       );
 }

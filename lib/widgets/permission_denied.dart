@@ -1,10 +1,10 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 class PermissionDenied extends StatelessWidget {
   const PermissionDenied({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Text("你沒有權限");
+    return const Scaffold(body: Text("你沒有權限"));
   }
 }

@@ -9,7 +9,7 @@ import 'package:service_learning_website/test/test_page.dart';
 class MyRouter extends GoRouter {
   MyRouter()
       : super(
-          initialLocation: "/",
+          initialLocation: MyRouter.root,
           routes: [
             GoRoute(
               path: MyRouter.root,
