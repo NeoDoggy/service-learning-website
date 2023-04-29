@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:service_learning_website/test/window_size.dart';
-import 'package:service_learning_website/widgets/progress_bar.dart';
+import 'package:service_learning_website/widgets/my_progress_bar.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 
@@ -23,7 +23,7 @@ class TestPage extends StatelessWidget {
               "營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"
             ]),
             // MyMarkdown(mdContent),
-            ProgressBar(all: 10, finished: 8),
+            MyProgressBar(all: 10, finished: 8),
           ],
         ),
       ),
