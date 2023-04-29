@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:service_learning_website/pages/FavPage.dart';
+import 'package:service_learning_website/pages/LoginPage.dart';
+import 'package:service_learning_website/pages/home_page.dart';
 import 'package:service_learning_website/test/window_size.dart';
-import 'package:service_learning_website/widgets/progress_bar.dart';
+import 'package:service_learning_website/widgets/bottom.dart';
+import 'package:service_learning_website/widgets/my_progress_bar.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 
@@ -19,19 +23,24 @@ class TestPage extends StatelessWidget {
                 UserIcon(size: 32),
               ],
             ),
-            const SideMenu(items: [
-              "營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"
-            ]),
+            const SideMenu(
+                items: ["營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"]),
             // MyMarkdown(mdContent),
-            ProgressBar(all: 10, finished: 8),
+            const MyProgressBar(all: 10, finished: 8),
+            const Bottom(
+              txt: '進行測驗',
+              nextPage: LoginPage(),
+            ),
+            const Bottom(
+              txt: '我有問題',
+              nextPage: FavPage(),
+            ),
           ],
         ),
       ),
       bottomSheet: const WindowSize(),
     );
   }
-
-
 
   final String mdContent = """
   # Markdown 測試

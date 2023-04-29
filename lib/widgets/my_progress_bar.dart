@@ -2,11 +2,11 @@
 
 import "package:flutter/material.dart";
 
-class ProgressBar extends StatelessWidget {
+class MyProgressBar extends StatelessWidget {
   final int all; // 所有課程數
   final int finished; // 已完成課程數
 
-  const ProgressBar({
+  const MyProgressBar({
     super.key,
     required this.all,
     required this.finished,
