@@ -9,9 +9,9 @@ import 'package:service_learning_website/providers/users_provider.dart';
 import 'package:service_learning_website/widgets/permission_denied.dart';
 
 class CourseEditingPagePermission extends StatefulWidget {
-  const CourseEditingPagePermission({
+  const CourseEditingPagePermission(
+    this.id, {
     super.key,
-    required this.id,
   });
 
   final String id;
