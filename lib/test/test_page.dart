@@ -4,12 +4,13 @@ import 'package:service_learning_website/pages/LoginPage.dart';
 import 'package:service_learning_website/pages/home_page.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/bottom.dart';
+import 'package:service_learning_website/widgets/mcq.dart';
 import 'package:service_learning_website/widgets/my_progress_bar.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 
 class TestPage extends StatelessWidget {
-  const TestPage({super.key});
+  TestPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +36,20 @@ class TestPage extends StatelessWidget {
               txt: '我有問題',
               nextPage: FavPage(),
             ),
+            SizedBox(
+              width: 800,
+              child: MCQ(question: question, options: options),
+            ),
           ],
         ),
       ),
       bottomSheet: const WindowSize(),
     );
   }
+
+  final String question = '1. 我們現在在學的程式語言是以下何者？';
+
+  final List<String> options = ['Python', 'C++', 'Java', 'Dart', 'HTML', 'JavaScript', 'CSS', 'C#'];
 
   final String mdContent = """
   # Markdown 測試

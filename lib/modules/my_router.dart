@@ -17,7 +17,7 @@ class MyRouter extends GoRouter {
             ),
             GoRoute(
               path: MyRouter.test,
-              builder: (context, state) => const TestPage(),
+              builder: (context, state) => TestPage(),
             ),
             GoRoute(
               path: MyRouter.login,
