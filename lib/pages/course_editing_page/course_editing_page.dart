@@ -97,24 +97,22 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
                     setState(() => _selectedIndex = index),
               ),
               const SizedBox(width: 100),
-              Flexible(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      _items[_selectedIndex],
-                      style: const TextStyle(
-                        fontSize: 48,
-                        height: 58 / 48,
-                        fontWeight: FontWeight.bold,
-                      ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _items[_selectedIndex],
+                    style: const TextStyle(
+                      fontSize: 48,
+                      height: 58 / 48,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(height: 40),
-                    _showingWidget,
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 40),
+                  _showingWidget,
+                ],
               )
             ],
           ),
