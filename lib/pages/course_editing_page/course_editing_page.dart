@@ -25,12 +25,8 @@ class CourseEditingPage extends StatefulWidget {
 
 class _CourseEditingPageState extends State<CourseEditingPage> {
   final List<String> _items = [
-    "活動基本資訊",
-    "行事曆",
-    "Markdown 講義",
-    "檔案上傳",
-    "附加報名問題",
-    "報名學生總覽",
+    "課程基本資訊",
+    "課程內容",
     "權限設置"
   ];
 
@@ -63,18 +59,6 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
         _showingWidget = Container(height: 2000, color: Colors.orange);
         break;
       case 2:
-        _showingWidget = Container(height: 2000, color: Colors.yellow);
-        break;
-      case 3:
-        _showingWidget = Container(height: 2000, color: Colors.green);
-        break;
-      case 4:
-        _showingWidget = Container(height: 2000, color: Colors.blue);
-        break;
-      case 5:
-        _showingWidget = Container(height: 2000, color: Colors.blueAccent);
-        break;
-      case 6:
         _showingWidget = CourseEditingPagePermission(id: widget.id);
         break;
     }
@@ -97,22 +81,24 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
                     setState(() => _selectedIndex = index),
               ),
               const SizedBox(width: 100),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _items[_selectedIndex],
-                    style: const TextStyle(
-                      fontSize: 48,
-                      height: 58 / 48,
-                      fontWeight: FontWeight.bold,
+              Flexible(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _items[_selectedIndex],
+                      style: const TextStyle(
+                        fontSize: 48,
+                        height: 58 / 48,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 40),
-                  _showingWidget,
-                ],
+                    const SizedBox(height: 40),
+                    _showingWidget,
+                  ],
+                ),
               )
             ],
           ),
