@@ -1,12 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import 'package:service_learning_website/modules/backend/user_permission.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page.dart';
 import 'package:service_learning_website/pages/course_editing_page/course_editing_page.dart';
 import 'package:service_learning_website/pages/login_page.dart';
 import 'package:service_learning_website/pages/welcome_page.dart';
-import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/test/test_page.dart';
 
 class MyRouter {
