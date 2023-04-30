@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:service_learning_website/modules/backend/course_chapter_data.dart';
 import 'package:service_learning_website/modules/backend/course_participant_data.dart';
 
 class CourseData {
@@ -9,11 +10,15 @@ class CourseData {
     this.description = "",
     this.audience = "",
     this.environment = "",
-    this.members = const [],
+    List<String>? members,
     this.imageUrl = "",
     this.outline = "",
-    this.participants = const {},
-  }) : createdTime = createdTime ?? DateTime.now();
+    Map<String, CourseParticipantData>? participants,
+    Map<String, CourseChapterData>? chapters,
+  })  : createdTime = createdTime ?? DateTime.now(),
+        members = members ?? [],
+        participants = participants ?? {},
+        chapters = chapters ?? {};
 
   String id;
   String title;
@@ -31,8 +36,11 @@ class CourseData {
   /// With MarkDown format
   String outline;
 
-  /// <uid, participants data>
+  /// <uid, participant data>
   Map<String, CourseParticipantData> participants;
+
+  /// <cid, chapter data>
+  Map<String, CourseChapterData> chapters;
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -46,7 +54,7 @@ class CourseData {
         "outline": outline,
       };
 
-  factory CourseData.empty() => CourseData(id: "");
+  // factory CourseData.empty() => CourseData(id: "");
 
   factory CourseData.fromJson(Map<String, dynamic> map) => CourseData(
         id: map["id"],

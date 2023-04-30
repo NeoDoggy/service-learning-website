@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/pages/course_editing_page/course_editing_page_chapters.dart';
 import 'package:service_learning_website/pages/course_editing_page/course_editing_page_info.dart';
 import 'package:service_learning_website/pages/course_editing_page/course_editing_page_permission.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
 import 'package:service_learning_website/test/window_size.dart';
-import 'package:service_learning_website/widgets/permission_denied.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
 
@@ -39,7 +39,7 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
     final authProvider = Provider.of<AuthProvider>(context);
     if ((authProvider.userData?.permission ?? UserPermission.none) <
         UserPermission.student) {
-      return const PermissionDenied();
+      return const Scaffold(body: Center(child: Text("Loading")));
     }
 
     final courseProvider = Provider.of<CoursesProvider>(context);
@@ -53,13 +53,13 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
 
     switch (_selectedIndex) {
       case 0:
-        _showingWidget = CourseEditingPageInfo(id: widget.id);
+        _showingWidget = CourseEditingPageInfo(widget.id);
         break;
       case 1:
-        _showingWidget = Container(height: 2000, color: Colors.orange);
+        _showingWidget = CourseEditingPageChapters(widget.id);
         break;
       case 2:
-        _showingWidget = CourseEditingPagePermission(id: widget.id);
+        _showingWidget = CourseEditingPagePermission(widget.id);
         break;
     }
 
