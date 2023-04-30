@@ -10,12 +10,10 @@ class LoginButton extends StatefulWidget {
 }
 
 class _LoginButtonState extends State<LoginButton> {
-
   bool _isHovered = false;
 
   @override
   Widget build(BuildContext context) {
-
     final AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
     return GestureDetector(
@@ -25,6 +23,8 @@ class _LoginButtonState extends State<LoginButton> {
       child: MouseRegion(
         onEnter: (_) => setState(() => _isHovered = true),
         onExit: (_) => setState(() => _isHovered = false),
+        cursor:
+            _isHovered ? SystemMouseCursors.click : SystemMouseCursors.basic,
         child: Container(
           width: 415,
           height: 100,

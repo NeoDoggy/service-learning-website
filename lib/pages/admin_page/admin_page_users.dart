@@ -40,7 +40,7 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
   Widget build(BuildContext context) {
     return Consumer<AuthProvider>(
       builder: (context, authProvider, child) {
-        UserPermission permission =
+        final UserPermission permission =
             authProvider.userData?.permission ?? UserPermission.none;
 
         if (permission < UserPermission.ta) {

@@ -5,6 +5,6 @@ class PermissionDenied extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Text("你沒有權限"));
+    return const Text("你沒有權限");
   }
 }
