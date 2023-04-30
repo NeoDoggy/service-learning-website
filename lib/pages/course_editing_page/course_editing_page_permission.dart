@@ -45,7 +45,7 @@ class _CourseEditingPagePermissionState
             authProvider.userData?.permission ?? UserPermission.none;
 
         if (permission < UserPermission.ta) {
-          const PermissionDenied();
+          return const PermissionDenied();
         }
 
         return Consumer2<CoursesProvider, UsersProvider>(

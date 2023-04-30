@@ -4,7 +4,6 @@ import 'package:service_learning_website/pages/admin_page/admin_page_users.dart'
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
-import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
