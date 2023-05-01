@@ -30,7 +30,7 @@ class CoursesProvider with ChangeNotifier {
     });
   }
 
-  void create() {
+  void createCourse() {
     final String id = RandomId.generate();
     final CourseData courseData = CourseData(id: id, title: id);
     _collection.doc(id).set(courseData.toJson()).then((_) {
@@ -57,29 +57,37 @@ class CoursesProvider with ChangeNotifier {
     });
   }
 
-  void loadCourse(String id) {
-    _collection.doc(id).collection("participants").get().then((snapshot) {
+  Future<void> loadCourse(String id) async {
+    await _collection.doc(id).collection("participants").get().then((snapshot) {
       _coursesData[id]!.participants = Map.fromIterable(
           snapshot.docs
               .map((doc) => CourseParticipantData.fromJson(doc.data()))
               .toList(),
           key: (v) => (v as CourseParticipantData).uid);
     });
-    _collection.doc(id).collection("chapters").get().then((snapshot) {
+    await _collection.doc(id).collection("chapters").get().then((snapshot) {
       _coursesData[id]!.chapters = Map.fromIterable(
           snapshot.docs
               .map((doc) => CourseChapterData.fromJson(doc.data()))
               .toList(),
           key: (v) => (v as CourseChapterData).id);
     });
+    notifyListeners();
   }
 
-  void updateCourse(String id, {Uint8List? image}) async {
+  Future<void> updateCourse(String courseId, {Uint8List? image}) async {
     if (image != null) {
-      await _storage.child(id).putData(image);
-      _coursesData[id]!.imageUrl = await _storage.child(id).getDownloadURL();
+      await _storage.child(courseId).putData(image);
+      _coursesData[courseId]!.imageUrl = await _storage.child(courseId).getDownloadURL();
     }
-    await _collection.doc(id).update(coursesData[id]!.toJson());
+    await _collection.doc(courseId).update(coursesData[courseId]!.toJson());
+    notifyListeners();
+  }
+
+  Future<void> updateChapter(String courseId, String chapterId) async {
+    await _collection.doc(courseId).collection("chapters").doc(chapterId).update(
+      _coursesData[courseId]!.chapters[chapterId]!.toJson()
+    );
     notifyListeners();
   }
 }
