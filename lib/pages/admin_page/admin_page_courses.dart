@@ -48,7 +48,7 @@ class _AdminPageCoursesState extends State<AdminPageCourses> {
               children: [
                 if (permission >= UserPermission.ta)
                   ElevatedButton(
-                    onPressed: () => coursesProvider.create(),
+                    onPressed: () => coursesProvider.createCourse(),
                     child: const Text("建立課程"),
                   ),
                 if (permission >= UserPermission.ta) const SizedBox(height: 40),
@@ -74,7 +74,7 @@ class _AdminPageCoursesState extends State<AdminPageCourses> {
                                 .format(courseData.createdTime))),
                             DataCell(IconButton(
                               onPressed: () => context.push(
-                                  "${MyRouter.admin}/${MyRouter.course(courseData.id)}"),
+                                  "/${MyRouter.admin}/${MyRouter.courses}/${courseData.id}"),
                               icon: (permission >= UserPermission.ta ||
                                       courseData.members
                                           .contains(authProvider.userData!.uid))

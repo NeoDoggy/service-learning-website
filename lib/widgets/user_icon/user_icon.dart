@@ -37,8 +37,8 @@ class UserIcon extends StatelessWidget {
         PopupMenuItem(
           onTap: () => context.push(
               authProvider.userData!.permission >= UserPermission.student
-                  ? MyRouter.admin
-                  : MyRouter.root),
+                  ? "/${MyRouter.admin}"
+                  : "/"),
           // 這東西最多只能顯示 31 個字
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -55,7 +55,7 @@ class UserIcon extends StatelessWidget {
             onTap: () async {
               await authProvider.signOut();
               if (context.mounted) {
-                context.go(MyRouter.root);
+                context.go("/");
               }
             },
             child: const Text("登出")),

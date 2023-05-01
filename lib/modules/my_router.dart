@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page.dart';
+import 'package:service_learning_website/pages/course_editing_page/chapter_editing_page.dart';
 import 'package:service_learning_website/pages/course_editing_page/course_editing_page.dart';
 import 'package:service_learning_website/pages/login_page.dart';
 import 'package:service_learning_website/pages/welcome_page.dart';
@@ -8,61 +9,64 @@ import 'package:service_learning_website/test/test_page.dart';
 
 class MyRouter {
   GoRouter get router => GoRouter(
-        initialLocation: MyRouter.root,
+        initialLocation: "/",
         routes: [
           GoRoute(
-            path: MyRouter.root,
+            path: "/",
             builder: (context, state) => const WelcomePage(),
-          ),
-          GoRoute(
-            path: MyRouter.test,
-            builder: (context, state) => const TestPage(),
-          ),
-          GoRoute(
-            path: MyRouter.login,
-            builder: (context, state) => const LoginPage(),
-            redirect: (context, state) {
-              // final authProvider = Provider.of<AuthProvider>(context);
-              // return authProvider.isAuthed ? MyRouter.admin : null;
+            routes: [
+              GoRoute(
+                path: MyRouter.test,
+                builder: (context, state) => const TestPage(),
+              ),
+              GoRoute(
+                path: MyRouter.login,
+                builder: (context, state) => const LoginPage(),
+                redirect: (context, state) {
+                  // final authProvider = Provider.of<AuthProvider>(context);
+                  // return authProvider.isAuthed ? MyRouter.admin : null;
 
-              return FirebaseAuth.instance.currentUser != null
-                  ? MyRouter.admin
-                  : null;
-            },
+                  return FirebaseAuth.instance.currentUser != null
+                      ? MyRouter.admin
+                      : null;
+                },
+              ),
+              GoRoute(
+                  path: MyRouter.admin,
+                  builder: (context, state) => const AdminPage(),
+                  redirect: (context, state) {
+                    // final authProvider = Provider.of<AuthProvider>(context);
+                    // return !authProvider.isAuthed
+                    //     ? MyRouter.login
+                    //     : authProvider.userData!.permission < UserPermission.student
+                    //         ? MyRouter.root
+                    //         : null;
+
+                    return FirebaseAuth.instance.currentUser == null
+                        ? MyRouter.login
+                        : null;
+                  },
+                  routes: [
+                    GoRoute(
+                        path: "${MyRouter.courses}/:courseId",
+                        builder: (context, state) =>
+                            CourseEditingPage(state.params["courseId"]!),
+                        routes: [
+                          GoRoute(
+                              path: ":chapterId",
+                              builder: (context, state) =>
+                                  ChapterEditingPage(state.params["courseId"]!, state.params["chapterId"]!))
+                        ]),
+                  ]),
+            ],
           ),
-          GoRoute(
-              path: MyRouter.admin,
-              builder: (context, state) => const AdminPage(),
-              redirect: (context, state) {
-                // final authProvider = Provider.of<AuthProvider>(context);
-                // return !authProvider.isAuthed
-                //     ? MyRouter.login
-                //     : authProvider.userData!.permission < UserPermission.student
-                //         ? MyRouter.root
-                //         : null;
-
-                // if (!authProvider.isAuthed) return MyRouter.login;
-                // if (authProvider.userData!.permission <
-                //     UserPermission.student) return MyRouter.root;
-                // return null;
-
-                return FirebaseAuth.instance.currentUser == null
-                    ? MyRouter.login
-                    : null;
-              },
-              routes: [
-                GoRoute(
-                  path: MyRouter.course(":id"),
-                  builder: (context, state) =>
-                      CourseEditingPage(state.params["id"]!),
-                ),
-              ]),
         ],
       );
 
-  static const String root = "/";
-  static const String test = "/test";
-  static const String login = "/login";
-  static const String admin = "/admin";
-  static String course(String id) => "course/$id";
+  static const String test = "test";
+  static const String login = "login";
+  static const String admin = "admin";
+  static const String courses = "courses";
+  // static String course(String id) => "course/$id";
+  // static String chapter(String courseId, String chapterId) => "course/$courseId/$chapterId";
 }

@@ -58,7 +58,8 @@ class _CourseEditingPageChaptersState extends State<CourseEditingPageChapters> {
                   DataCell(SelectableText("${chaptersList[i].number + 1}")),
                   DataCell(SelectableText(chaptersList[i].title)),
                   DataCell(IconButton(
-                    onPressed: () {},
+                    onPressed: () => context.push(
+                        "/${MyRouter.admin}/${MyRouter.courses}/${widget.courseId}/${chaptersList[i].id}"),
                     icon: _canEdit
                         ? const Icon(Icons.edit)
                         : const Icon(Icons.visibility),
@@ -66,11 +67,35 @@ class _CourseEditingPageChaptersState extends State<CourseEditingPageChapters> {
                   if (_canEdit)
                     DataCell(Row(children: [
                       IconButton(
-                          onPressed: () {},
+                          disabledColor: Colors.grey,
+                          onPressed: i == 0
+                              ? null
+                              : () {
+                                  setState(() {
+                                    chaptersList[i].number--;
+                                    chaptersList[i - 1].number++;
+                                  });
+                                  coursesProvider.updateChapter(
+                                      widget.courseId, chaptersList[i].id);
+                                  coursesProvider.updateChapter(
+                                      widget.courseId, chaptersList[i - 1].id);
+                                },
                           icon: const Icon(Icons.arrow_upward)),
                       IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.arrow_downward))
+                          disabledColor: Colors.grey,
+                          onPressed: i == chaptersList.length - 1
+                              ? null
+                              : () {
+                                  setState(() {
+                                    chaptersList[i].number++;
+                                    chaptersList[i + 1].number--;
+                                  });
+                                  coursesProvider.updateChapter(
+                                      widget.courseId, chaptersList[i].id);
+                                  coursesProvider.updateChapter(
+                                      widget.courseId, chaptersList[i + 1].id);
+                                },
+                          icon: const Icon(Icons.arrow_downward)),
                     ])),
                 ]),
             ])
