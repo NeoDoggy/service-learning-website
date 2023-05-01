@@ -9,9 +9,9 @@ import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
 
 class CourseEditingPageInfo extends StatefulWidget {
-  const CourseEditingPageInfo({
+  const CourseEditingPageInfo(
+    this.id, {
     super.key,
-    required this.id,
   });
 
   final String id;
@@ -57,7 +57,7 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
           _audienceTextController.text = courseData.audience;
           _environmentTextController.text = courseData.environment;
           _outlineTextController.text = courseData.outline;
-          if (_imageByte == null) {
+          if (_imageByte == null && courseData.imageUrl != "") {
             http
                 .get(Uri.parse(courseData.imageUrl))
                 .timeout(const Duration(seconds: 5))
@@ -121,12 +121,14 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
               const SizedBox(height: 40),
               Row(children: [
                 const Text("課程預覽圖片"),
-                const SizedBox(width: 10),
-                ElevatedButton(
-                    onPressed: () => _pickFile(), child: const Text("瀏覽檔案")),
+                if (_canEdit) const SizedBox(width: 10),
+                if (_canEdit)
+                  ElevatedButton(
+                      onPressed: () => _pickFile(), child: const Text("瀏覽檔案")),
               ]),
-              if (_imageByte != null) const SizedBox(height: 20),
+              const SizedBox(height: 20),
               if (_imageByte != null) Image.memory(_imageByte!),
+              if (_imageByte == null) const Placeholder(),
               const SizedBox(height: 40),
               if (_isEdited)
                 ElevatedButton(
