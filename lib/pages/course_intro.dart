@@ -1,46 +1,83 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables, no_logic_in_create_state
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:service_learning_website/pages/page_skeleton.dart';
+import 'package:service_learning_website/providers/courses_provider.dart';
 import 'package:service_learning_website/widgets/course_name_box.dart';
+import 'package:service_learning_website/widgets/title_text_box.dart';
 
-class CourseIntro extends StatelessWidget {
-  final String imagePath;
-  final String courseName;
-  final String introCtx;
+class CourseIntro extends StatefulWidget {
+  const CourseIntro({
+    super.key,
+    required this.courseId,
+    // required this.imagePath,
+    // required this.courseName,
+    // required this.introCtx,
+  });
 
-  const CourseIntro(
-      {Key? key,
-      required this.imagePath,
-      required this.courseName,
-      required this.introCtx})
-      : super(key: key);
+  // final String imagePath;
+  // final String courseName;
+  // final String introCtx;
+  final String courseId;
+
+  @override
+  State<CourseIntro> createState() => _CourseIntroState();
+}
+
+class _CourseIntroState extends State<CourseIntro> {
+  bool _loaded = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            child: Body(
-                courseName: courseName,
-                imagePath: imagePath,
-                introCtx: introCtx),
-          ),
-        ],
-      ),
+    final coursesProvider = Provider.of<CoursesProvider>(context);
+    if (!_loaded) {
+      _loaded = true;
+      coursesProvider.loadCourse(widget.courseId);
+    }
+    if (coursesProvider.coursesData[widget.courseId] == null) {
+      return const Scaffold(body: Center(child: Text("Loading")));
+    }
+
+    return PageSkeleton(
+      body:
+          Consumer<CoursesProvider>(builder: (context, coursesProvider, child) {
+        final courseData = coursesProvider.coursesData[widget.courseId]!;
+
+        return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TitleTextBox(courseData.title),
+              const SizedBox(height: 60),
+              Row(children: []),
+            ]);
+      }),
     );
+    // return Scaffold(
+    //   backgroundColor: Colors.white,
+    //   body: Column(
+    //     mainAxisAlignment: MainAxisAlignment.start,
+    //     crossAxisAlignment: CrossAxisAlignment.start,
+    //     children: <Widget>[
+    //       Expanded(
+    //         child: _Body(
+    //             courseName: courseName,
+    //             imagePath: imagePath,
+    //             introCtx: introCtx),
+    //       ),
+    //     ],
+    //   ),
+    // );
   }
 }
 
-class Body extends StatelessWidget {
+class _Body extends StatelessWidget {
   final String imagePath;
   final String courseName;
   final String introCtx;
 
-  const Body(
+  const _Body(
       {Key? key,
       required this.imagePath,
       required this.courseName,
