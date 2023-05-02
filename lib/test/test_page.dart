@@ -8,9 +8,10 @@ import 'package:service_learning_website/widgets/my_progress_bar.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 import 'package:service_learning_website/widgets/my_download_button.dart';
+import 'package:service_learning_website/widgets/course_name_box.dart';
+import 'package:service_learning_website/widgets/online_course_card.dart';
 
 class TestPage extends StatelessWidget {
-
   const TestPage({super.key});
 
   @override
@@ -57,7 +58,16 @@ class TestPage extends StatelessWidget {
 
   static const String question = '1. 我們現在在學的程式語言是以下何者？';
 
-  static const List<String> options = ['Python', 'C++', 'Java', 'Dart', 'HTML', 'JavaScript', 'CSS', 'C#'];
+  static const List<String> options = [
+    'Python',
+    'C++',
+    'Java',
+    'Dart',
+    'HTML',
+    'JavaScript',
+    'CSS',
+    'C#'
+  ];
 
   static const String mdContent = """
   # Markdown 測試

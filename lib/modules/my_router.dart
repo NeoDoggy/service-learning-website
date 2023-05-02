@@ -5,6 +5,7 @@ import 'package:service_learning_website/pages/course_editing_page/course_editin
 import 'package:service_learning_website/pages/login_page.dart';
 import 'package:service_learning_website/pages/welcome_page.dart';
 import 'package:service_learning_website/test/test_page.dart';
+import 'package:service_learning_website/pages/backstage_page/backstage_page.dart';
 
 class MyRouter {
   GoRouter get router => GoRouter(
@@ -29,6 +30,10 @@ class MyRouter {
                   ? MyRouter.admin
                   : null;
             },
+          ),
+          GoRoute(
+            path: MyRouter.backstage,
+            builder: (context, state) => const BackstagePage(),
           ),
           GoRoute(
               path: MyRouter.admin,
@@ -64,5 +69,6 @@ class MyRouter {
   static const String test = "/test";
   static const String login = "/login";
   static const String admin = "/admin";
+  static const String backstage = "/backstage";
   static String course(String id) => "course/$id";
 }
