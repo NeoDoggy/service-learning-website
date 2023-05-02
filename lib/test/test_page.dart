@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:service_learning_website/pages/FavPage.dart';
 import 'package:service_learning_website/pages/LoginPage.dart';
-import 'package:service_learning_website/pages/course_intro.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/bottom.dart';
 import 'package:service_learning_website/widgets/mcq.dart';

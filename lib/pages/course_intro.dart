@@ -1,10 +1,16 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables, no_logic_in_create_state
 
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:service_learning_website/modules/backend/user_permission.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
+import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
 import 'package:service_learning_website/widgets/course_name_box.dart';
+import 'package:service_learning_website/widgets/my_markdown.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
 
 class CourseIntro extends StatefulWidget {
@@ -26,10 +32,21 @@ class CourseIntro extends StatefulWidget {
 }
 
 class _CourseIntroState extends State<CourseIntro> {
+  final _subTitleStyle = TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
+  final _contentStyle = TextStyle(fontSize: 16);
+
+  Uint8List? _imageByte;
   bool _loaded = false;
+  bool _isParticipant = false;
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    if ((authProvider.userData?.permission ?? UserPermission.none) <
+        UserPermission.student) {
+      return const Scaffold(body: Center(child: Text("Permission denied")));
+    }
+
     final coursesProvider = Provider.of<CoursesProvider>(context);
     if (!_loaded) {
       _loaded = true;
@@ -40,38 +57,84 @@ class _CourseIntroState extends State<CourseIntro> {
     }
 
     return PageSkeleton(
-      body:
-          Consumer<CoursesProvider>(builder: (context, coursesProvider, child) {
-        final courseData = coursesProvider.coursesData[widget.courseId]!;
+      body: Consumer2<AuthProvider, CoursesProvider>(
+        builder: (context, authProvider, coursesProvider, child) {
+          final userData = authProvider.userData;
+          final courseData = coursesProvider.coursesData[widget.courseId]!;
 
-        return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TitleTextBox(courseData.title),
-              const SizedBox(height: 60),
-              Row(children: []),
-            ]);
-      }),
+          _isParticipant = courseData.participants[userData?.uid ?? ""] != null;
+
+          if (_imageByte == null && courseData.imageUrl != "") {
+            http
+                .get(Uri.parse(courseData.imageUrl))
+                .timeout(const Duration(seconds: 5))
+                .then((response) =>
+                    setState(() => _imageByte = response.bodyBytes))
+                .catchError((_) => setState(() => _imageByte = null));
+          }
+
+          return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TitleTextBox(courseData.title),
+                const SizedBox(height: 60),
+                Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (_imageByte != null)
+                        Image.memory(_imageByte!, width: 400),
+                      if (_imageByte == null)
+                        const SizedBox(width: 400, child: Placeholder()),
+                      const SizedBox(width: 100),
+                      Flexible(
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SelectableText("課程介紹", style: _subTitleStyle),
+                              const SizedBox(height: 20),
+                              SelectableText(courseData.description,
+                                  style: _contentStyle),
+                              const SizedBox(height: 40),
+                              SelectableText("適合對象", style: _subTitleStyle),
+                              const SizedBox(height: 20),
+                              SelectableText(courseData.audience,
+                                  style: _contentStyle),
+                              const SizedBox(height: 40),
+                              SelectableText("開發環境", style: _subTitleStyle),
+                              const SizedBox(height: 20),
+                              SelectableText(courseData.environment,
+                                  style: _contentStyle),
+                              const SizedBox(height: 40),
+                              SelectableText("課程大綱", style: _subTitleStyle),
+                              const SizedBox(height: 20),
+                              MyMarkdown(courseData.outline),
+                              const SizedBox(height: 40),
+                            ]),
+                      ),
+                    ]),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        textStyle:
+                            MaterialStateProperty.all(TextStyle(fontSize: 24)),
+                        padding: MaterialStateProperty.all(EdgeInsets.all(20)),
+                      ),
+                      child: Text(_isParticipant ? "進入課程" : "加入課程")),
+                ),
+              ]);
+        },
+      ),
     );
-    // return Scaffold(
-    //   backgroundColor: Colors.white,
-    //   body: Column(
-    //     mainAxisAlignment: MainAxisAlignment.start,
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     children: <Widget>[
-    //       Expanded(
-    //         child: _Body(
-    //             courseName: courseName,
-    //             imagePath: imagePath,
-    //             introCtx: introCtx),
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
 }
-
+/*
 class _Body extends StatelessWidget {
   final String imagePath;
   final String courseName;
@@ -181,3 +244,4 @@ class _Body extends StatelessWidget {
     );
   }
 }
+*/

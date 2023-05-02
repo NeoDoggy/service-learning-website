@@ -141,8 +141,8 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
                       onPressed: () => _pickFile(), child: const Text("瀏覽檔案")),
               ]),
               const SizedBox(height: 20),
-              if (_imageByte != null) Image.memory(_imageByte!),
-              if (_imageByte == null) const Placeholder(),
+              if (_imageByte != null) Image.memory(_imageByte!, width: 400),
+              if (_imageByte == null) const SizedBox(width: 400, child: Placeholder()),
             ]);
       },
     );
