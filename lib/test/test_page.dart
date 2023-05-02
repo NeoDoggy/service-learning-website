@@ -8,6 +8,7 @@ import 'package:service_learning_website/widgets/my_progress_bar.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 import 'package:service_learning_website/widgets/my_download_button.dart';
+import 'package:service_learning_website/widgets/Schedule_Column.dart';
 
 class TestPage extends StatelessWidget {
   const TestPage({super.key});
@@ -33,6 +34,8 @@ class TestPage extends StatelessWidget {
             const MyDownloadButton(),
             const SizedBox(height: 20),
             const MyDownloadButton(),
+            const SizedBox(height: 20),
+            const ScheduleColumn(),
             const SizedBox(height: 20),
             const MyProgressBar(all: 10, finished: 8),
             const Bottom(
