@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page.dart';
 import 'package:service_learning_website/pages/course_editing_page/chapter_editing_page.dart';
 import 'package:service_learning_website/pages/course_editing_page/course_editing_page.dart';
+import 'package:service_learning_website/pages/course_intro.dart';
 import 'package:service_learning_website/pages/login_page.dart';
 import 'package:service_learning_website/pages/welcome_page.dart';
 import 'package:service_learning_website/test/test_page.dart';
@@ -20,6 +22,15 @@ class MyRouter {
                 builder: (context, state) => const TestPage(),
               ),
               GoRoute(
+                  path: MyRouter.courses,
+                  builder: (context, state) => const Placeholder(),
+                  routes: [
+                    GoRoute(
+                        path: ":courseId",
+                        builder: (context, state) =>
+                            CourseIntro(courseId: state.params["courseId"]!))
+                  ]),
+              GoRoute(
                 path: MyRouter.login,
                 builder: (context, state) => const LoginPage(),
                 redirect: (context, state) {
@@ -27,7 +38,7 @@ class MyRouter {
                   // return authProvider.isAuthed ? MyRouter.admin : null;
 
                   return FirebaseAuth.instance.currentUser != null
-                      ? MyRouter.admin
+                      ? "/${MyRouter.admin}"
                       : null;
                 },
               ),
@@ -43,7 +54,7 @@ class MyRouter {
                     //         : null;
 
                     return FirebaseAuth.instance.currentUser == null
-                        ? MyRouter.login
+                        ? "/${MyRouter.login}"
                         : null;
                   },
                   routes: [
@@ -54,8 +65,9 @@ class MyRouter {
                         routes: [
                           GoRoute(
                               path: ":chapterId",
-                              builder: (context, state) =>
-                                  ChapterEditingPage(state.params["courseId"]!, state.params["chapterId"]!))
+                              builder: (context, state) => ChapterEditingPage(
+                                  state.params["courseId"]!,
+                                  state.params["chapterId"]!))
                         ]),
                   ]),
             ],

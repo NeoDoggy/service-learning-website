@@ -57,16 +57,24 @@ class CoursesProvider with ChangeNotifier {
     });
   }
 
-  Future<void> loadCourse(String id) async {
-    await _collection.doc(id).collection("participants").get().then((snapshot) {
-      _coursesData[id]!.participants = Map.fromIterable(
+  Future<void> loadCourse(String courseId) async {
+    await _collection
+        .doc(courseId)
+        .collection("participants")
+        .get()
+        .then((snapshot) {
+      _coursesData[courseId]!.participants = Map.fromIterable(
           snapshot.docs
               .map((doc) => CourseParticipantData.fromJson(doc.data()))
               .toList(),
           key: (v) => (v as CourseParticipantData).uid);
     });
-    await _collection.doc(id).collection("chapters").get().then((snapshot) {
-      _coursesData[id]!.chapters = Map.fromIterable(
+    await _collection
+        .doc(courseId)
+        .collection("chapters")
+        .get()
+        .then((snapshot) {
+      _coursesData[courseId]!.chapters = Map.fromIterable(
           snapshot.docs
               .map((doc) => CourseChapterData.fromJson(doc.data()))
               .toList(),
@@ -78,16 +86,19 @@ class CoursesProvider with ChangeNotifier {
   Future<void> updateCourse(String courseId, {Uint8List? image}) async {
     if (image != null) {
       await _storage.child(courseId).putData(image);
-      _coursesData[courseId]!.imageUrl = await _storage.child(courseId).getDownloadURL();
+      _coursesData[courseId]!.imageUrl =
+          await _storage.child(courseId).getDownloadURL();
     }
     await _collection.doc(courseId).update(coursesData[courseId]!.toJson());
     notifyListeners();
   }
 
   Future<void> updateChapter(String courseId, String chapterId) async {
-    await _collection.doc(courseId).collection("chapters").doc(chapterId).update(
-      _coursesData[courseId]!.chapters[chapterId]!.toJson()
-    );
+    await _collection
+        .doc(courseId)
+        .collection("chapters")
+        .doc(chapterId)
+        .update(_coursesData[courseId]!.chapters[chapterId]!.toJson());
     notifyListeners();
   }
 }

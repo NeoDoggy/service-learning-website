@@ -29,7 +29,7 @@ class UserIcon extends StatelessWidget {
       if (!authProvider.isAuthed)
         PopupMenuItem(
             // onTap: () => authProvider.signInWithGoogle(),
-            onTap: () => context.push(MyRouter.login),
+            onTap: () => context.push("/${MyRouter.login}"),
             child: const Text("登入")),
 
       // 有登入顯示的 menu
