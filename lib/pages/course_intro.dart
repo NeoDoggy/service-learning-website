@@ -9,7 +9,6 @@ import 'package:service_learning_website/modules/backend/user_permission.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
-import 'package:service_learning_website/widgets/course_name_box.dart';
 import 'package:service_learning_website/widgets/my_markdown.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
 
@@ -90,31 +89,33 @@ class _CourseIntroState extends State<CourseIntro> {
                         const SizedBox(width: 400, child: Placeholder()),
                       const SizedBox(width: 100),
                       Flexible(
-                        child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SelectableText("課程介紹", style: _subTitleStyle),
-                              const SizedBox(height: 20),
-                              SelectableText(courseData.description,
-                                  style: _contentStyle),
-                              const SizedBox(height: 40),
-                              SelectableText("適合對象", style: _subTitleStyle),
-                              const SizedBox(height: 20),
-                              SelectableText(courseData.audience,
-                                  style: _contentStyle),
-                              const SizedBox(height: 40),
-                              SelectableText("開發環境", style: _subTitleStyle),
-                              const SizedBox(height: 20),
-                              SelectableText(courseData.environment,
-                                  style: _contentStyle),
-                              const SizedBox(height: 40),
-                              SelectableText("課程大綱", style: _subTitleStyle),
-                              const SizedBox(height: 20),
-                              MyMarkdown(courseData.outline),
-                              const SizedBox(height: 40),
-                            ]),
+                        child: SelectionArea(
+                          child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("課程介紹", style: _subTitleStyle),
+                                const SizedBox(height: 20),
+                                Text(courseData.description,
+                                    style: _contentStyle),
+                                const SizedBox(height: 40),
+                                Text("適合對象", style: _subTitleStyle),
+                                const SizedBox(height: 20),
+                                Text(courseData.audience,
+                                    style: _contentStyle),
+                                const SizedBox(height: 40),
+                                Text("開發環境", style: _subTitleStyle),
+                                const SizedBox(height: 20),
+                                Text(courseData.environment,
+                                    style: _contentStyle),
+                                const SizedBox(height: 40),
+                                Text("課程大綱", style: _subTitleStyle),
+                                const SizedBox(height: 20),
+                                MyMarkdown(courseData.outline, selectable: false),
+                                const SizedBox(height: 40),
+                              ]),
+                        ),
                       ),
                     ]),
                 Align(
