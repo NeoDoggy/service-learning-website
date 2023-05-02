@@ -4,6 +4,7 @@ import 'package:service_learning_website/pages/admin_page/admin_page_users.dart'
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
+import 'package:service_learning_website/widgets/title_text_box.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
@@ -42,36 +43,44 @@ class _AdminPageState extends State<AdminPage> {
     }
 
     return PageSkeleton(
-      body: Row(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SideMenu(
-            items: _items,
-            onDestinationSelected: (index) =>
-                setState(() => _selectedIndex = index),
-          ),
-          const SizedBox(width: 100),
-          Flexible(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  _items[_selectedIndex],
-                  style: const TextStyle(
-                    fontSize: 48,
-                    height: 58 / 48,
-                    fontWeight: FontWeight.bold,
-                  ),
+          const TitleTextBox("管理者後台"),
+          const SizedBox(height: 60),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SideMenu(
+                items: _items,
+                onDestinationSelected: (index) =>
+                    setState(() => _selectedIndex = index),
+              ),
+              const SizedBox(width: 100),
+              Flexible(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      _items[_selectedIndex],
+                      style: const TextStyle(
+                        fontSize: 48,
+                        height: 58 / 48,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+                    _showingWidget,
+                    // Flexible(child: _showingWidget),
+                  ],
                 ),
-                const SizedBox(height: 40),
-                _showingWidget,
-                // Flexible(child: _showingWidget),
-              ],
-            ),
-          )
+              )
+            ],
+          ),
         ],
       ),
       bottomSheet: const WindowSize(),

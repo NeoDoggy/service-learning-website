@@ -71,6 +71,20 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              if (_isEdited)
+                ElevatedButton(
+                    onPressed: () {
+                      courseData.title = _titleTextController.text;
+                      courseData.description = _descriptionTextController.text;
+                      courseData.audience = _audienceTextController.text;
+                      courseData.environment = _environmentTextController.text;
+                      courseData.outline = _outlineTextController.text;
+                      coursesProvider.updateCourse(widget.id,
+                          image: _imageEdited ? _imageByte : null);
+                      setState(() => _isEdited = false);
+                    },
+                    child: const Text("儲存變更")),
+              if (_isEdited) const SizedBox(height: 40),
               TextField(
                 readOnly: !_canEdit,
                 controller: _titleTextController,
@@ -127,22 +141,8 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
                       onPressed: () => _pickFile(), child: const Text("瀏覽檔案")),
               ]),
               const SizedBox(height: 20),
-              if (_imageByte != null) Image.memory(_imageByte!),
-              if (_imageByte == null) const Placeholder(),
-              const SizedBox(height: 40),
-              if (_isEdited)
-                ElevatedButton(
-                    onPressed: () {
-                      courseData.title = _titleTextController.text;
-                      courseData.description = _descriptionTextController.text;
-                      courseData.audience = _audienceTextController.text;
-                      courseData.environment = _environmentTextController.text;
-                      courseData.outline = _outlineTextController.text;
-                      coursesProvider.updateCourse(widget.id,
-                          image: _imageEdited ? _imageByte : null);
-                      setState(() => _isEdited = false);
-                    },
-                    child: const Text("儲存變更")),
+              if (_imageByte != null) Image.memory(_imageByte!, width: 400),
+              if (_imageByte == null) const SizedBox(width: 400, child: Placeholder()),
             ]);
       },
     );

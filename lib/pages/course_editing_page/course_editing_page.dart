@@ -35,7 +35,7 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
     final authProvider = Provider.of<AuthProvider>(context);
     if ((authProvider.userData?.permission ?? UserPermission.none) <
         UserPermission.student) {
-      return const Scaffold(body: Center(child: Text("Loading")));
+      return const Scaffold(body: Center(child: Text("Permission denied")));
     }
 
     final courseProvider = Provider.of<CoursesProvider>(context);
