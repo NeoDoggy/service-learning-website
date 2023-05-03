@@ -19,8 +19,9 @@ class AuthProvider with ChangeNotifier {
   StreamSubscription<User?>? _authSubscription;
 
   bool get isAuthed => _userData != null;
-  User? get user => _user;
+  // User? get user => _user;
   UserData? get userData => _userData;
+
 
   @override
   void dispose() {

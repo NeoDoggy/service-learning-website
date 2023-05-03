@@ -7,11 +7,13 @@ class YoutubePlayer extends StatefulWidget {
     required this.url,
     this.width,
     this.height,
+    this.callback,
   });
 
   final String url;
   final double? width;
   final double? height;
+  final void Function(Size size)? callback;
 
   @override
   State<YoutubePlayer> createState() => _YoutubePlayerState();
@@ -34,16 +36,24 @@ class _YoutubePlayerState extends State<YoutubePlayer> {
       _height = widget.height!;
     } else if (widget.width != null) {
       _width = widget.width!;
-      _height = (_width - 25) / 16 * 9 + 16;
+      // _height = (_width - 25) / 16 * 9 + 16;
+      _height = _width / 16 * 9;
     } else if (widget.height != null) {
       _height = widget.height!;
-      _width = (_height - 16) / 9 * 16 + 25;
+      // _width = (_height - 16) / 9 * 16 + 25;
+      _width = _height / 9 * 16;
     }
 
     _vid = _parseVid(widget.url);
 
     _webviewController.loadHtmlString(
-        '<iframe width="${_width - 25}" height="${_height - 16}" src="https://www.youtube.com/embed/$_vid" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>');
+        '<iframe width="${_width}" height="${_height}" src="https://www.youtube.com/embed/$_vid" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>');
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.callback != null) {
+        widget.callback!.call(Size(_width, _height));
+      }
+    });
   }
 
   @override
