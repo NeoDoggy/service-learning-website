@@ -5,7 +5,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:service_learning_website/modules/backend/user_permission.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
@@ -40,12 +39,6 @@ class _CourseIntroState extends State<CourseIntro> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
-    if ((authProvider.userData?.permission ?? UserPermission.none) <
-        UserPermission.student) {
-      return const Scaffold(body: Center(child: Text("Permission denied")));
-    }
-
     final coursesProvider = Provider.of<CoursesProvider>(context);
     if (!_loaded) {
       _loaded = true;
