@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:service_learning_website/pages/FavPage.dart';
-import 'package:service_learning_website/pages/LoginPage.dart';
+import 'package:service_learning_website/pages/fav_page.dart';
+import 'package:service_learning_website/pages/login_page.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/bottom.dart';
 import 'package:service_learning_website/widgets/mcq.dart';
@@ -9,7 +9,7 @@ import 'package:service_learning_website/widgets/online_course_card.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 import 'package:service_learning_website/widgets/my_download_button.dart';
-import 'package:service_learning_website/widgets/Schedule_Column.dart';
+import 'package:service_learning_website/widgets/schedule_column_.dart';
 
 class TestPage extends StatelessWidget {
   const TestPage({super.key});
