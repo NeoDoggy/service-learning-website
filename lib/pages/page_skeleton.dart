@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:service_learning_website/widgets/AppBar.dart';
+import 'package:service_learning_website/widgets/app_bar_g.dart';
 import 'package:service_learning_website/widgets/Footer.dart';
 
 class PageSkeleton extends StatelessWidget {
@@ -23,7 +23,7 @@ class PageSkeleton extends StatelessWidget {
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) =>
-            [navigationBar ?? AppBar_G()],
+            [navigationBar ?? AppBarG()],
         body: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
