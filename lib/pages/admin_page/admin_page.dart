@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:service_learning_website/modules/backend/user_permission.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page_courses.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page_users.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
+import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
@@ -21,6 +24,12 @@ class _AdminPageState extends State<AdminPage> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    if ((authProvider.userData?.permission ?? UserPermission.none) <
+        UserPermission.student) {
+      return const Scaffold(body: Center(child: Text("Permission denied")));
+    }
+
     switch (_selectedIndex) {
       case 0:
         _showingWidget = Container(height: 2000, color: Colors.red);

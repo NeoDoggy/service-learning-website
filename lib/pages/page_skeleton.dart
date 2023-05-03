@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:service_learning_website/widgets/app_bar_g.dart';
-import 'package:service_learning_website/widgets/footer_f.dart';
+import 'package:service_learning_website/widgets/footer.dart';
 
 class PageSkeleton extends StatelessWidget {
   const PageSkeleton({
