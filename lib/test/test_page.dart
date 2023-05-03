@@ -5,6 +5,7 @@ import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/bottom.dart';
 import 'package:service_learning_website/widgets/mcq.dart';
 import 'package:service_learning_website/widgets/my_progress_bar.dart';
+import 'package:service_learning_website/widgets/online_course_card.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 import 'package:service_learning_website/widgets/my_download_button.dart';
@@ -50,6 +51,7 @@ class TestPage extends StatelessWidget {
               width: 800,
               child: MCQ(question: question, options: options),
             ),
+            const OnlineCourseCard(imageUrl: "assets/images/google.png", courseName: "123"),
           ],
         ),
       ),

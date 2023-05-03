@@ -5,6 +5,7 @@ import 'package:service_learning_website/pages/admin_page/admin_page.dart';
 import 'package:service_learning_website/pages/course_editing_page/chapter_editing_page.dart';
 import 'package:service_learning_website/pages/course_editing_page/course_editing_page.dart';
 import 'package:service_learning_website/pages/course_intro.dart';
+import 'package:service_learning_website/pages/courses/courses_browsing_page.dart';
 import 'package:service_learning_website/pages/login_page.dart';
 import 'package:service_learning_website/pages/welcome_page.dart';
 import 'package:service_learning_website/test/test_page.dart';
@@ -23,7 +24,7 @@ class MyRouter {
               ),
               GoRoute(
                   path: MyRouter.courses,
-                  builder: (context, state) => const Placeholder(),
+                  builder: (context, state) => const CourseBrowsingPage(),
                   routes: [
                     GoRoute(
                         path: ":courseId",

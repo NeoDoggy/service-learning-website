@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:service_learning_website/widgets/AppBar.dart';
+import 'package:service_learning_website/widgets/app_bar_g.dart';
 import 'package:service_learning_website/widgets/Footer.dart';
 import 'package:service_learning_website/widgets/NavBar.dart';
 import 'package:service_learning_website/widgets/OpinionCard.dart';
@@ -29,7 +29,7 @@ class _WelcomePageState extends State<WelcomePage>
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            AppBar_G(),
+            AppBarG(),
           ];
         },
         body: LayoutBuilder(
