@@ -8,11 +8,13 @@ import 'package:http/http.dart' as http;
 class OnlineCourseCard extends StatefulWidget {
   const OnlineCourseCard({
     super.key,
+    this.width = 350,
     required this.imageUrl,
     required this.courseName,
     this.onTap,
   });
 
+  final double width;
   final String imageUrl;
   final String courseName;
   final void Function()? onTap;
@@ -37,8 +39,8 @@ class _OnlineCourseCardState extends State<OnlineCourseCard> {
     }
 
     return Container(
-      width: 350,
-      height: 300,
+      width: widget.width,
+      // height: 300,
       decoration: BoxDecoration(
         color: Color(0xffd6e4ff),
         borderRadius: BorderRadius.circular(30),
@@ -56,7 +58,7 @@ class _OnlineCourseCardState extends State<OnlineCourseCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                width: 350,
+                width: widget.width,
                 height: 200,
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
@@ -79,7 +81,7 @@ class _OnlineCourseCardState extends State<OnlineCourseCard> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 0.0),
+                  margin: EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 20.0),
                   child: Text(
                     widget.courseName,
                     style: TextStyle(

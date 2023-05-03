@@ -9,7 +9,8 @@ import 'package:service_learning_website/widgets/online_course_card.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 import 'package:service_learning_website/widgets/my_download_button.dart';
-import 'package:service_learning_website/widgets/schedule_column_.dart';
+import 'package:service_learning_website/widgets/schedule_column.dart';
+import 'package:service_learning_website/widgets/youtube_player.dart';
 
 class TestPage extends StatelessWidget {
   const TestPage({super.key});
@@ -52,6 +53,10 @@ class TestPage extends StatelessWidget {
               child: MCQ(question: question, options: options),
             ),
             const OnlineCourseCard(imageUrl: "assets/images/google.png", courseName: "123"),
+            const YoutubePlayer(
+              width: 880,
+              url: "https://www.youtube.com/watch?v=yMMibCohcCk",
+            ),
           ],
         ),
       ),

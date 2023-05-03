@@ -24,18 +24,28 @@ class CourseBrowsingPage extends StatelessWidget {
             children: [
               const TitleTextBox("線上課程"),
               const SizedBox(height: 60),
-              Wrap(
-                spacing: 60,
-                runSpacing: 60,
-                children: [
-                  for (CourseData courseData in coursesData.values)
-                    OnlineCourseCard(
-                      onTap: () => context.go("/${MyRouter.courses}/${courseData.id}"),
-                      imageUrl: courseData.imageUrl,
-                      courseName: courseData.title,
-                    )
-                ],
-              ),
+              LayoutBuilder(builder: (context, constraint) {
+                const double cardWidth = 350;
+                final colWidth = constraint.maxWidth;
+                int cardCount;
+                for (cardCount = 0;
+                    colWidth >= cardWidth * (cardCount + 1) + 60 * cardCount;
+                    cardCount++) {}
+                return Wrap(
+                  spacing: (colWidth - cardWidth * cardCount) / (cardCount - 1),
+                  runSpacing: 60,
+                  children: [
+                    for (CourseData courseData in coursesData.values)
+                      OnlineCourseCard(
+                        onTap: () => context.go(
+                            "/${MyRouter.courses}/${courseData.id}/${MyRouter.intro}"),
+                        width: cardWidth,
+                        imageUrl: courseData.imageUrl,
+                        courseName: courseData.title,
+                      )
+                  ],
+                );
+              }),
             ],
           );
         },

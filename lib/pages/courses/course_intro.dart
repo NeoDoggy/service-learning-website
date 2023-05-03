@@ -3,8 +3,10 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:service_learning_website/modules/my_router.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
@@ -95,8 +97,7 @@ class _CourseIntroState extends State<CourseIntro> {
                                 const SizedBox(height: 40),
                                 Text("適合對象", style: _subTitleStyle),
                                 const SizedBox(height: 20),
-                                Text(courseData.audience,
-                                    style: _contentStyle),
+                                Text(courseData.audience, style: _contentStyle),
                                 const SizedBox(height: 40),
                                 Text("開發環境", style: _subTitleStyle),
                                 const SizedBox(height: 20),
@@ -105,7 +106,8 @@ class _CourseIntroState extends State<CourseIntro> {
                                 const SizedBox(height: 40),
                                 Text("課程大綱", style: _subTitleStyle),
                                 const SizedBox(height: 20),
-                                MyMarkdown(courseData.outline, selectable: false),
+                                MyMarkdown(courseData.outline,
+                                    selectable: false),
                                 const SizedBox(height: 40),
                               ]),
                         ),
@@ -114,7 +116,14 @@ class _CourseIntroState extends State<CourseIntro> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (!authProvider.isAuthed) {
+                          context.push("/${MyRouter.login}");
+                        }
+                        else {
+                          
+                        }
+                      },
                       style: ButtonStyle(
                         textStyle:
                             MaterialStateProperty.all(TextStyle(fontSize: 24)),
