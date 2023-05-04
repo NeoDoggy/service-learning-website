@@ -29,7 +29,7 @@ class MyRouter {
                   GoRoute(
                     path: ":courseId",
                     builder: (context, state) =>
-                        CoursePage(courseId: state.params["courseId"]!),
+                        CoursePage(courseId: state.params["courseId"]!, chapterId: state.queryParams["chapter"]),
                   ),
                   GoRoute(
                     path: ":courseId/${MyRouter.intro}",
