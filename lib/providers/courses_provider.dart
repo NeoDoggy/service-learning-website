@@ -23,7 +23,7 @@ class CoursesProvider with ChangeNotifier {
           snapshot.docs.map((doc) => CourseData.fromJson(doc.data())).toList(),
           key: (v) => (v as CourseData).id);
       if (kDebugMode) {
-        print("admin_page_courses_provider -> loaded");
+        print("courses_provider -> loaded");
       }
       notifyListeners();
     });
@@ -35,7 +35,7 @@ class CoursesProvider with ChangeNotifier {
     _collection.doc(id).set(courseData.toJson()).then((_) {
       _coursesData[id] = courseData;
       if (kDebugMode) {
-        print("admin_page_courses_provider -> updated");
+        print("courses_provider -> updated");
       }
       notifyListeners();
     });
@@ -89,6 +89,16 @@ class CoursesProvider with ChangeNotifier {
           await _storage.child(courseId).getDownloadURL();
     }
     await _collection.doc(courseId).update(coursesData[courseId]!.toJson());
+    notifyListeners();
+  }
+
+  Future<void> addParticipant(String courseId, String uid) async {
+    _coursesData[courseId]!.participants[uid] = CourseParticipantData(uid: uid);
+    await _collection
+        .doc(courseId)
+        .collection("participants")
+        .doc(uid)
+        .set(_coursesData[courseId]!.participants[uid]!.toJson());
     notifyListeners();
   }
 

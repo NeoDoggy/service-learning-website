@@ -116,12 +116,18 @@ class _CourseIntroState extends State<CourseIntro> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (!authProvider.isAuthed) {
                           context.push("/${MyRouter.login}");
-                        }
-                        else {
-                          
+                        } else {
+                          if (!_isParticipant) {
+                            await coursesProvider.addParticipant(
+                                widget.courseId, authProvider.userData!.uid);
+                          }
+                          if (context.mounted) {
+                            context.push(
+                                "/${MyRouter.courses}/${widget.courseId}");
+                          }
                         }
                       },
                       style: ButtonStyle(

@@ -28,6 +28,7 @@ class TestPage extends StatelessWidget {
               ],
             ),
             const SideMenu(
+                width: 260,
                 items: ["營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"]),
             // MyMarkdown(mdContent),
             const SizedBox(height: 20),
@@ -52,7 +53,8 @@ class TestPage extends StatelessWidget {
               width: 800,
               child: MCQ(question: question, options: options),
             ),
-            const OnlineCourseCard(imageUrl: "assets/images/google.png", courseName: "123"),
+            const OnlineCourseCard(
+                imageUrl: "assets/images/google.png", courseName: "123"),
             const YoutubePlayer(
               width: 880,
               url: "https://www.youtube.com/watch?v=yMMibCohcCk",

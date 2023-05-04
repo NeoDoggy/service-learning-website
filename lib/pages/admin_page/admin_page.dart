@@ -63,6 +63,7 @@ class _AdminPageState extends State<AdminPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SideMenu(
+                width: 260,
                 items: _items,
                 onDestinationSelected: (index) =>
                     setState(() => _selectedIndex = index),
