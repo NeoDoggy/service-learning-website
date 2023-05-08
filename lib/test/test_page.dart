@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:service_learning_website/pages/fav_page.dart';
 import 'package:service_learning_website/pages/login_page.dart';
 import 'package:service_learning_website/test/window_size.dart';
+import 'package:service_learning_website/widgets/blank_question.dart';
 import 'package:service_learning_website/widgets/bottom.dart';
 import 'package:service_learning_website/widgets/mcq.dart';
 import 'package:service_learning_website/widgets/my_progress_bar.dart';
@@ -51,13 +52,15 @@ class TestPage extends StatelessWidget {
             ),
             SizedBox(
               width: 800,
-              child: MCQ(question: question, options: options),
+              child: MCQ(question: question[0], options: options),
             ),
             const OnlineCourseCard(
-                imageUrl: "assets/images/google.png", courseName: "123"),
-            const YoutubePlayer(
-              width: 880,
-              url: "https://www.youtube.com/watch?v=yMMibCohcCk",
+              imageUrl: "assets/images/google.png",
+              courseName: "123",
+            ),
+            SizedBox(
+              width: 800,
+              child: BlankQuestion(question: question[1], answer: answer[1]),
             ),
           ],
         ),
@@ -66,7 +69,12 @@ class TestPage extends StatelessWidget {
     );
   }
 
-  static const String question = '1. 我們現在在學的程式語言是以下何者？';
+  static const List<String> question = [
+    '1. 我們現在在學的程式語言是以下何者？',
+    '2. 如何print出Hello World？'
+  ];
+
+  static const List<String> answer = ['', 'print("Hello World")'];
 
   static const List<String> options = [
     'Python',
