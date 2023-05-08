@@ -74,7 +74,7 @@ class AppBarG extends StatelessWidget {
                 return InkWell(
                   hoverColor: Colors.transparent,
                   onTap: () {
-                    context.push('/');
+                    context.push('/${MyRouter.articles}');
                   },
                   child: const Text(
                     "教學文章",
