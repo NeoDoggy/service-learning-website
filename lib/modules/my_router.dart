@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page.dart';
+import 'package:service_learning_website/pages/articles_page/articles_page.dart';
+import 'package:service_learning_website/pages/articles_page/teaching_articles.dart';
 import 'package:service_learning_website/pages/course_editing_page/chapter_editing_page.dart';
 import 'package:service_learning_website/pages/course_editing_page/course_editing_page.dart';
 import 'package:service_learning_website/pages/courses/course_intro.dart';
@@ -21,6 +23,17 @@ class MyRouter {
               GoRoute(
                 path: MyRouter.test,
                 builder: (context, state) => const TestPage(),
+              ),
+              GoRoute(
+                path: MyRouter.articles,
+                builder: (context, state) => const ArticlesPage(),
+                routes: [
+                  // GoRoute(
+                  //   path: ":articleId",
+                  //   builder: (context, state) =>
+                  //       ArticlesPage(Id: state.params["articleId"]!, chapterId: state.queryParams["chapter"]),
+                  // ),
+                ],
               ),
               GoRoute(
                 path: MyRouter.courses,
@@ -90,6 +103,7 @@ class MyRouter {
   static const String admin = "admin";
   static const String courses = "courses";
   static const String intro = "intro";
+  static const String articles = "articles";
   // static String course(String id) => "course/$id";
   // static String chapter(String courseId, String chapterId) => "course/$courseId/$chapterId";
 }
