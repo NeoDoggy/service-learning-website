@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/my_router.dart';
 import 'package:service_learning_website/firebase_options.dart';
+import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
 import 'package:service_learning_website/providers/users_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
@@ -26,10 +27,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
-        ChangeNotifierProvider<UsersProvider>(create: (_) => UsersProvider()),
-        ChangeNotifierProvider<CoursesProvider>(
-            create: (_) => CoursesProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => UsersProvider()),
+        ChangeNotifierProvider(create: (_) => CoursesProvider()),
+        ChangeNotifierProvider(create: (_) => ActivitiesProvider())
       ],
       child: MaterialApp.router(
         title: "NCU CS Tutorial Platform",
@@ -39,7 +40,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         ),
         routerConfig: MyRouter().router,
-        // routerConfig: MyRouter(context),
       ),
     );
   }

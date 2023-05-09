@@ -39,7 +39,8 @@ class _YoutubePlayerState extends State<YoutubePlayer> {
       }
 
       _webviewController.loadHtmlString(
-          '<iframe width="${constraint.maxWidth - 25}" height="${constraint.maxHeight - 16}" src="https://www.youtube.com/embed/$vid" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media" allowfullscreen></iframe>');
+          '<iframe width="${constraint.maxWidth - 25}" height="${constraint.maxHeight - 16}" src="https://www.youtube.com/embed/$vid?rel=0" title="YouTube video player" frameborder="0" allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>');
+          // '<iframe src="https://drive.google.com/file/d/1A8UX7vipYEhFPHfvUSSueKno1pr7pnzK/preview" width="${constraint.maxWidth - 30}" height="${constraint.maxHeight - 20}" allow="autoplay" allowfullscreen></iframe>');
 
       return PlatformWebViewWidget(
         PlatformWebViewWidgetCreationParams(controller: _webviewController),
