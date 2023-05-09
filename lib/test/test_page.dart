@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:service_learning_website/pages/FavPage.dart';
-import 'package:service_learning_website/pages/LoginPage.dart';
+import 'package:provider/provider.dart';
+import 'package:service_learning_website/modules/backend/activity_calendar_data.dart';
+import 'package:service_learning_website/modules/pair.dart';
+import 'package:service_learning_website/pages/fav_page.dart';
+import 'package:service_learning_website/pages/login_page.dart';
+import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/test/window_size.dart';
+import 'package:service_learning_website/widgets/blank_question.dart';
 import 'package:service_learning_website/widgets/bottom.dart';
 import 'package:service_learning_website/widgets/mcq.dart';
 import 'package:service_learning_website/widgets/my_progress_bar.dart';
+import 'package:service_learning_website/widgets/online_course_card.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 import 'package:service_learning_website/widgets/my_download_button.dart';
-import 'package:service_learning_website/widgets/course_name_box.dart';
-import 'package:service_learning_website/widgets/online_course_card.dart';
+import 'package:service_learning_website/widgets/schedule_column.dart';
 
 class TestPage extends StatelessWidget {
   const TestPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final activitiesProvider = Provider.of<ActivitiesProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -27,6 +33,7 @@ class TestPage extends StatelessWidget {
               ],
             ),
             const SideMenu(
+                width: 260,
                 items: ["營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"]),
             // MyMarkdown(mdContent),
             const SizedBox(height: 20),
@@ -35,6 +42,8 @@ class TestPage extends StatelessWidget {
             const MyDownloadButton(),
             const SizedBox(height: 20),
             const MyDownloadButton(),
+            const SizedBox(height: 20),
+            const ScheduleColumn(),
             const SizedBox(height: 20),
             const MyProgressBar(all: 10, finished: 8),
             const Bottom(
@@ -47,8 +56,37 @@ class TestPage extends StatelessWidget {
             ),
             SizedBox(
               width: 800,
-              child: MCQ(question: question, options: options),
+              child: MCQ(question: question[0], options: options),
             ),
+            const OnlineCourseCard(
+              imageUrl: "assets/images/google.png",
+              courseName: "123",
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  activitiesProvider.createActivity();
+                  activitiesProvider.activitiesData.values.first.holdingTime = [
+                    Pair(DateTime(2023, 5, 13, 8, 30),
+                        DateTime(2023, 5, 13, 16, 30)),
+                    Pair(DateTime(2023, 5, 14, 9, 0),
+                        DateTime(2023, 5, 14, 16, 30)),
+                  ];
+                  activitiesProvider.activitiesData.values.first.calendar = [
+                    ActivityCalendarData(
+                        date: DateTime(2023, 5, 13),
+                        morning: "123",
+                        afternoon: "456"),
+                    ActivityCalendarData(
+                        date: DateTime(2023, 5, 14),
+                        morning: "1234",
+                        afternoon: "4567"),
+                  ];
+                  activitiesProvider.updateActivity(
+                      activitiesProvider.activitiesData.values.first.id);
+                  print(
+                      activitiesProvider.activitiesData.values.first.toJson());
+                },
+                child: const Text("test")),
           ],
         ),
       ),
@@ -56,7 +94,12 @@ class TestPage extends StatelessWidget {
     );
   }
 
-  static const String question = '1. 我們現在在學的程式語言是以下何者？';
+  static const List<String> question = [
+    '1. 我們現在在學的程式語言是以下何者？',
+    '2. 如何print出Hello World？'
+  ];
+
+  static const List<String> answer = ['', 'print("Hello World")'];
 
   static const List<String> options = [
     'Python',

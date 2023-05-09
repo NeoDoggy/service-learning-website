@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Bottom extends StatelessWidget {
   final String txt;
-  final nextPage;
+  final Widget nextPage;
 
   const Bottom({super.key, required this.txt, required this.nextPage});
 

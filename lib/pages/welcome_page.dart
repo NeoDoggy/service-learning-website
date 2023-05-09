@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:service_learning_website/widgets/AppBar.dart';
-import 'package:service_learning_website/widgets/Footer.dart';
-import 'package:service_learning_website/widgets/NavBar.dart';
-import 'package:service_learning_website/widgets/OpinionCard.dart';
+import 'package:service_learning_website/widgets/app_bar_g.dart';
+import 'package:service_learning_website/widgets/footer.dart';
+import 'package:service_learning_website/widgets/nav_bar.dart';
+import 'package:service_learning_website/widgets/opinion_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_shake_animated/flutter_shake_animated.dart';
 
@@ -17,19 +17,17 @@ class _WelcomePageState extends State<WelcomePage>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final ScrollController _firstController = ScrollController();
-
-    List<OpinonCard> OPC = [
-      OpinonCard(said: "hahapiyan"),
-      OpinonCard(said: "hehepiyan"),
+    List<OpinonCard> opc = [
+      const OpinonCard(said: "hahapiyan"),
+      const OpinonCard(said: "hehepiyan"),
     ];
 
     return Scaffold(
-      drawer: NavBar(),
+      drawer: const NavBar(),
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            AppBar_G(),
+            const AppBarG(),
           ];
         },
         body: LayoutBuilder(
@@ -460,14 +458,14 @@ class _WelcomePageState extends State<WelcomePage>
                               spacing: 10.0,
                               runSpacing: 10.0,
                               children: [
-                                for (OpinonCard i in OPC) i,
+                                for (OpinonCard i in opc) i,
                               ],
                             ),
                           ],
                         ),
                       ),
                     ),
-                    Footer(),
+                    const Footer(),
                   ],
                 ),
               ),

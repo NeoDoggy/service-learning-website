@@ -1,64 +1,101 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
 
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
-class OnlineCourseCard extends StatelessWidget {
-  final String imagePath;
+class OnlineCourseCard extends StatefulWidget {
+  const OnlineCourseCard({
+    super.key,
+    this.width = 350,
+    required this.imageUrl,
+    required this.courseName,
+    this.onTap,
+  });
+
+  final double width;
+  final String imageUrl;
   final String courseName;
+  final void Function()? onTap;
 
-  const OnlineCourseCard(
-      {Key? key, required this.imagePath, required this.courseName})
-      : super(key: key);
+  @override
+  State<OnlineCourseCard> createState() => _OnlineCourseCardState();
+}
+
+class _OnlineCourseCardState extends State<OnlineCourseCard> {
+  Uint8List? _imageByte;
+  bool _isHovered = false;
 
   @override
   Widget build(BuildContext context) {
-    final scale = MediaQuery.of(context).size.width / 1440.0;
+    // final scale = MediaQuery.of(context).size.width / 1440.0;
+    if (_imageByte == null) {
+      http
+          .get(Uri.parse(widget.imageUrl))
+          .timeout(Duration(seconds: 5))
+          .then((response) => setState(() => _imageByte = response.bodyBytes))
+          .catchError((_) => setState(() => _imageByte = null));
+    }
 
     return Container(
-      width: 350.0 * scale,
-      height: 300.0 * scale,
+      width: widget.width,
+      // height: 300,
       decoration: BoxDecoration(
         color: Color(0xffd6e4ff),
         borderRadius: BorderRadius.circular(30),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 350.0 * scale,
-            height: 200 * scale,
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-              ),
-              child: InkWell(
-                onTap: () {
-                  // 當按下時要跳到一個頁面(課程介紹course_intro)
-                },
-                child: Image.asset(
-                  imagePath,
-                  fit: BoxFit.cover,
+      child: GestureDetector(
+        onTap: () {
+          if (widget.onTap != null) widget.onTap!.call();
+        },
+        child: MouseRegion(
+          onEnter: (_) => setState(() => _isHovered = true),
+          onExit: (_) => setState(() => _isHovered = false),
+          cursor:
+              _isHovered ? SystemMouseCursors.click : SystemMouseCursors.basic,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: widget.width,
+                height: 200,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                  child: Builder(
+                    builder: (context) {
+                      if (_imageByte != null) {
+                        return Image.memory(
+                          _imageByte!,
+                          fit: BoxFit.cover,
+                        );
+                      }
+                      return Placeholder();
+                    },
+                  ),
                 ),
               ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              margin: EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 0.0),
-              child: Text(
-                courseName,
-                style: TextStyle(
-                  fontSize: 24.0 * scale,
-                  fontWeight: FontWeight.w400,
-                  height: 29.0 / 24.0,
-                  color: Color(0xff000000),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 20.0),
+                  child: Text(
+                    widget.courseName,
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.w400,
+                      height: 29.0 / 24.0,
+                      color: Color(0xff000000),
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

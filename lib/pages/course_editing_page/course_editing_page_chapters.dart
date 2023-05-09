@@ -31,11 +31,7 @@ class _CourseEditingPageChaptersState extends State<CourseEditingPageChapters> {
                 UserPermission.ta ||
             courseData.members.contains(authProvider.userData?.uid);
         final chaptersList = courseData.chapters.values.toList();
-        chaptersList.sort((a, b) => a.number < b.number
-            ? -1
-            : a.number > b.number
-                ? 1
-                : 0);
+        chaptersList.sort((a, b) => a.number.compareTo(b.number));
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,

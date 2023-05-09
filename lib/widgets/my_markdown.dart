@@ -7,16 +7,19 @@ class MyMarkdown extends StatelessWidget {
   const MyMarkdown(
     this.data, {
     super.key,
+    this.selectable = true,
   });
 
   /// Markdown 原始碼
   final String data;
 
+  final bool selectable;
+
   @override
   Widget build(BuildContext context) {
     return MarkdownWidget(
       data: data,
-      selectable: true,
+      selectable: selectable,
       shrinkWrap: true,
       config: MarkdownConfig(configs: [
         const H1Config(style: TextStyle(
