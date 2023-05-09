@@ -17,68 +17,54 @@ class CoursesProvider with ChangeNotifier {
   Map<String, CourseData> _coursesData = {};
   Map<String, CourseData> get coursesData => _coursesData;
 
-  void _load() {
-    _collection.get().then((snapshot) {
-      _coursesData = Map.fromIterable(
-          snapshot.docs.map((doc) => CourseData.fromJson(doc.data())).toList(),
-          key: (v) => (v as CourseData).id);
-      if (kDebugMode) {
-        print("courses_provider -> loaded");
-      }
-      notifyListeners();
-    });
+  Future<void> _load() async {
+    final snapshot = await _collection.get();
+    _coursesData = Map.fromIterable(
+        snapshot.docs.map((doc) => CourseData.fromJson(doc.data())),
+        key: (v) => (v as CourseData).id);
+    if (kDebugMode) {
+      print("courses_provider -> loaded");
+    }
+    notifyListeners();
   }
 
-  void createCourse() {
+  Future<void> createCourse() async {
     final String id = RandomId.generate();
     final CourseData courseData = CourseData(id: id, title: id);
-    _collection.doc(id).set(courseData.toJson()).then((_) {
-      _coursesData[id] = courseData;
-      if (kDebugMode) {
-        print("courses_provider -> updated");
-      }
-      notifyListeners();
-    });
+    await _collection.doc(id).set(courseData.toJson());
+    _coursesData[id] = courseData;
+    if (kDebugMode) {
+      print("courses_provider -> updated");
+    }
+    notifyListeners();
   }
 
-  void createChapter(String courseId) {
+  Future<void> createChapter(String courseId) async {
     final String id = RandomId.generate();
     final CourseChapterData chapterData = CourseChapterData(
         id: id, title: id, number: _coursesData[courseId]!.chapters.length);
-    _collection
+    await _collection
         .doc(courseId)
         .collection("chapters")
         .doc(id)
-        .set(chapterData.toJson())
-        .then((_) {
-      _coursesData[courseId]!.chapters[id] = chapterData;
-      notifyListeners();
-    });
+        .set(chapterData.toJson());
+    _coursesData[courseId]!.chapters[id] = chapterData;
+    notifyListeners();
   }
 
   Future<void> loadCourse(String courseId) async {
-    await _collection
-        .doc(courseId)
-        .collection("participants")
-        .get()
-        .then((snapshot) {
-      _coursesData[courseId]!.participants = Map.fromIterable(
-          snapshot.docs
-              .map((doc) => CourseParticipantData.fromJson(doc.data()))
-              .toList(),
-          key: (v) => (v as CourseParticipantData).uid);
-    });
-    await _collection
-        .doc(courseId)
-        .collection("chapters")
-        .get()
-        .then((snapshot) {
-      _coursesData[courseId]!.chapters = Map.fromIterable(
-          snapshot.docs
-              .map((doc) => CourseChapterData.fromJson(doc.data()))
-              .toList(),
-          key: (v) => (v as CourseChapterData).id);
-    });
+    final pSnapshot =
+        await _collection.doc(courseId).collection("participants").get();
+    final cSnapshot =
+        await _collection.doc(courseId).collection("chapters").get();
+
+    _coursesData[courseId]!.participants = Map.fromIterable(
+        pSnapshot.docs.map((doc) => CourseParticipantData.fromJson(doc.data())),
+        key: (v) => (v as CourseParticipantData).uid);
+    _coursesData[courseId]!.chapters = Map.fromIterable(
+        cSnapshot.docs.map((doc) => CourseChapterData.fromJson(doc.data())),
+        key: (v) => (v as CourseChapterData).id);
+
     notifyListeners();
   }
 
@@ -88,7 +74,7 @@ class CoursesProvider with ChangeNotifier {
       _coursesData[courseId]!.imageUrl =
           await _storage.child(courseId).getDownloadURL();
     }
-    await _collection.doc(courseId).update(coursesData[courseId]!.toJson());
+    await _collection.doc(courseId).update(_coursesData[courseId]!.toJson());
     notifyListeners();
   }
 

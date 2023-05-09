@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:service_learning_website/modules/backend/activity_calendar_data.dart';
+import 'package:service_learning_website/modules/pair.dart';
 import 'package:service_learning_website/pages/fav_page.dart';
 import 'package:service_learning_website/pages/login_page.dart';
+import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/bottom.dart';
 import 'package:service_learning_website/widgets/mcq.dart';
@@ -10,13 +14,13 @@ import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 import 'package:service_learning_website/widgets/my_download_button.dart';
 import 'package:service_learning_website/widgets/schedule_column.dart';
-import 'package:service_learning_website/widgets/youtube_player.dart';
 
 class TestPage extends StatelessWidget {
   const TestPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final activitiesProvider = Provider.of<ActivitiesProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -55,10 +59,30 @@ class TestPage extends StatelessWidget {
             ),
             const OnlineCourseCard(
                 imageUrl: "assets/images/google.png", courseName: "123"),
-            const YoutubePlayer(
-              width: 880,
-              url: "https://www.youtube.com/watch?v=yMMibCohcCk",
-            ),
+            ElevatedButton(
+                onPressed: () {
+                  activitiesProvider.createActivity();
+                  activitiesProvider.activitiesData.values.first.holdingTime = [
+                    Pair(DateTime(2023, 5, 13, 8, 30),
+                        DateTime(2023, 5, 13, 16, 30)),
+                    Pair(DateTime(2023, 5, 14, 9, 0),
+                        DateTime(2023, 5, 14, 16, 30)),
+                  ];
+                  activitiesProvider.activitiesData.values.first.calendar = [
+                    ActivityCalendarData(
+                        date: DateTime(2023, 5, 13),
+                        morning: "123",
+                        afternoon: "456"),
+                    ActivityCalendarData(
+                        date: DateTime(2023, 5, 14),
+                        morning: "1234",
+                        afternoon: "4567"),
+                  ];
+                  activitiesProvider.updateActivity(
+                      activitiesProvider.activitiesData.values.first.id);
+                  print(activitiesProvider.activitiesData.values.first.toJson());
+                },
+                child: const Text("test")),
           ],
         ),
       ),
