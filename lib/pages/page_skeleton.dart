@@ -30,6 +30,7 @@ class PageSkeleton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // navigationBar ?? const NavBar(),
               ConstrainedBox(
                 constraints: BoxConstraints(minHeight: windowHeight),
                 child: Container(

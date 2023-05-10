@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:service_learning_website/widgets/app_bar_g.dart';
 import 'package:service_learning_website/widgets/class_card.dart';
-import 'package:service_learning_website/widgets/nav_bar.dart';
 
 class FavPage extends StatefulWidget {
   const FavPage({super.key});
@@ -32,7 +31,6 @@ class _MyStatefulWidgetState extends State<FavPage>
     ];
 
     return Scaffold(
-      drawer: const NavBar(),
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[

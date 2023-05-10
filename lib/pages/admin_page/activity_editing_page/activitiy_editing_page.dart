@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/backend/user_permission.dart';
-import 'package:service_learning_website/pages/course_editing_page/course_editing_page_chapters.dart';
-import 'package:service_learning_website/pages/course_editing_page/course_editing_page_info.dart';
-import 'package:service_learning_website/pages/course_editing_page/course_editing_page_permission.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
@@ -11,8 +8,8 @@ import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
 
-class CourseEditingPage extends StatefulWidget {
-  const CourseEditingPage(
+class ActivityEditingPage extends StatefulWidget {
+  const ActivityEditingPage(
     this.id, {
     super.key,
   });
@@ -20,14 +17,16 @@ class CourseEditingPage extends StatefulWidget {
   final String id;
 
   @override
-  State<CourseEditingPage> createState() => _CourseEditingPageState();
+  State<ActivityEditingPage> createState() => _ActivityEditingPageState();
 }
 
-class _CourseEditingPageState extends State<CourseEditingPage> {
+class _ActivityEditingPageState extends State<ActivityEditingPage> {
   final List<String> _items = [
-    "課程基本資訊",
-    "課程內容",
-    "權限設置"
+    "營隊基本資訊",
+    "講義上傳",
+    "檔案上傳",
+    "活動照片",
+    "權限設置",
   ];
 
   bool _loaded = false;
@@ -51,17 +50,17 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
       return const Scaffold(body: Center(child: Text("Loading")));
     }
 
-    switch (_selectedIndex) {
-      case 0:
-        _showingWidget = CourseEditingPageInfo(widget.id);
-        break;
-      case 1:
-        _showingWidget = CourseEditingPageChapters(widget.id);
-        break;
-      case 2:
-        _showingWidget = CourseEditingPagePermission(widget.id);
-        break;
-    }
+    // switch (_selectedIndex) {
+    //   case 0:
+    //     _showingWidget = ActivityEditingPageInfo(widget.id);
+    //     break;
+    //   case 1:
+    //     _showingWidget = ActivityEditingPageChapters(widget.id);
+    //     break;
+    //   case 2:
+    //     _showingWidget = ActivityEditingPagePermission(widget.id);
+    //     break;
+    // }
 
     return PageSkeleton(
       body: Column(

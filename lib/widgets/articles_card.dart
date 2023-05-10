@@ -1,85 +1,82 @@
 import 'package:flutter/material.dart';
 
 class ArticleCard extends StatelessWidget {
-  ArticleCard({
+  const ArticleCard({
     super.key,
-    required this.Title,
-    required this.Link,
-    required this.Content,
-    required this.Height,
-    required this.Width,
-    required this.Taglist,
+    required this.title,
+    required this.link,
+    required this.content,
+    required this.height,
+    required this.width,
+    required this.taglist,
   });
 
-  String Title;
-  String Link;
-  String Content;
-  double Height;
-  double Width;
-  List<String> Taglist = [];
+  final String title;
+  final String link;
+  final String content;
+  final double height;
+  final double width;
+  final List<String> taglist;
 
-  void set_size(double height,double width){
-      this.Height = height;
-      this.Width = width;
-  }
+  // void setSize(double height, double width) {
+  //   this.height = height;
+  //   this.width = width;
+  // }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-
+      onTap: () {
         // Navigator.of(context).pushReplacement(CustomPageRoute(builder: (BuildContext context){return ArticlesPage();}));
-      
       },
-      child: Container(
-        height: Height,
-        width: Width,
+      child: SizedBox(
+        height: height,
+        width: width,
         child: Card(
-          shape: RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(15)) ),
-          color: Color(0xFFfafafa),
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+          color: const Color(0xFFfafafa),
           elevation: 0,
           child: Column(
             children: [
               Align(
                 alignment: Alignment.topCenter,
-                child: Container(
-                  width: Width,
-                  height: Height*0.6,
-                  child: Card(elevation: 0,color: Color.fromARGB(243, 255, 255, 255))
-                ),
+                child: SizedBox(
+                    width: width,
+                    height: height * 0.6,
+                    child: const Card(
+                        elevation: 0,
+                        color: Color.fromARGB(243, 255, 255, 255))),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20,top: 25,bottom: 25,right: 20),
+                padding: const EdgeInsets.only(
+                    left: 20, top: 25, bottom: 25, right: 20),
                 child: Column(
                   children: [
                     Row(
                       children: [
                         Text(
-                          Title,
-                          style: TextStyle(color: Color(0xFF1f1f1f),fontSize: 30,fontWeight: FontWeight.bold),
+                          title,
+                          style: const TextStyle(
+                              color: Color(0xFF1f1f1f),
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
                           softWrap: true,
                           overflow: TextOverflow.clip,
-                          ),
+                        ),
                       ],
                     ),
-                    SizedBox(height: 25),
+                    const SizedBox(height: 25),
                     Align(
                       alignment: Alignment.topCenter,
-                      child: Container(
-                        width: Width,
-                        child: Text(Content)
-                      ),
+                      child: SizedBox(width: width, child: Text(content)),
                     ),
                     Align(
                       alignment: Alignment.bottomLeft,
                       child: Row(
-                        children: [
-                          for(String i in Taglist)
-                            Text("#"+i)
-                          ],
-                        ),
+                        children: [for (String i in taglist) Text("#$i")],
+                      ),
                     )
-                    
                   ],
                 ),
               ),
@@ -88,6 +85,5 @@ class ArticleCard extends StatelessWidget {
         ),
       ),
     );
-    
   }
 }

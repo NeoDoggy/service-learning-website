@@ -6,7 +6,7 @@ class BlankQuestion extends StatefulWidget {
   const BlankQuestion({super.key, required this.question, required this.answer});
 
   @override
-  _BlankQuestionState createState() => _BlankQuestionState();
+  State<BlankQuestion> createState() => _BlankQuestionState();
 }
 
 class _BlankQuestionState extends State<BlankQuestion> {
