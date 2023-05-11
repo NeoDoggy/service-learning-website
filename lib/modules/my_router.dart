@@ -26,6 +26,10 @@ class MyRouter {
                 builder: (context, state) => const TestPage(),
               ),
               GoRoute(
+                path: MyRouter.backstage,
+                builder: (context, state) => const BackstagePage(),
+              ),
+              GoRoute(
                 path: MyRouter.articles,
                 builder: (context, state) => const ArticlesPage(),
                 routes: [
@@ -42,8 +46,9 @@ class MyRouter {
                 routes: [
                   GoRoute(
                     path: ":courseId",
-                    builder: (context, state) =>
-                        CoursePage(courseId: state.params["courseId"]!, chapterId: state.queryParams["chapter"]),
+                    builder: (context, state) => CoursePage(
+                        courseId: state.params["courseId"]!,
+                        chapterId: state.queryParams["chapter"]),
                   ),
                   GoRoute(
                     path: ":courseId/${MyRouter.intro}",
@@ -106,6 +111,6 @@ class MyRouter {
   static const String intro = "intro";
   static const String articles = "articles";
   // static String course(String id) => "course/$id";
-  static const String backstage = "/backstage";
+  static const String backstage = "backstage";
   // static String chapter(String courseId, String chapterId) => "course/$courseId/$chapterId";
 }
