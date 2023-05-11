@@ -16,11 +16,13 @@ class ActivityData {
     this.goal = "",
     this.description = "",
     this.imageUrl = "",
+    List<String>? members,
     List<ActivityCalendarData>? calendar,
     Map<String, ActivityParticipantData>? participants,
   })  : createdTime = createdTime ?? DateTime.now(),
         holdingTime = holdingTime ?? [],
         deadline = deadline ?? DateTime.now(),
+        members = members ?? [],
         calendar = calendar ?? [],
         participants = participants ?? {};
 
@@ -35,6 +37,7 @@ class ActivityData {
   String goal;
   String description;
   String imageUrl;
+  List<String> members;
   List<ActivityCalendarData> calendar;
 
   /// <uid, participant data>
@@ -58,6 +61,7 @@ class ActivityData {
         "goal": goal,
         "description": description,
         "imageUrl": imageUrl,
+        "members": members,
         "calendar": [
           for (var e in calendar)
             {
@@ -85,6 +89,7 @@ class ActivityData {
         goal: map["goal"],
         description: map["description"],
         imageUrl: map["imageUrl"],
+        members: (map["members"] as List?)?.map((e) => e.toString()).toList(),
         calendar: (map["calendar"] as List?)?.map((e) {
           return ActivityCalendarData(
               date: (e?["date"] as Timestamp?)?.toDate(),

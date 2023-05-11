@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/backend/user_permission.dart';
-import 'package:service_learning_website/pages/course_editing_page/course_editing_page_chapters.dart';
-import 'package:service_learning_website/pages/course_editing_page/course_editing_page_info.dart';
-import 'package:service_learning_website/pages/course_editing_page/course_editing_page_permission.dart';
+import 'package:service_learning_website/pages/admin_page/course_editing_page/course_editing_page_chapters.dart';
+import 'package:service_learning_website/pages/admin_page/course_editing_page/course_editing_page_info.dart';
+import 'package:service_learning_website/pages/admin_page/course_editing_page/course_editing_page_permission.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/widgets/articles_card.dart';
-import 'package:service_learning_website/widgets/nav_bar.dart';
 
 class TeachingArticles extends StatefulWidget {
   const TeachingArticles({super.key});
@@ -14,58 +13,57 @@ class _MyStatefulWidgetState extends State<TeachingArticles>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final ScrollController _firstController = ScrollController();
 
     double initheight = 800,
         initwidth = MediaQuery.of(context).size.width * 0.36;
 
-    List<ArticleCard> AllC = [
+    List<ArticleCard> allc = [
       ArticleCard(
-          Title: "文章標題標題1",
-          Link: "a",
-          Content: "文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點文章重點文章重點...",
-          Height: initheight,
-          Width: initwidth,
-          Taglist: ["python", "tag"]),
+          title: "文章標題標題1",
+          link: "a",
+          content: "文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點文章重點文章重點...",
+          height: MediaQuery.of(context).size.height * 0.8,
+          width: MediaQuery.of(context).size.width * 0.75,
+          taglist: const ["python", "tag"]),
       ArticleCard(
-          Title: "文章標題標題2",
-          Link: "b",
-          Content: "文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點文章重點文章重點...",
-          Height: initheight,
-          Width: initwidth,
-          Taglist: ["python", "tag"]),
+          title: "文章標題標題2",
+          link: "b",
+          content: "文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點文章重點文章重點...",
+          height: initheight,
+          width: initwidth,
+          taglist: const ["python", "tag"]),
       ArticleCard(
-          Title: "文章標題標題3",
-          Link: "c",
-          Content: "文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點文章重點文章重點...",
-          Height: initheight,
-          Width: initwidth,
-          Taglist: ["python", "tag"]),
+          title: "文章標題標題3",
+          link: "c",
+          content: "文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點文章重點文章重點...",
+          height: initheight,
+          width: initwidth,
+          taglist: const ["python", "tag"]),
       ArticleCard(
-          Title: "文章標題標題4",
-          Link: "d",
-          Content: "文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點文章重點文章重點...",
-          Height: initheight,
-          Width: initwidth,
-          Taglist: ["python", "tag"]),
+          title: "文章標題標題4",
+          link: "d",
+          content: "文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點文章重點文章重點...",
+          height: initheight,
+          width: initwidth,
+          taglist: const ["python", "tag"]),
       ArticleCard(
-          Title: "文章標題標題5",
-          Link: "e",
-          Content: "文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點文章重點文章重點...",
-          Height: initheight,
-          Width: initwidth,
-          Taglist: ["python", "tag"]),
+          title: "文章標題標題5",
+          link: "e",
+          content: "文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點文章重點文章重點...",
+          height: initheight,
+          width: initwidth,
+          taglist: const ["python", "tag"]),
       ArticleCard(
-          Title: "文章標題標題6",
-          Link: "f",
-          Content: "文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點文章重點文章重點...",
-          Height: initheight,
-          Width: initwidth,
-          Taglist: ["python", "tag"]),
+          title: "文章標題標題6",
+          link: "f",
+          content: "文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點文章重點文章重點...",
+          height: initheight,
+          width: initwidth,
+          taglist: const ["python", "tag"]),
     ];
 
-    AllC[0].set_size(MediaQuery.of(context).size.height * 0.8,
-        MediaQuery.of(context).size.width * 0.75);
+    // allc[0].setSize(MediaQuery.of(context).size.height * 0.8,
+    //     MediaQuery.of(context).size.width * 0.75);
 
     return PageSkeleton(
       body: Column(
@@ -73,7 +71,7 @@ class _MyStatefulWidgetState extends State<TeachingArticles>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-            AllC[0],
+            allc[0],
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             Wrap(
                 runSpacing: MediaQuery.of(context).size.height * 0.03,
@@ -84,10 +82,10 @@ class _MyStatefulWidgetState extends State<TeachingArticles>
                         spacing: MediaQuery.of(context).size.width * 0.03,
                         children: [
                           Column(children: [
-                            for (int i = 1; i < AllC.length; i += 2) AllC[i]
+                            for (int i = 1; i < allc.length; i += 2) allc[i]
                           ]),
                           Column(children: [
-                            for (int i = 2; i < AllC.length; i += 2) AllC[i]
+                            for (int i = 2; i < allc.length; i += 2) allc[i]
                           ]),
                         ],
                       ),

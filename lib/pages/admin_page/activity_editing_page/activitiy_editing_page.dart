@@ -1,25 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/backend/user_permission.dart';
-import 'package:service_learning_website/pages/admin_page/admin_page_activities.dart';
-import 'package:service_learning_website/pages/admin_page/admin_page_courses.dart';
-import 'package:service_learning_website/pages/admin_page/admin_page_users.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
+import 'package:service_learning_website/providers/courses_provider.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
 
-class AdminPage extends StatefulWidget {
-  const AdminPage({super.key});
+class ActivityEditingPage extends StatefulWidget {
+  const ActivityEditingPage(
+    this.id, {
+    super.key,
+  });
+
+  final String id;
 
   @override
-  State<AdminPage> createState() => _AdminPageState();
+  State<ActivityEditingPage> createState() => _ActivityEditingPageState();
 }
 
-class _AdminPageState extends State<AdminPage> {
-  final List<String> _items = ["營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"];
+class _ActivityEditingPageState extends State<ActivityEditingPage> {
+  final List<String> _items = [
+    "營隊基本資訊",
+    "講義上傳",
+    "檔案上傳",
+    "活動照片",
+    "權限設置",
+  ];
 
+  bool _loaded = false;
   int _selectedIndex = 0;
   Widget _showingWidget = const SizedBox(height: 2000, child: Placeholder());
 
@@ -31,35 +41,36 @@ class _AdminPageState extends State<AdminPage> {
       return const Scaffold(body: Center(child: Text("Permission denied")));
     }
 
-    switch (_selectedIndex) {
-      case 0:
-        _showingWidget = const AdminPageActivities();
-        break;
-      case 1:
-        _showingWidget = Container(height: 2000, color: Colors.orange);
-        break;
-      case 2:
-        _showingWidget = const AdminPageCourses();
-        break;
-      case 3:
-        _showingWidget = const AdminPageUsers();
-        break;
-      case 4:
-        _showingWidget = Container(height: 2000, color: Colors.blue);
-        break;
-      case 5:
-        _showingWidget = Container(height: 2000, color: Colors.purple);
-        break;
+    final courseProvider = Provider.of<CoursesProvider>(context);
+    if (!_loaded) {
+      _loaded = true;
+      courseProvider.loadCourse(widget.id);
     }
+    if (courseProvider.coursesData[widget.id] == null) {
+      return const Scaffold(body: Center(child: Text("Loading")));
+    }
+
+    // switch (_selectedIndex) {
+    //   case 0:
+    //     _showingWidget = ActivityEditingPageInfo(widget.id);
+    //     break;
+    //   case 1:
+    //     _showingWidget = ActivityEditingPageChapters(widget.id);
+    //     break;
+    //   case 2:
+    //     _showingWidget = ActivityEditingPagePermission(widget.id);
+    //     break;
+    // }
 
     return PageSkeleton(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const TitleTextBox("管理者後台"),
+          TitleTextBox(courseProvider.coursesData[widget.id]?.title ?? ""),
           const SizedBox(height: 60),
           Row(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -74,7 +85,7 @@ class _AdminPageState extends State<AdminPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       _items[_selectedIndex],
@@ -86,7 +97,6 @@ class _AdminPageState extends State<AdminPage> {
                     ),
                     const SizedBox(height: 40),
                     _showingWidget,
-                    // Flexible(child: _showingWidget),
                   ],
                 ),
               )

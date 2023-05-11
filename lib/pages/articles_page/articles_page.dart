@@ -91,14 +91,13 @@ aaaa
 """;
   @override
   Widget build(BuildContext context) {
-    final ScrollController _firstController = ScrollController();
     return PageSkeleton(
       body: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TitleTextBox("一階ODE Homogeneous 與 non-Homogeneous"),
-          SizedBox(height: 60),
+          const TitleTextBox("一階ODE Homogeneous 與 non-Homogeneous"),
+          const SizedBox(height: 60),
           MyMarkdown(markdownData)
         ],
       ),

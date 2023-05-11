@@ -6,7 +6,6 @@ import 'package:service_learning_website/pages/fav_page.dart';
 import 'package:service_learning_website/pages/login_page.dart';
 import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/test/window_size.dart';
-import 'package:service_learning_website/widgets/blank_question.dart';
 import 'package:service_learning_website/widgets/bottom.dart';
 import 'package:service_learning_website/widgets/mcq.dart';
 import 'package:service_learning_website/widgets/my_progress_bar.dart';

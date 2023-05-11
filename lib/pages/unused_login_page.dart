@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shake_animated/flutter_shake_animated.dart';
 import 'package:service_learning_website/widgets/app_bar_g.dart';
-import 'package:service_learning_website/widgets/nav_bar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -47,7 +46,6 @@ class _MyStatefulWidgetState extends State<LoginPage> with TickerProviderStateMi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const NavBar(),
         body:NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
