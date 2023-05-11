@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class ScheduleColumn extends StatelessWidget 
+class Camp_Card extends StatelessWidget 
 {
-  const ScheduleColumn({super.key});
+  const Camp_Card({super.key});
 
   @override
   Widget build(BuildContext context) 
   {
     return Container
     (
-      width: 1240.0,
-      height: 200.0,
+      width: 350.0,
+      height: 469.0,
 
       decoration: BoxDecoration
       (
-        color: Color(0xFF0A2472),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(30),
       ),
    
@@ -24,12 +24,10 @@ class ScheduleColumn extends StatelessWidget
         [
           Positioned
           (
-            left: 40.0,
-            top: 40.0,
             child: Container
             (
-              width: 120.0,
-              height: 120.0,
+              width: 350.0,
+              height: 200.0,
               
               decoration: const BoxDecoration
               (
@@ -133,4 +131,5 @@ class ScheduleColumn extends StatelessWidget
       ),
     );
   }
+
 }
