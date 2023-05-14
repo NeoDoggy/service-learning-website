@@ -12,6 +12,7 @@ import 'package:service_learning_website/pages/course_page/courses_browsing_page
 import 'package:service_learning_website/pages/login_page.dart';
 import 'package:service_learning_website/pages/welcome_page.dart';
 import 'package:service_learning_website/test/test_page.dart';
+import 'package:service_learning_website/pages/backstage_page/backstage_page.dart';
 
 class MyRouter {
   static const String test = "test";
@@ -21,6 +22,7 @@ class MyRouter {
   static const String courses = "courses";
   static const String intro = "intro";
   static const String articles = "articles";
+  static const String backstage = "backstage";
 
   GoRouter get router => GoRouter(
         initialLocation: "/",
@@ -32,6 +34,10 @@ class MyRouter {
               GoRoute(
                 path: MyRouter.test,
                 builder: (context, state) => const TestPage(),
+              ),
+              GoRoute(
+                path: MyRouter.backstage,
+                builder: (context, state) => const BackstagePage(),
               ),
               GoRoute(
                 path: MyRouter.activities,

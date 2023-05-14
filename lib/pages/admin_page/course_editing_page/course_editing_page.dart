@@ -24,11 +24,7 @@ class CourseEditingPage extends StatefulWidget {
 }
 
 class _CourseEditingPageState extends State<CourseEditingPage> {
-  final List<String> _items = [
-    "課程基本資訊",
-    "課程內容",
-    "權限設置"
-  ];
+  final List<String> _items = ["課程基本資訊", "課程內容", "權限設置"];
 
   bool _loaded = false;
   int _selectedIndex = 0;
