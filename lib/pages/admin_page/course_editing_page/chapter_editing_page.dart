@@ -41,12 +41,12 @@ class _ChapterEditingPageState extends State<ChapterEditingPage> {
       return const Scaffold(body: Center(child: Text("Permission denied")));
     }
 
-    final courseProvider = Provider.of<CoursesProvider>(context);
+    final coursesProvider = Provider.of<CoursesProvider>(context);
     if (!_loaded) {
       _loaded = true;
-      courseProvider.loadCourse(widget.courseId);
+      coursesProvider.loadCourse(widget.courseId);
     }
-    if (courseProvider
+    if (coursesProvider
             .coursesData[widget.courseId]?.chapters[widget.chapterId] ==
         null) {
       return const Scaffold(body: Center(child: Text("Loading")));
@@ -70,8 +70,7 @@ class _ChapterEditingPageState extends State<ChapterEditingPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TitleTextBox(
-                "${chapterData.number + 1}. ${chapterData.title}"),
+            TitleTextBox("${chapterData.number + 1}. ${chapterData.title}"),
             const SizedBox(height: 60),
             if (_isEdited)
               ElevatedButton(
@@ -79,7 +78,8 @@ class _ChapterEditingPageState extends State<ChapterEditingPage> {
                     chapterData.title = _titleTextController.text;
                     chapterData.videoUrl = _videoUrlTextController.text;
                     chapterData.mdContent = _mdContentTextController.text;
-                    courseProvider.updateChapter(widget.courseId, widget.chapterId);
+                    coursesProvider.updateChapter(
+                        widget.courseId, widget.chapterId);
                     setState(() => _isEdited = false);
                   },
                   child: const Text("儲存變更")),

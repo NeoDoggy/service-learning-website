@@ -43,4 +43,11 @@ class ActivitiesProvider with ChangeNotifier {
         .set(_activitiesData[activityId]!.toJson());
     notifyListeners();
   }
+
+  Future<void> loadActivity(String activityId) async {
+    final pSnapshot =
+        await _collection.doc(activityId).collection("participants").get();
+    final cSnapshot =
+        await _collection.doc(activityId).collection("chapters").get();
+  }
 }

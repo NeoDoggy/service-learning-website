@@ -18,7 +18,14 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
-  final List<String> _items = ["營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"];
+  final List<String> _items = [
+    "營隊管理",
+    "文章管理",
+    "課程管理",
+    "使用者管理",
+    "常見問題",
+    "表單回覆",
+  ];
 
   int _selectedIndex = 0;
   Widget _showingWidget = const SizedBox(height: 2000, child: Placeholder());

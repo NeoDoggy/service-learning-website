@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/backend/user_permission.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
+import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
-import 'package:service_learning_website/providers/courses_provider.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
@@ -41,33 +41,39 @@ class _ActivityEditingPageState extends State<ActivityEditingPage> {
       return const Scaffold(body: Center(child: Text("Permission denied")));
     }
 
-    final courseProvider = Provider.of<CoursesProvider>(context);
+    final activitiesProvider = Provider.of<ActivitiesProvider>(context);
     if (!_loaded) {
       _loaded = true;
-      courseProvider.loadCourse(widget.id);
+      activitiesProvider.loadActivity(widget.id);
     }
-    if (courseProvider.coursesData[widget.id] == null) {
+    if (activitiesProvider.activitiesData[widget.id] == null) {
       return const Scaffold(body: Center(child: Text("Loading")));
     }
 
-    // switch (_selectedIndex) {
-    //   case 0:
-    //     _showingWidget = ActivityEditingPageInfo(widget.id);
-    //     break;
-    //   case 1:
-    //     _showingWidget = ActivityEditingPageChapters(widget.id);
-    //     break;
-    //   case 2:
-    //     _showingWidget = ActivityEditingPagePermission(widget.id);
-    //     break;
-    // }
+    switch (_selectedIndex) {
+      case 0:
+        _showingWidget = Container(height: 2000, color: Colors.red);
+        break;
+      case 1:
+        _showingWidget = Container(height: 2000, color: Colors.orange);
+        break;
+      case 2:
+        _showingWidget = Container(height: 2000, color: Colors.yellow);
+        break;
+      case 3:
+        _showingWidget = Container(height: 2000, color: Colors.green);
+        break;
+      case 4:
+        _showingWidget = Container(height: 2000, color: Colors.blue);
+        break;
+    }
 
     return PageSkeleton(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TitleTextBox(courseProvider.coursesData[widget.id]?.title ?? ""),
+          TitleTextBox(activitiesProvider.activitiesData[widget.id]?.title ?? ""),
           const SizedBox(height: 60),
           Row(
             mainAxisSize: MainAxisSize.min,
