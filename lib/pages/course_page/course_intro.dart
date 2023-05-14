@@ -132,11 +132,12 @@ class _CourseIntroState extends State<CourseIntro> {
                                 const SizedBox(height: 20),
                                 MyMarkdown(courseData.outline,
                                     selectable: false),
-                                const SizedBox(height: 40),
+                                // const SizedBox(height: 40),
                               ]),
                         ),
                       ),
                     ]),
+                const SizedBox(height: 40),
                 Align(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(

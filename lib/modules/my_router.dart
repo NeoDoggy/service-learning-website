@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:service_learning_website/pages/activities_page/activities_browsing_page.dart';
+import 'package:service_learning_website/pages/activities_page/activity_intro.dart';
 import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page.dart';
 import 'package:service_learning_website/pages/articles_page/articles_page.dart';
@@ -41,7 +42,14 @@ class MyRouter {
               ),
               GoRoute(
                 path: MyRouter.activities,
-                builder: (context, state) => const Placeholder(),
+                builder: (context, state) => const ActivitiesBrowsingPage(),
+                routes: [
+                  GoRoute(
+                    path: ":activityId/${MyRouter.intro}",
+                    builder: (context, state) =>
+                        ActivityIntro(activityId: state.params["activityId"]!),
+                  ),
+                ],
               ),
               GoRoute(
                 path: MyRouter.articles,
@@ -49,7 +57,7 @@ class MyRouter {
               ),
               GoRoute(
                 path: MyRouter.courses,
-                builder: (context, state) => const CourseBrowsingPage(),
+                builder: (context, state) => const CoursesBrowsingPage(),
                 routes: [
                   GoRoute(
                     path: ":courseId",

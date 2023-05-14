@@ -90,11 +90,11 @@ class ActivityData {
         description: map["description"],
         imageUrl: map["imageUrl"],
         members: (map["members"] as List?)?.map((e) => e.toString()).toList(),
-        calendar: (map["calendar"] as List?)?.map((e) {
-          return ActivityCalendarData(
-              date: (e?["date"] as Timestamp?)?.toDate(),
-              morning: e?["morning"],
-              afternoon: e?["afternoon"]);
-        }).toList(),
+        calendar: (map["calendar"] as List?)
+            ?.map((e) => ActivityCalendarData(
+                date: (e?["date"] as Timestamp?)?.toDate(),
+                morning: e?["morning"],
+                afternoon: e?["afternoon"]))
+            .toList(),
       );
 }
