@@ -48,7 +48,7 @@ class PageSkeleton extends StatelessWidget {
           ),
         ),
       ),
-      bottomSheet: bottomSheet,
+      // bottomSheet: bottomSheet,
     );
   }
 }

@@ -23,18 +23,18 @@ class MyMarkdown extends StatelessWidget {
       shrinkWrap: true,
       config: MarkdownConfig(configs: [
         const H1Config(style: TextStyle(
-          fontSize: 64,
-          height: 77 / 64,
+          fontSize: 48,
+          // height: 77 / 64,
           fontWeight: FontWeight.bold,
         )),
         const H2Config(style: TextStyle(
-          fontSize: 48,
-          height: 58 / 48,
+          fontSize: 36,
+          // height: 58 / 48,
           fontWeight: FontWeight.bold,
         )),
         const H3Config(style: TextStyle(
-          fontSize: 36,
-          height: 44 / 36,
+          fontSize: 24,
+          // height: 44 / 36,
           fontWeight: FontWeight.bold,
         )),
         CodeConfig(style: GoogleFonts.ubuntuMono().copyWith(
