@@ -1,15 +1,16 @@
 import 'dart:typed_data';
 
+import 'package:date_field/date_field.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
-import 'package:service_learning_website/providers/courses_provider.dart';
 
-class CourseEditingPageInfo extends StatefulWidget {
-  const CourseEditingPageInfo(
+class ActivityEditingPageInfo extends StatefulWidget {
+  const ActivityEditingPageInfo(
     this.id, {
     super.key,
   });
@@ -17,15 +18,17 @@ class CourseEditingPageInfo extends StatefulWidget {
   final String id;
 
   @override
-  State<CourseEditingPageInfo> createState() => _CourseEditingPageInfoState();
+  State<ActivityEditingPageInfo> createState() =>
+      _ActivityEditingPageInfoState();
 }
 
-class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
+class _ActivityEditingPageInfoState extends State<ActivityEditingPageInfo> {
   final _titleTextController = TextEditingController();
   final _descriptionTextController = TextEditingController();
+  final _placeTextController = TextEditingController();
   final _audienceTextController = TextEditingController();
-  final _environmentTextController = TextEditingController();
-  final _outlineTextController = TextEditingController();
+  final _feeTextController = TextEditingController();
+  final _goalTextController = TextEditingController();
 
   bool _isEdited = false;
   bool _canEdit = false;
@@ -37,29 +40,28 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
     _titleTextController.dispose();
     _descriptionTextController.dispose();
     _audienceTextController.dispose();
-    _environmentTextController.dispose();
-    _outlineTextController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<AuthProvider, CoursesProvider>(
-      builder: (context, authProvider, coursesProvider, child) {
-        final courseData = coursesProvider.coursesData[widget.id]!;
+    return Consumer2<AuthProvider, ActivitiesProvider>(
+      builder: (context, authProvider, activitiesProvider, child) {
+        final activityData = activitiesProvider.activitiesData[widget.id]!;
         _canEdit = (authProvider.userData?.permission ?? UserPermission.none) >=
                 UserPermission.ta ||
-            courseData.members.contains(authProvider.userData?.uid);
+            activityData.members.contains(authProvider.userData?.uid);
 
         if (!_isEdited) {
-          _titleTextController.text = courseData.title;
-          _descriptionTextController.text = courseData.description;
-          _audienceTextController.text = courseData.audience;
-          _environmentTextController.text = courseData.environment;
-          _outlineTextController.text = courseData.outline;
-          if (_imageByte == null && courseData.imageUrl != "") {
+          _titleTextController.text = activityData.title;
+          _descriptionTextController.text = activityData.description;
+          _placeTextController.text = activityData.place;
+          _audienceTextController.text = activityData.audience;
+          _feeTextController.text = activityData.fee;
+          _goalTextController.text = activityData.goal;
+          if (_imageByte == null && activityData.imageUrl != "") {
             http
-                .get(Uri.parse(courseData.imageUrl))
+                .get(Uri.parse(activityData.imageUrl))
                 .timeout(const Duration(seconds: 5))
                 .then((response) =>
                     setState(() => _imageByte = response.bodyBytes))
@@ -74,12 +76,14 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
               if (_isEdited)
                 ElevatedButton(
                     onPressed: () {
-                      courseData.title = _titleTextController.text;
-                      courseData.description = _descriptionTextController.text;
-                      courseData.audience = _audienceTextController.text;
-                      courseData.environment = _environmentTextController.text;
-                      courseData.outline = _outlineTextController.text;
-                      coursesProvider.updateCourse(widget.id,
+                      activityData.title = _titleTextController.text;
+                      activityData.description =
+                          _descriptionTextController.text;
+                      activityData.place = _placeTextController.text;
+                      activityData.audience = _audienceTextController.text;
+                      activityData.fee = _feeTextController.text;
+                      activityData.goal = _goalTextController.text;
+                      activitiesProvider.updateActivity(widget.id,
                           image: _imageEdited ? _imageByte : null);
                       setState(() => _isEdited = false);
                     },
@@ -96,11 +100,24 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
               ),
               TextField(
                 readOnly: !_canEdit,
-                controller: _descriptionTextController,
+                controller: _placeTextController,
                 onChanged: (_) => setState(() => _isEdited = true),
                 decoration: const InputDecoration(
-                  labelText: "課程介紹",
-                  icon: Icon(Icons.description),
+                  labelText: "活動地點",
+                  icon: Icon(Icons.place),
+                ),
+              ),
+              DateTimeField(
+                enabled: _canEdit,
+                onDateSelected: (value) => setState(() {
+                  activityData.deadline = value;
+                  _isEdited = true;
+                }),
+                selectedDate: activityData.deadline,
+                mode: DateTimeFieldPickerMode.date,
+                decoration: const InputDecoration(
+                  labelText: "報名截止日期",
+                  icon: Icon(Icons.calendar_today),
                 ),
               ),
               TextField(
@@ -114,22 +131,31 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
               ),
               TextField(
                 readOnly: !_canEdit,
-                controller: _environmentTextController,
+                controller: _feeTextController,
                 onChanged: (_) => setState(() => _isEdited = true),
                 decoration: const InputDecoration(
-                  labelText: "開發環境",
-                  icon: Icon(Icons.computer),
+                  labelText: "費用",
+                  icon: Icon(Icons.attach_money),
                 ),
               ),
               TextField(
                 readOnly: !_canEdit,
-                controller: _outlineTextController,
+                controller: _goalTextController,
+                onChanged: (_) => setState(() => _isEdited = true),
+                decoration: const InputDecoration(
+                  labelText: "課程目標",
+                  icon: Icon(Icons.track_changes),
+                ),
+              ),
+              TextField(
+                readOnly: !_canEdit,
+                controller: _descriptionTextController,
                 onChanged: (_) => setState(() => _isEdited = true),
                 maxLines: null,
                 decoration: const InputDecoration(
-                  labelText: "課程大綱",
-                  hintText: "使用 Markdown 語法，可換行輸入",
-                  icon: Icon(Icons.list),
+                  labelText: "內容說明",
+                  hintText: "可換行輸入",
+                  icon: Icon(Icons.description),
                 ),
               ),
               const SizedBox(height: 40),
@@ -142,7 +168,8 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
               ]),
               const SizedBox(height: 20),
               if (_imageByte != null) Image.memory(_imageByte!, width: 400),
-              if (_imageByte == null) const SizedBox(width: 400, child: Placeholder()),
+              if (_imageByte == null)
+                const SizedBox(width: 400, child: Placeholder()),
             ]);
       },
     );

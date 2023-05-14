@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/pages/admin_page/activity_editing_page/acrivity_editing_page_permission.dart';
+import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page_info.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
@@ -23,9 +25,12 @@ class ActivityEditingPage extends StatefulWidget {
 class _ActivityEditingPageState extends State<ActivityEditingPage> {
   final List<String> _items = [
     "營隊基本資訊",
+    "行事曆",
+    "附加報名問題",
     "講義上傳",
     "檔案上傳",
     "活動照片",
+    "已報名學生",
     "權限設置",
   ];
 
@@ -52,19 +57,28 @@ class _ActivityEditingPageState extends State<ActivityEditingPage> {
 
     switch (_selectedIndex) {
       case 0:
-        _showingWidget = Container(height: 2000, color: Colors.red);
+        _showingWidget = ActivityEditingPageInfo(widget.id);
         break;
       case 1:
-        _showingWidget = Container(height: 2000, color: Colors.orange);
+        _showingWidget = Container(height: 2000, color: Colors.pink);
         break;
       case 2:
-        _showingWidget = Container(height: 2000, color: Colors.yellow);
+        _showingWidget = Container(height: 2000, color: Colors.red);
         break;
       case 3:
-        _showingWidget = Container(height: 2000, color: Colors.green);
+        _showingWidget = Container(height: 2000, color: Colors.orange);
         break;
       case 4:
+        _showingWidget = Container(height: 2000, color: Colors.yellow);
+        break;
+      case 5:
+        _showingWidget = Container(height: 2000, color: Colors.green);
+        break;
+      case 6:
         _showingWidget = Container(height: 2000, color: Colors.blue);
+        break;
+      case 7:
+        _showingWidget = ActivityEditingPagePermission(widget.id);
         break;
     }
 

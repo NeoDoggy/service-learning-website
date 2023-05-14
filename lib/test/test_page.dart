@@ -4,6 +4,7 @@ import 'package:service_learning_website/modules/backend/activity_calendar_data.
 import 'package:service_learning_website/modules/pair.dart';
 import 'package:service_learning_website/pages/fav_page.dart';
 import 'package:service_learning_website/pages/login_page.dart';
+import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/bottom.dart';
@@ -21,73 +22,71 @@ class TestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final activitiesProvider = Provider.of<ActivitiesProvider>(context);
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: const [
-                UserIcon(size: 32),
-              ],
-            ),
-            const SideMenu(
-                width: 260,
-                items: ["營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"]),
-            // MyMarkdown(mdContent),
-            const SizedBox(height: 20),
-            const MyDownloadButton(),
-            const SizedBox(height: 20),
-            const MyDownloadButton(),
-            const SizedBox(height: 20),
-            const MyDownloadButton(),
-            const SizedBox(height: 20),
-            const ScheduleColumn(),
-            const SizedBox(height: 20),
-            const MyProgressBar(all: 10, finished: 8),
-            const Bottom(
-              txt: '進行測驗',
-              nextPage: LoginPage(),
-            ),
-            const Bottom(
-              txt: '我有問題',
-              nextPage: FavPage(),
-            ),
-            SizedBox(
-              width: 800,
-              child: MCQ(question: question[0], options: options),
-            ),
-            const OnlineCourseCard(
-              imageUrl: "assets/images/google.png",
-              courseName: "123",
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  activitiesProvider.createActivity();
-                  activitiesProvider.activitiesData.values.first.holdingTime = [
-                    Pair(DateTime(2023, 5, 13, 8, 30),
-                        DateTime(2023, 5, 13, 16, 30)),
-                    Pair(DateTime(2023, 5, 14, 9, 0),
-                        DateTime(2023, 5, 14, 16, 30)),
-                  ];
-                  activitiesProvider.activitiesData.values.first.calendar = [
-                    ActivityCalendarData(
-                        date: DateTime(2023, 5, 13),
-                        morning: "123",
-                        afternoon: "456"),
-                    ActivityCalendarData(
-                        date: DateTime(2023, 5, 14),
-                        morning: "1234",
-                        afternoon: "4567"),
-                  ];
-                  activitiesProvider.updateActivity(
-                      activitiesProvider.activitiesData.values.first.id);
-                  print(
-                      activitiesProvider.activitiesData.values.first.toJson());
-                },
-                child: const Text("test")),
-          ],
-        ),
+    return PageSkeleton(
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: const [
+              UserIcon(size: 32),
+            ],
+          ),
+          const SideMenu(
+              width: 260,
+              items: ["營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"]),
+          // MyMarkdown(mdContent),
+          const SizedBox(height: 20),
+          const MyDownloadButton(),
+          const SizedBox(height: 20),
+          const MyDownloadButton(),
+          const SizedBox(height: 20),
+          const MyDownloadButton(),
+          const SizedBox(height: 20),
+          const ScheduleColumn(),
+          const SizedBox(height: 20),
+          const MyProgressBar(all: 10, finished: 8),
+          const Bottom(
+            txt: '進行測驗',
+            nextPage: LoginPage(),
+          ),
+          const Bottom(
+            txt: '我有問題',
+            nextPage: FavPage(),
+          ),
+          SizedBox(
+            width: 800,
+            child: MCQ(question: question[0], options: options),
+          ),
+          const OnlineCourseCard(
+            imageUrl: "assets/images/google.png",
+            courseName: "123",
+          ),
+          ElevatedButton(
+              onPressed: () {
+                activitiesProvider.createActivity();
+                activitiesProvider.activitiesData.values.first.holdingTime = [
+                  Pair(DateTime(2023, 5, 13, 8, 30),
+                      DateTime(2023, 5, 13, 16, 30)),
+                  Pair(DateTime(2023, 5, 14, 9, 0),
+                      DateTime(2023, 5, 14, 16, 30)),
+                ];
+                activitiesProvider.activitiesData.values.first.calendar = [
+                  ActivityCalendarData(
+                      date: DateTime(2023, 5, 13),
+                      morning: "123",
+                      afternoon: "456"),
+                  ActivityCalendarData(
+                      date: DateTime(2023, 5, 14),
+                      morning: "1234",
+                      afternoon: "4567"),
+                ];
+                activitiesProvider.updateActivity(
+                    activitiesProvider.activitiesData.values.first.id);
+                print(
+                    activitiesProvider.activitiesData.values.first.toJson());
+              },
+              child: const Text("test")),
+        ],
       ),
       bottomSheet: const WindowSize(),
     );

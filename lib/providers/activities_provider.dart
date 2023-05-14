@@ -37,7 +37,12 @@ class ActivitiesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateActivity(String activityId) async {
+  Future<void> updateActivity(String activityId, {Uint8List? image}) async {
+    if (image != null) {
+      await _storage.child("$activityId/preview").putData(image);
+      _activitiesData[activityId]!.imageUrl =
+          await _storage.child("$activityId/preview").getDownloadURL();
+    }
     await _collection
         .doc(activityId)
         .set(_activitiesData[activityId]!.toJson());
