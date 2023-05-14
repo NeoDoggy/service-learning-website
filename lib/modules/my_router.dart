@@ -68,9 +68,7 @@ class MyRouter {
                 path: MyRouter.login,
                 builder: (context, state) => const LoginPage(),
                 redirect: (context, state) {
-                  return FirebaseAuth.instance.currentUser != null
-                      ? "/${MyRouter.admin}"
-                      : null;
+                  return FirebaseAuth.instance.currentUser != null ? "/" : null;
                 },
               ),
               GoRoute(
