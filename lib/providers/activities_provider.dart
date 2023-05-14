@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:service_learning_website/modules/backend/activity_data.dart';
+import 'package:service_learning_website/modules/backend/activity_participant_data.dart';
 import 'package:service_learning_website/modules/random_id.dart';
 
 class ActivitiesProvider with ChangeNotifier {
@@ -50,9 +51,19 @@ class ActivitiesProvider with ChangeNotifier {
   }
 
   Future<void> loadActivity(String activityId) async {
-    final pSnapshot =
-        await _collection.doc(activityId).collection("participants").get();
-    final cSnapshot =
-        await _collection.doc(activityId).collection("chapters").get();
+    // final pSnapshot =
+    //     await _collection.doc(activityId).collection("participants").get();
+    // final cSnapshot =
+    //     await _collection.doc(activityId).collection("chapters").get();
+  }
+
+  Future<void> addParticipant(String activityId, String uid) async {
+    _activitiesData[activityId]!.participants[uid] = ActivityParticipantData(uid: uid);
+    await _collection
+        .doc(activityId)
+        .collection("participants")
+        .doc(uid)
+        .set(_activitiesData[activityId]!.participants[uid]!.toJson());
+    notifyListeners();
   }
 }

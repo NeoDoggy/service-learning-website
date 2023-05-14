@@ -16,8 +16,8 @@ class AppBarG extends StatelessWidget {
       iconTheme: const IconThemeData(
         color: Color(0xFF858585),
       ),
-      title: Row(
-        children: const [
+      title: const Row(
+        children: [
           Icon(
             Icons.logo_dev,
             color: Color(0xFF474747),
@@ -56,7 +56,7 @@ class AppBarG extends StatelessWidget {
               return InkWell(
                 hoverColor: Colors.transparent,
                 onTap: () {
-                  context.push('/');
+                  context.push('/${MyRouter.activities}');
                 },
                 child: const Text(
                   "營隊活動",

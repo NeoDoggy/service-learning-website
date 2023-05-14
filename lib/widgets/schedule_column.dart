@@ -1,93 +1,92 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ScheduleColumn extends StatelessWidget {
-  const ScheduleColumn({super.key});
+  const ScheduleColumn({
+    super.key,
+    required this.dateTime,
+    required this.morning,
+    required this.afternoon,
+  });
+
+  final DateTime dateTime;
+  final String morning;
+  final String afternoon;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 1240.0,
-      height: 200.0,
+      height: 200,
+      padding: const EdgeInsets.only(left: 40, right: 40, top: 30, bottom: 30),
       decoration: BoxDecoration(
         color: const Color(0xFF0A2472),
         borderRadius: BorderRadius.circular(30),
       ),
-      child: Stack(
+      child: Flex(
+        direction: Axis.horizontal,
         children: [
-          Positioned(
-            left: 40.0,
-            top: 40.0,
-            child: Container(
-              width: 120.0,
-              height: 120.0,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children:
-                    // ignore: prefer_const_literals_to_create_immutables
-                    [
-                  const Text(
-                    '日期',
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Text(
-                    '\n星期',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+          Container(
+            width: 120.0,
+            height: 120.0,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
             ),
-          ),
-          Positioned(
-            left: 230.0,
-            top: 30.0,
-            child: Container(
-              width: 450.0,
-              height: 140.0,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: const Center(
-                child: Text(
-                  '文字文字文字文字',
-                  style: TextStyle(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children:
+                  // ignore: prefer_const_literals_to_create_immutables
+                  [
+                Text(
+                  DateFormat("MM/dd").format(dateTime),
+                  style: const TextStyle(
                     fontSize: 24,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
+                Text(
+                  DateFormat("E").format(dateTime),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ),
-          Positioned(
-            left: 720.0,
-            top: 30.0,
+          const SizedBox(width: 40),
+          Flexible(
             child: Container(
-              width: 480.0,
-              height: 140.0,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30),
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
-                  '文字文字文字文字',
-                  style: TextStyle(
-                    fontSize: 24,
+                  morning,
+                  style: const TextStyle(
+                    fontSize: 16,
                     color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 40),
+          Flexible(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Center(
+                child: Text(
+                  afternoon,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.black,
                   ),
                 ),
               ),
