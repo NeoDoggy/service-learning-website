@@ -52,6 +52,16 @@ class CoursesProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> deleteChapter(String courseId, String chapterId) async {
+    await _collection
+        .doc(courseId)
+        .collection("chapters")
+        .doc(chapterId)
+        .delete();
+    _coursesData[courseId]!.chapters.remove(chapterId);
+    notifyListeners();
+  }
+
   Future<void> loadCourse(String courseId) async {
     final pSnapshot =
         await _collection.doc(courseId).collection("participants").get();

@@ -34,8 +34,12 @@ class PageSkeleton extends StatelessWidget {
               ConstrainedBox(
                 constraints: BoxConstraints(minHeight: windowHeight),
                 child: Container(
-                  padding: const EdgeInsets.only(
-                      left: 100, right: 100, top: 60, bottom: 100),
+                  padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width / 1440 * 150,
+                    right: MediaQuery.of(context).size.width / 1440 * 150,
+                    top: 60,
+                    bottom: 100,
+                  ),
                   child: body,
                 ),
               ),
