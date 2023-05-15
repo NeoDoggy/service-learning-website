@@ -111,13 +111,43 @@ class _ActivityEditingPageCalendarState
                       icon: Icon(Icons.calendar_today),
                     ),
                   ),
+                  DateTimeField(
+                    enabled: _canEdit,
+                    onDateSelected: (value) {
+                      setState(() {
+                        calender[i].begin = value;
+                        _isEdited = true;
+                      });
+                    },
+                    selectedDate: calender[i].begin,
+                    mode: DateTimeFieldPickerMode.time,
+                    decoration: const InputDecoration(
+                      labelText: "開始時間",
+                      icon: Icon(Icons.schedule),
+                    ),
+                  ),
+                  DateTimeField(
+                    enabled: _canEdit,
+                    onDateSelected: (value) {
+                      setState(() {
+                        calender[i].end = value;
+                        _isEdited = true;
+                      });
+                    },
+                    selectedDate: calender[i].end,
+                    mode: DateTimeFieldPickerMode.time,
+                    decoration: const InputDecoration(
+                      labelText: "結束時間",
+                      icon: Icon(Icons.schedule),
+                    ),
+                  ),
                   TextField(
                     readOnly: !_canEdit,
                     controller: _morningControllers[i],
                     onChanged: (_) => setState(() => _isEdited = true),
                     decoration: const InputDecoration(
                       labelText: "上午行程",
-                      icon: Icon(Icons.schedule),
+                      icon: Icon(Icons.description),
                     ),
                   ),
                   TextField(
@@ -126,7 +156,7 @@ class _ActivityEditingPageCalendarState
                     onChanged: (_) => setState(() => _isEdited = true),
                     decoration: const InputDecoration(
                       labelText: "下午行程",
-                      icon: Icon(Icons.schedule),
+                      icon: Icon(Icons.description),
                     ),
                   ),
                   const SizedBox(height: 10),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ArticleCard extends StatelessWidget {
   const ArticleCard({
@@ -27,6 +28,7 @@ class ArticleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        context.push(link);
         // Navigator.of(context).pushReplacement(CustomPageRoute(builder: (BuildContext context){return ArticlesPage();}));
       },
       child: SizedBox(

@@ -14,20 +14,22 @@ class _MyStatefulWidgetState extends State<TeachingArticles>
   @override
   Widget build(BuildContext context) {
 
+    String link = "/articles/link";
+
     double initheight = 800,
         initwidth = MediaQuery.of(context).size.width * 0.36;
 
     List<ArticleCard> allc = [
       ArticleCard(
           title: "文章標題標題1",
-          link: "a",
+          link: link,
           content: "文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點文章重點文章重點...",
           height: MediaQuery.of(context).size.height * 0.8,
           width: MediaQuery.of(context).size.width * 0.75,
           taglist: const ["python", "tag"]),
       ArticleCard(
           title: "文章標題標題2",
-          link: "b",
+          link: link,
           content: "文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點節錄文章重點文章重點文章重點...",
           height: initheight,
           width: initwidth,
