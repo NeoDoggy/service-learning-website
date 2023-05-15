@@ -65,31 +65,6 @@ class TestPage extends StatelessWidget {
             imageUrl: "assets/images/google.png",
             courseName: "123",
           ),
-          ElevatedButton(
-              onPressed: () {
-                activitiesProvider.createActivity();
-                activitiesProvider.activitiesData.values.first.holdingTime = [
-                  Pair(DateTime(2023, 5, 13, 8, 30),
-                      DateTime(2023, 5, 13, 16, 30)),
-                  Pair(DateTime(2023, 5, 14, 9, 0),
-                      DateTime(2023, 5, 14, 16, 30)),
-                ];
-                activitiesProvider.activitiesData.values.first.calendar = [
-                  ActivityCalendarData(
-                      date: DateTime(2023, 5, 13),
-                      morning: "123",
-                      afternoon: "456"),
-                  ActivityCalendarData(
-                      date: DateTime(2023, 5, 14),
-                      morning: "1234",
-                      afternoon: "4567"),
-                ];
-                activitiesProvider.updateActivity(
-                    activitiesProvider.activitiesData.values.first.id);
-                print(
-                    activitiesProvider.activitiesData.values.first.toJson());
-              },
-              child: const Text("test")),
         ],
       ),
       bottomSheet: const WindowSize(),
