@@ -29,7 +29,7 @@ class CoursesBrowsingPage extends StatelessWidget {
                 final colWidth = constraint.maxWidth;
                 int cardCount;
                 for (cardCount = 0;
-                    colWidth >= cardWidth * (cardCount + 1) + 60 * cardCount;
+                    colWidth >= cardWidth * (cardCount + 1) + 40 * cardCount;
                     cardCount++) {}
                 return Wrap(
                   spacing: (colWidth - cardWidth * cardCount) / (cardCount - 1),
