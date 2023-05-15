@@ -18,6 +18,11 @@ class PageSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (MediaQuery.of(context).size.width < 800) {
+      return const Scaffold(
+          body: Center(child: Text("裝置寬度過小，目前暫不支援手機瀏覽，敬請見諒")));
+    }
+
     final windowHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(

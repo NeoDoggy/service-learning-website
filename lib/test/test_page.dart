@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:service_learning_website/modules/backend/activity_calendar_data.dart';
-import 'package:service_learning_website/modules/pair.dart';
 import 'package:service_learning_website/pages/fav_page.dart';
 import 'package:service_learning_website/pages/login_page.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
-import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/bottom.dart';
 import 'package:service_learning_website/widgets/mcq.dart';
@@ -21,7 +17,6 @@ class TestPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final activitiesProvider = Provider.of<ActivitiesProvider>(context);
     return PageSkeleton(
       body: Column(
         children: [
