@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
-import 'package:service_learning_website/widgets/footer.dart';
 import 'package:service_learning_website/widgets/opinion_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_shake_animated/flutter_shake_animated.dart';
@@ -22,6 +21,7 @@ class _WelcomePageState extends State<WelcomePage>
     ];
 
     return PageSkeleton(
+      isPadding: false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -437,7 +437,6 @@ class _WelcomePageState extends State<WelcomePage>
               ),
             ),
           ),
-          const Footer(),
         ],
       ),
     );

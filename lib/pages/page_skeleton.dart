@@ -9,12 +9,14 @@ class PageSkeleton extends StatelessWidget {
     this.navigationBar,
     this.footer,
     this.bottomSheet,
+    this.isPadding = true,
   });
 
   final Widget? navigationBar;
   final Widget body;
   final Widget? footer;
   final Widget? bottomSheet;
+  final bool isPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +42,8 @@ class PageSkeleton extends StatelessWidget {
                 constraints: BoxConstraints(minHeight: windowHeight),
                 child: Container(
                   padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width / 1440 * 150,
-                    right: MediaQuery.of(context).size.width / 1440 * 150,
+                    left: isPadding ? MediaQuery.of(context).size.width / 1440 * 150 : 0,
+                    right: isPadding ? MediaQuery.of(context).size.width / 1440 * 150 : 0,
                     top: 60,
                     bottom: 100,
                   ),

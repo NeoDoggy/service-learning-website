@@ -4,6 +4,7 @@ import 'package:service_learning_website/pages/activities_page/activities_browsi
 import 'package:service_learning_website/pages/activities_page/activity_intro.dart';
 import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page.dart';
+import 'package:service_learning_website/pages/admin_page/article_editing_page/article_editing_page.dart';
 import 'package:service_learning_website/pages/articles_page/articles_page.dart';
 import 'package:service_learning_website/pages/admin_page/course_editing_page/chapter_editing_page.dart';
 import 'package:service_learning_website/pages/admin_page/course_editing_page/course_editing_page.dart';
@@ -101,6 +102,11 @@ class MyRouter {
                     path: "${MyRouter.activities}/:activityId",
                     builder: (context, state) =>
                         ActivityEditingPage(state.params["activityId"]!),
+                  ),
+                  GoRoute(
+                    path: "${MyRouter.articles}/:articleId",
+                    builder: (context, state) =>
+                        ArticleEditingPage(state.params["articleId"]!),
                   ),
                   GoRoute(
                     path: "${MyRouter.courses}/:courseId",
