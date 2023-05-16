@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/backend/user_permission.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page_activities.dart';
+import 'package:service_learning_website/pages/admin_page/admin_page_articles.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page_courses.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page_users.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
@@ -43,7 +44,7 @@ class _AdminPageState extends State<AdminPage> {
         _showingWidget = const AdminPageActivities();
         break;
       case 1:
-        _showingWidget = Container(height: 2000, color: Colors.orange);
+        _showingWidget = const AdminPageArticles();
         break;
       case 2:
         _showingWidget = const AdminPageCourses();
