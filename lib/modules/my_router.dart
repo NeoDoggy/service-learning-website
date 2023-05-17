@@ -5,13 +5,13 @@ import 'package:service_learning_website/pages/activities_page/activity_intro.da
 import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page.dart';
 import 'package:service_learning_website/pages/admin_page/article_editing_page/article_editing_page.dart';
-import 'package:service_learning_website/pages/articles_page/articles_page.dart';
+import 'package:service_learning_website/pages/articles_page/article_page.dart';
 import 'package:service_learning_website/pages/admin_page/course_editing_page/chapter_editing_page.dart';
 import 'package:service_learning_website/pages/admin_page/course_editing_page/course_editing_page.dart';
-import 'package:service_learning_website/pages/articles_page/teaching_articles.dart';
-import 'package:service_learning_website/pages/course_page/course_intro.dart';
-import 'package:service_learning_website/pages/course_page/course_page.dart';
-import 'package:service_learning_website/pages/course_page/courses_browsing_page.dart';
+import 'package:service_learning_website/pages/articles_page/articles_browsing_page.dart';
+import 'package:service_learning_website/pages/courses_page/course_intro.dart';
+import 'package:service_learning_website/pages/courses_page/course_page.dart';
+import 'package:service_learning_website/pages/courses_page/courses_browsing_page.dart';
 import 'package:service_learning_website/pages/login_page.dart';
 import 'package:service_learning_website/pages/welcome_page.dart';
 import 'package:service_learning_website/test/test_page.dart';
@@ -54,17 +54,15 @@ class MyRouter {
                 ],
               ),
               GoRoute(
-                path: MyRouter.articles,
-                builder: (context, state) => const TeachingArticles(),
-                routes: [
-                  GoRoute(
-                    path: ":articleId",
-                    builder: (context, state) =>
-                        // ArticlesPage(activityId: state.params["articleId"]!),
-                        const ArticlesPage(),
-                  ),
-                ]
-              ),
+                  path: MyRouter.articles,
+                  builder: (context, state) => const ArticlesBrowsingPage(),
+                  routes: [
+                    GoRoute(
+                      path: ":articleId",
+                      builder: (context, state) =>
+                          ArticlePage(articleId: state.params["articleId"]!),
+                    ),
+                  ]),
               GoRoute(
                 path: MyRouter.courses,
                 builder: (context, state) => const CoursesBrowsingPage(),
