@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:service_learning_website/modules/backend/user_data.dart';
-import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/modules/backend/user/user_data.dart';
+import 'package:service_learning_website/modules/backend/user/user_permission.dart';
 
 class UsersProvider with ChangeNotifier {
   UsersProvider() {

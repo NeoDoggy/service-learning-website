@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
-import 'package:service_learning_website/modules/backend/article_data.dart';
-import 'package:service_learning_website/modules/backend/user_data.dart';
+import 'package:service_learning_website/modules/backend/article/article_data.dart';
+import 'package:service_learning_website/modules/backend/user/user_data.dart';
 import 'package:service_learning_website/modules/random_id.dart';
 
 class ArticlesProvider with ChangeNotifier {

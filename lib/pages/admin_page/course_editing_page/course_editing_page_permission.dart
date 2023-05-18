@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:service_learning_website/modules/backend/course_data.dart';
-import 'package:service_learning_website/modules/backend/user_data.dart';
-import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/modules/backend/course/course_data.dart';
+import 'package:service_learning_website/modules/backend/user/user_data.dart';
+import 'package:service_learning_website/modules/backend/user/user_permission.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
 import 'package:service_learning_website/providers/users_provider.dart';

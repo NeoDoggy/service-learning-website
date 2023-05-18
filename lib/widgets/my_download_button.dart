@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:html' as html;
-import 'package:flutter/services.dart';
-import 'package:file_picker/file_picker.dart';
 
 class MyDownloadButton extends StatelessWidget {
   const MyDownloadButton({super.key});
@@ -42,7 +40,7 @@ class MyDownloadButton extends StatelessWidget {
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
+          children: [
             SizedBox(width: 15),
             Icon(Icons.insert_link, size: 64),
             SizedBox(width: 15),

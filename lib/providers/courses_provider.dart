@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
-import 'package:service_learning_website/modules/backend/course_chapter_data.dart';
-import 'package:service_learning_website/modules/backend/course_data.dart';
-import 'package:service_learning_website/modules/backend/course_participant_data.dart';
+import 'package:service_learning_website/modules/backend/course/course_chapter_data.dart';
+import 'package:service_learning_website/modules/backend/course/course_data.dart';
+import 'package:service_learning_website/modules/backend/course/course_participant_data.dart';
 import 'package:service_learning_website/modules/random_id.dart';
 
 class CoursesProvider with ChangeNotifier {
