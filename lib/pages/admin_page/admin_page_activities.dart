@@ -36,10 +36,6 @@ class _AdminPageActivitiesState extends State<AdminPageActivities> {
         final UserPermission permission =
             authProvider.userData?.permission ?? UserPermission.none;
 
-        // if (permission < UserPermission.student) {
-        //   return const Text("你沒有權限");
-        // }
-
         return Consumer<ActivitiesProvider>(
           builder: (context, activitiesProvider, child) {
             return Column(

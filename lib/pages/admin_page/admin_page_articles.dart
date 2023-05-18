@@ -36,10 +36,6 @@ class _AdminPageArticlesState extends State<AdminPageArticles> {
         final UserPermission permission =
             authProvider.userData?.permission ?? UserPermission.none;
 
-        // if (permission < UserPermission.student) {
-        //   return const Text("你沒有權限");
-        // }
-
         return Consumer<ArticlesProvider>(
           builder: (context, articlesProvider, child) {
             return Column(
