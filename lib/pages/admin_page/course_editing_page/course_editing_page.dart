@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/modules/backend/user/user_permission.dart';
 import 'package:service_learning_website/pages/admin_page/course_editing_page/course_editing_page_chapters.dart';
 import 'package:service_learning_website/pages/admin_page/course_editing_page/course_editing_page_info.dart';
 import 'package:service_learning_website/pages/admin_page/course_editing_page/course_editing_page_permission.dart';

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:service_learning_website/modules/backend/user_data.dart';
+import 'package:service_learning_website/modules/backend/user/user_data.dart';
 
 class AuthProvider with ChangeNotifier {
   AuthProvider() {

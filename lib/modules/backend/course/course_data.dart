@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:service_learning_website/modules/backend/course_chapter_data.dart';
-import 'package:service_learning_website/modules/backend/course_participant_data.dart';
+import 'package:service_learning_website/modules/backend/course/course_chapter_data.dart';
+import 'package:service_learning_website/modules/backend/course/course_participant_data.dart';
 
 class CourseData {
   CourseData({
