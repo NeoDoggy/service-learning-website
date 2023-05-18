@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
+import 'dart:html' as html;
+import 'package:flutter/services.dart';
+import 'package:file_picker/file_picker.dart';
 
 class MyDownloadButton extends StatelessWidget {
   const MyDownloadButton({super.key});
-
   Future<void> downloadAndSaveFile(String url, String fileName) async {
     var bytes = await http.readBytes(Uri.parse(url));
     var dir = await getApplicationDocumentsDirectory();
@@ -17,18 +19,20 @@ class MyDownloadButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 70,
-      constraints: const BoxConstraints(maxWidth: 800),
+      constraints: const BoxConstraints(maxWidth: 880),
       child: ElevatedButton(
         onPressed: () async {
-          var fileUrl = 'https://example.com/file.pdf';
-          await downloadAndSaveFile(fileUrl, 'myfile.pdf');
+          // var fileUrl = 'https://example.com/file.pdf';
+          // await downloadAndSaveFile(fileUrl, 'myfile.pdf');
+          const fileUrl =
+              "https://www.dropbox.com/s/mtz3moc9dpjtz7s/GameVersions.txt?dl=1";
+          html.AnchorElement anchorElement = html.AnchorElement(href: fileUrl);
+          anchorElement.download = fileUrl;
+          anchorElement.click();
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
           foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-          // fixedSize: MaterialStateProperty.all<Size>(
-          //   const Size(880, 70),
-          // ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(90.0),
@@ -38,7 +42,7 @@ class MyDownloadButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          children: const [
             SizedBox(width: 15),
             Icon(Icons.insert_link, size: 64),
             SizedBox(width: 15),

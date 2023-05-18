@@ -6,9 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:service_learning_website/modules/backend/user_data.dart';
 
 class AuthProvider with ChangeNotifier {
-
   AuthProvider() {
-
     _authSubscription =
         FirebaseAuth.instance.authStateChanges().listen((newUser) {
       _user = newUser;
@@ -21,8 +19,9 @@ class AuthProvider with ChangeNotifier {
   StreamSubscription<User?>? _authSubscription;
 
   bool get isAuthed => _userData != null;
-  User? get user => _user;
+  // User? get user => _user;
   UserData? get userData => _userData;
+
 
   @override
   void dispose() {
@@ -49,12 +48,11 @@ class AuthProvider with ChangeNotifier {
         }
         notifyListeners();
       });
-    }
-    else {
+    } else {
       _userData = null;
       if (kDebugMode) {
-          print("auth_provider -> updated");
-        }
+        print("auth_provider -> updated");
+      }
       notifyListeners();
     }
   }

@@ -45,7 +45,7 @@ class CourseData {
   Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
-        "createdTime": Timestamp.fromDate(createdTime),
+        "createdTime": createdTime,
         "description": description,
         "audience": audience,
         "environment": environment,
@@ -54,16 +54,14 @@ class CourseData {
         "outline": outline,
       };
 
-  // factory CourseData.empty() => CourseData(id: "");
-
   factory CourseData.fromJson(Map<String, dynamic> map) => CourseData(
         id: map["id"],
         title: map["title"],
-        createdTime: (map["createdTime"] as Timestamp).toDate(),
+        createdTime: (map["createdTime"] as Timestamp?)?.toDate(),
         description: map["description"],
         audience: map["audience"],
         environment: map["environment"],
-        members: (map["members"] as List).map((e) => e.toString()).toList(),
+        members: (map["members"] as List?)?.map((e) => e.toString()).toList(),
         imageUrl: map["imageUrl"],
         outline: map["outline"],
       );

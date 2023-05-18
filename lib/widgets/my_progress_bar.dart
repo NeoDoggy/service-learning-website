@@ -16,7 +16,7 @@ class MyProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     String progress = '${(finished * 100 ~/ all).toInt()}%'; // 進度 e.g. 80%
     return Container(
-      width: 391,
+      // width: 391,
       height: 24,
       child: Row(
         children: [

@@ -1,63 +1,79 @@
 import 'package:flutter/material.dart';
-import 'package:service_learning_website/pages/FavPage.dart';
-import 'package:service_learning_website/pages/LoginPage.dart';
+import 'package:service_learning_website/pages/fav_page.dart';
+import 'package:service_learning_website/pages/login_page.dart';
+import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/bottom.dart';
 import 'package:service_learning_website/widgets/mcq.dart';
 import 'package:service_learning_website/widgets/my_progress_bar.dart';
+import 'package:service_learning_website/widgets/online_course_card.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 import 'package:service_learning_website/widgets/my_download_button.dart';
-import 'package:service_learning_website/widgets/Schedule_Column.dart';
+import 'package:service_learning_website/widgets/schedule_column.dart';
 
 class TestPage extends StatelessWidget {
   const TestPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: const [
-                UserIcon(size: 32),
-              ],
-            ),
-            const SideMenu(
-                items: ["營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"]),
-            // MyMarkdown(mdContent),
-            const SizedBox(height: 20),
-            const MyDownloadButton(),
-            const SizedBox(height: 20),
-            const MyDownloadButton(),
-            const SizedBox(height: 20),
-            const MyDownloadButton(),
-            const SizedBox(height: 20),
-            const ScheduleColumn(),
-            const SizedBox(height: 20),
-            const MyProgressBar(all: 10, finished: 8),
-            const Bottom(
-              txt: '進行測驗',
-              nextPage: LoginPage(),
-            ),
-            const Bottom(
-              txt: '我有問題',
-              nextPage: FavPage(),
-            ),
-            SizedBox(
-              width: 800,
-              child: MCQ(question: question, options: options),
-            ),
-          ],
-        ),
+    return PageSkeleton(
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: const [
+              UserIcon(size: 32),
+            ],
+          ),
+          const SideMenu(
+              width: 260,
+              items: ["營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"]),
+          // MyMarkdown(mdContent),
+          const SizedBox(height: 20),
+          const MyDownloadButton(),
+          const SizedBox(height: 20),
+          const MyDownloadButton(),
+          const SizedBox(height: 20),
+          const MyDownloadButton(),
+          const SizedBox(height: 20),
+          
+          ScheduleColumn(
+            dateTime: DateTime.now(),
+            morning: "早上早上早上",
+            afternoon: "下午下午下午",
+          ),
+          
+          const SizedBox(height: 20),
+          const MyProgressBar(all: 10, finished: 8),
+          const Bottom(
+            txt: '進行測驗',
+            nextPage: LoginPage(),
+          ),
+          const Bottom(
+            txt: '我有問題',
+            nextPage: FavPage(),
+          ),
+          SizedBox(
+            width: 800,
+            child: MCQ(question: question[0], options: options),
+          ),
+          const OnlineCourseCard(
+            imageUrl: "assets/images/google.png",
+            courseName: "123",
+          ),
+        ],
       ),
       bottomSheet: const WindowSize(),
     );
   }
 
-  static const String question = '1. 我們現在在學的程式語言是以下何者？';
+  static const List<String> question = [
+    '1. 我們現在在學的程式語言是以下何者？',
+    '2. 如何print出Hello World？'
+  ];
+
+  static const List<String> answer = ['', 'print("Hello World")'];
 
   static const List<String> options = [
     'Python',
