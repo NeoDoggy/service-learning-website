@@ -12,10 +12,10 @@ class ModifiableText extends StatefulWidget {
   final String text;
   final double? width;
 
-  final void Function(String)? onEditingCompleted;
+  final void Function(String value)? onEditingCompleted;
 
   /// 回傳 false 表示該值不被允許
-  final bool Function(String)? restriction;
+  final bool Function(String value)? restriction;
 
   @override
   State<ModifiableText> createState() => _ModifiableTextState();

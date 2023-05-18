@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:service_learning_website/modules/backend/activity/activity_data.dart';
+import 'package:service_learning_website/modules/backend/activity/activity_file_data.dart';
 import 'package:service_learning_website/modules/backend/activity/activity_participant_data.dart';
 import 'package:service_learning_website/modules/random_id.dart';
 
@@ -11,7 +12,8 @@ class ActivitiesProvider with ChangeNotifier {
   }
 
   final _collection = FirebaseFirestore.instance.collection("activities");
-  final _storage = FirebaseStorage.instance.ref("images/activities");
+  final _imgStorage = FirebaseStorage.instance.ref("images/activities");
+  final _fileStorage = FirebaseStorage.instance.ref("files/activities");
 
   Map<String, ActivityData> _activitiesData = {};
   Map<String, ActivityData> get activitiesData => _activitiesData;
@@ -40,9 +42,9 @@ class ActivitiesProvider with ChangeNotifier {
 
   Future<void> updateActivity(String activityId, {Uint8List? image}) async {
     if (image != null) {
-      await _storage.child("$activityId/preview").putData(image);
+      await _imgStorage.child("$activityId/preview").putData(image);
       _activitiesData[activityId]!.imageUrl =
-          await _storage.child("$activityId/preview").getDownloadURL();
+          await _imgStorage.child("$activityId/preview").getDownloadURL();
     }
     await _collection
         .doc(activityId)
@@ -53,7 +55,6 @@ class ActivitiesProvider with ChangeNotifier {
   Future<void> loadActivity(String activityId) async {
     final pSnapshot =
         await _collection.doc(activityId).collection("participants").get();
-
     _activitiesData[activityId]!.participants = Map.fromIterable(
         pSnapshot.docs
             .map((doc) => ActivityParticipantData.fromJson(doc.data())),
@@ -77,6 +78,32 @@ class ActivitiesProvider with ChangeNotifier {
         .collection("participants")
         .doc(uid)
         .update(_activitiesData[activityId]!.participants[uid]!.toJson());
+    notifyListeners();
+  }
+
+  Future<void> uploadFile(
+      String activityId, String filename, Uint8List file) async {
+    final fileId = RandomId.generate();
+    final fileRef = _fileStorage.child("$activityId/$fileId");
+    await fileRef.putData(file);
+    final fileUrl = await fileRef.getDownloadURL();
+    _activitiesData[activityId]!
+        .files
+        .add(ActivityFileData(id: fileId, filename: filename, url: fileUrl));
+    await _collection.doc(activityId).update({
+      "files":
+          _activitiesData[activityId]!.files.map((e) => e.toJson()).toList()
+    });
+    notifyListeners();
+  }
+
+  Future<void> deleteFile(String activityId, String fileId) async {
+    _activitiesData[activityId]!.files.removeWhere((e) => e.id == fileId);
+    await _fileStorage.child("$activityId/$fileId").delete();
+    await _collection.doc(activityId).update({
+      "files":
+          _activitiesData[activityId]!.files.map((e) => e.toJson()).toList()
+    });
     notifyListeners();
   }
 }

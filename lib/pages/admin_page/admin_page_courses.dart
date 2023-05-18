@@ -36,10 +36,6 @@ class _AdminPageCoursesState extends State<AdminPageCourses> {
         final UserPermission permission =
             authProvider.userData?.permission ?? UserPermission.none;
 
-        // if (permission < UserPermission.student) {
-        //   return const Text("你沒有權限");
-        // }
-
         return Consumer<CoursesProvider>(
           builder: (context, coursesProvider, child) {
             return Column(

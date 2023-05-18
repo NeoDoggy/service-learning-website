@@ -8,11 +8,11 @@ import 'package:service_learning_website/providers/auth_provider.dart';
 
 class ActivityEditingPageQuestion extends StatefulWidget {
   const ActivityEditingPageQuestion(
-    this.activityId, {
+    this.id, {
     super.key,
   });
 
-  final String activityId;
+  final String id;
 
   @override
   State<ActivityEditingPageQuestion> createState() =>
@@ -44,8 +44,7 @@ class _ActivityEditingPageQuestionState
   Widget build(BuildContext context) {
     return Consumer2<AuthProvider, ActivitiesProvider>(
       builder: (context, authProvider, activitiesProvider, child) {
-        final courseData =
-            activitiesProvider.activitiesData[widget.activityId]!;
+        final courseData = activitiesProvider.activitiesData[widget.id]!;
         _canEdit = (authProvider.userData?.permission ?? UserPermission.none) >=
                 UserPermission.ta ||
             courseData.members.contains(authProvider.userData?.uid);
@@ -96,8 +95,7 @@ class _ActivityEditingPageQuestionState
                                     .toList(),
                               ));
                             }
-                            activitiesProvider
-                                .updateActivity(widget.activityId);
+                            activitiesProvider.updateActivity(widget.id);
                           }
                         : null,
                     icon: const Icon(Icons.save),
