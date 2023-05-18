@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/pages/admin_page/activity_editing_page/acrivity_editing_page_permission.dart';
+import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page_calendar.dart';
+import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page_info.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
+import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
-import 'package:service_learning_website/providers/courses_provider.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
@@ -23,9 +26,12 @@ class ActivityEditingPage extends StatefulWidget {
 class _ActivityEditingPageState extends State<ActivityEditingPage> {
   final List<String> _items = [
     "營隊基本資訊",
+    "行事曆",
+    "附加報名問題",
     "講義上傳",
     "檔案上傳",
     "活動照片",
+    "已報名學生",
     "權限設置",
   ];
 
@@ -41,33 +47,48 @@ class _ActivityEditingPageState extends State<ActivityEditingPage> {
       return const Scaffold(body: Center(child: Text("Permission denied")));
     }
 
-    final courseProvider = Provider.of<CoursesProvider>(context);
+    final activitiesProvider = Provider.of<ActivitiesProvider>(context);
     if (!_loaded) {
       _loaded = true;
-      courseProvider.loadCourse(widget.id);
+      activitiesProvider.loadActivity(widget.id);
     }
-    if (courseProvider.coursesData[widget.id] == null) {
+    if (activitiesProvider.activitiesData[widget.id] == null) {
       return const Scaffold(body: Center(child: Text("Loading")));
     }
 
-    // switch (_selectedIndex) {
-    //   case 0:
-    //     _showingWidget = ActivityEditingPageInfo(widget.id);
-    //     break;
-    //   case 1:
-    //     _showingWidget = ActivityEditingPageChapters(widget.id);
-    //     break;
-    //   case 2:
-    //     _showingWidget = ActivityEditingPagePermission(widget.id);
-    //     break;
-    // }
+    switch (_selectedIndex) {
+      case 0:
+        _showingWidget = ActivityEditingPageInfo(widget.id);
+        break;
+      case 1:
+        _showingWidget = ActivityEditingPageCalendar(widget.id);
+        break;
+      case 2:
+        _showingWidget = Container(height: 2000, color: Colors.red);
+        break;
+      case 3:
+        _showingWidget = Container(height: 2000, color: Colors.orange);
+        break;
+      case 4:
+        _showingWidget = Container(height: 2000, color: Colors.yellow);
+        break;
+      case 5:
+        _showingWidget = Container(height: 2000, color: Colors.green);
+        break;
+      case 6:
+        _showingWidget = Container(height: 2000, color: Colors.blue);
+        break;
+      case 7:
+        _showingWidget = ActivityEditingPagePermission(widget.id);
+        break;
+    }
 
     return PageSkeleton(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TitleTextBox(courseProvider.coursesData[widget.id]?.title ?? ""),
+          TitleTextBox(activitiesProvider.activitiesData[widget.id]?.title ?? ""),
           const SizedBox(height: 60),
           Row(
             mainAxisSize: MainAxisSize.min,

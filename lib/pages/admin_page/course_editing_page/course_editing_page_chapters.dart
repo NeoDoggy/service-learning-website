@@ -48,6 +48,7 @@ class _CourseEditingPageChaptersState extends State<CourseEditingPageChapters> {
               const DataColumn(label: Text("標題")),
               const DataColumn(label: Text("瀏覽／編輯")),
               if (_canEdit) const DataColumn(label: Text("移動順序")),
+              if (_canEdit) const DataColumn(label: Text("刪除")),
             ], rows: [
               for (int i = 0; i < chaptersList.length; i++)
                 DataRow(cells: [
@@ -93,6 +94,28 @@ class _CourseEditingPageChaptersState extends State<CourseEditingPageChapters> {
                                 },
                           icon: const Icon(Icons.arrow_downward)),
                     ])),
+                  if (_canEdit)
+                    DataCell(
+                      IconButton(
+                          disabledColor: Colors.grey,
+                          onPressed: () {
+                            setState(() {
+                              for (int j = i + 1;
+                                  j < chaptersList.length;
+                                  j++) {
+                                chaptersList[j].number--;
+                              }
+                            });
+                            for (int j = i + 1; j < chaptersList.length; j++) {
+                              coursesProvider.updateChapter(
+                                  widget.courseId, chaptersList[j].id);
+                            }
+                            coursesProvider.deleteChapter(
+                                widget.courseId, chaptersList[i].id);
+                            setState(() => chaptersList.removeAt(i));
+                          },
+                          icon: const Icon(Icons.delete)),
+                    ),
                 ]),
             ])
           ],

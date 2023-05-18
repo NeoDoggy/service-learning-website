@@ -9,15 +9,22 @@ class PageSkeleton extends StatelessWidget {
     this.navigationBar,
     this.footer,
     this.bottomSheet,
+    this.isPadding = true,
   });
 
   final Widget? navigationBar;
   final Widget body;
   final Widget? footer;
   final Widget? bottomSheet;
+  final bool isPadding;
 
   @override
   Widget build(BuildContext context) {
+    if (MediaQuery.of(context).size.width < 800) {
+      return const Scaffold(
+          body: Center(child: Text("裝置寬度過小，目前暫不支援手機瀏覽，敬請見諒")));
+    }
+
     final windowHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -34,8 +41,12 @@ class PageSkeleton extends StatelessWidget {
               ConstrainedBox(
                 constraints: BoxConstraints(minHeight: windowHeight),
                 child: Container(
-                  padding: const EdgeInsets.only(
-                      left: 100, right: 100, top: 60, bottom: 100),
+                  padding: EdgeInsets.only(
+                    left: isPadding ? MediaQuery.of(context).size.width / 1440 * 150 : 0,
+                    right: isPadding ? MediaQuery.of(context).size.width / 1440 * 150 : 0,
+                    top: 60,
+                    bottom: 100,
+                  ),
                   child: body,
                 ),
               ),
@@ -44,7 +55,7 @@ class PageSkeleton extends StatelessWidget {
           ),
         ),
       ),
-      bottomSheet: bottomSheet,
+      // bottomSheet: bottomSheet,
     );
   }
 }

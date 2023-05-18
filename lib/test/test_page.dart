@@ -37,13 +37,11 @@ class TestPage extends StatelessWidget {
           const SizedBox(height: 20),
           const MyDownloadButton(),
           const SizedBox(height: 20),
-          
           ScheduleColumn(
             dateTime: DateTime.now(),
             morning: "早上早上早上",
             afternoon: "下午下午下午",
           ),
-          
           const SizedBox(height: 20),
           const MyProgressBar(all: 10, finished: 8),
           const Bottom(

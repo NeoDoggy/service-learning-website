@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:service_learning_website/modules/backend/activity_data.dart';
+import 'package:service_learning_website/modules/backend/activity_participant_data.dart';
 import 'package:service_learning_website/modules/random_id.dart';
 
 class ActivitiesProvider with ChangeNotifier {
@@ -37,10 +38,32 @@ class ActivitiesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateActivity(String activityId) async {
+  Future<void> updateActivity(String activityId, {Uint8List? image}) async {
+    if (image != null) {
+      await _storage.child("$activityId/preview").putData(image);
+      _activitiesData[activityId]!.imageUrl =
+          await _storage.child("$activityId/preview").getDownloadURL();
+    }
     await _collection
         .doc(activityId)
         .set(_activitiesData[activityId]!.toJson());
+    notifyListeners();
+  }
+
+  Future<void> loadActivity(String activityId) async {
+    // final pSnapshot =
+    //     await _collection.doc(activityId).collection("participants").get();
+    // final cSnapshot =
+    //     await _collection.doc(activityId).collection("chapters").get();
+  }
+
+  Future<void> addParticipant(String activityId, String uid) async {
+    _activitiesData[activityId]!.participants[uid] = ActivityParticipantData(uid: uid);
+    await _collection
+        .doc(activityId)
+        .collection("participants")
+        .doc(uid)
+        .set(_activitiesData[activityId]!.participants[uid]!.toJson());
     notifyListeners();
   }
 }

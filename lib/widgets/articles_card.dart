@@ -1,37 +1,46 @@
-import 'package:flutter/material.dart';
+import 'dart:typed_data';
 
-class ArticleCard extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:service_learning_website/modules/backend/article_data.dart';
+import 'package:service_learning_website/modules/my_router.dart';
+import 'package:http/http.dart' as http;
+
+class ArticleCard extends StatefulWidget {
   const ArticleCard({
     super.key,
-    required this.title,
-    required this.link,
-    required this.content,
+    required this.articleData,
     required this.height,
     required this.width,
-    required this.taglist,
   });
 
-  final String title;
-  final String link;
-  final String content;
+  final ArticleData articleData;
   final double height;
   final double width;
-  final List<String> taglist;
 
-  // void setSize(double height, double width) {
-  //   this.height = height;
-  //   this.width = width;
-  // }
+  @override
+  State<ArticleCard> createState() => _ArticleCardState();
+}
+
+class _ArticleCardState extends State<ArticleCard> {
+  Uint8List? _imageByte;
 
   @override
   Widget build(BuildContext context) {
+    if (_imageByte == null && widget.articleData.imageUrl != "") {
+      http
+          .get(Uri.parse(widget.articleData.imageUrl))
+          .timeout(const Duration(seconds: 5))
+          .then((response) => setState(() => _imageByte = response.bodyBytes))
+          .catchError((_) => setState(() => _imageByte = null));
+    }
+
     return InkWell(
-      onTap: () {
-        // Navigator.of(context).pushReplacement(CustomPageRoute(builder: (BuildContext context){return ArticlesPage();}));
-      },
+      onTap: () =>
+          context.push("/${MyRouter.articles}/${widget.articleData.id}"),
       child: SizedBox(
-        height: height,
-        width: width,
+        height: widget.height,
+        width: widget.width,
         child: Card(
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(15))),
@@ -42,11 +51,15 @@ class ArticleCard extends StatelessWidget {
               Align(
                 alignment: Alignment.topCenter,
                 child: SizedBox(
-                    width: width,
-                    height: height * 0.6,
-                    child: const Card(
-                        elevation: 0,
-                        color: Color.fromARGB(243, 255, 255, 255))),
+                    width: widget.width,
+                    height: widget.height * 0.6,
+                    child: Card(
+                      elevation: 0,
+                      color: const Color.fromARGB(243, 255, 255, 255),
+                      child: _imageByte != null
+                          ? Image.memory(_imageByte!, fit: BoxFit.cover)
+                          : null,
+                    )),
               ),
               Padding(
                 padding: const EdgeInsets.only(
@@ -56,7 +69,7 @@ class ArticleCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          title,
+                          widget.articleData.title,
                           style: const TextStyle(
                               color: Color(0xFF1f1f1f),
                               fontSize: 30,
@@ -69,12 +82,16 @@ class ArticleCard extends StatelessWidget {
                     const SizedBox(height: 25),
                     Align(
                       alignment: Alignment.topCenter,
-                      child: SizedBox(width: width, child: Text(content)),
+                      child: SizedBox(
+                          width: widget.width,
+                          child: Text(widget.articleData.introduction)),
                     ),
                     Align(
                       alignment: Alignment.bottomLeft,
                       child: Row(
-                        children: [for (String i in taglist) Text("#$i")],
+                        children: [
+                          for (String i in widget.articleData.tags) Text("#$i")
+                        ],
                       ),
                     )
                   ],

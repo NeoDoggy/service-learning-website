@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:service_learning_website/modules/backend/activity_calendar_data.dart';
 import 'package:service_learning_website/modules/backend/activity_participant_data.dart';
-import 'package:service_learning_website/modules/pair.dart';
 
 class ActivityData {
   ActivityData({
     required this.id,
     DateTime? createdTime,
     this.title = "",
-    List<Pair<DateTime, DateTime>>? holdingTime,
+    // List<Pair<DateTime, DateTime>>? holdingTime,
     this.place = "",
     this.audience = "",
     this.fee = "",
@@ -20,7 +19,7 @@ class ActivityData {
     List<ActivityCalendarData>? calendar,
     Map<String, ActivityParticipantData>? participants,
   })  : createdTime = createdTime ?? DateTime.now(),
-        holdingTime = holdingTime ?? [],
+        // holdingTime = holdingTime ?? [],
         deadline = deadline ?? DateTime.now(),
         members = members ?? [],
         calendar = calendar ?? [],
@@ -29,7 +28,7 @@ class ActivityData {
   String id;
   DateTime createdTime;
   String title;
-  List<Pair<DateTime, DateTime>> holdingTime;
+  // List<Pair<DateTime, DateTime>> holdingTime;
   String place;
   String audience;
   String fee;
@@ -47,13 +46,13 @@ class ActivityData {
         "id": id,
         "createdTime": createdTime,
         "title": title,
-        "holdingTime": [
-          for (var range in holdingTime)
-            {
-              "begin": range.first,
-              "end": range.second,
-            }
-        ],
+        // "holdingTime": [
+        //   for (var range in holdingTime)
+        //     {
+        //       "begin": range.first,
+        //       "end": range.second,
+        //     }
+        // ],
         "place": place,
         "audience": audience,
         "fee": fee,
@@ -66,6 +65,8 @@ class ActivityData {
           for (var e in calendar)
             {
               "date": e.date,
+              "begin": e.begin,
+              "end": e.end,
               "morning": e.morning,
               "afternoon": e.afternoon,
             },
@@ -76,12 +77,12 @@ class ActivityData {
         id: map["id"],
         createdTime: (map["createdTime"] as Timestamp?)?.toDate(),
         title: map["title"],
-        holdingTime: (map["holdingTime"] as List?)?.map((e) {
-          return Pair(
-            (e?["begin"] as Timestamp?)?.toDate() ?? DateTime.now(),
-            (e?["end"] as Timestamp?)?.toDate() ?? DateTime.now(),
-          );
-        }).toList(),
+        // holdingTime: (map["holdingTime"] as List?)?.map((e) {
+        //   return Pair(
+        //     (e?["begin"] as Timestamp?)?.toDate() ?? DateTime.now(),
+        //     (e?["end"] as Timestamp?)?.toDate() ?? DateTime.now(),
+        //   );
+        // }).toList(),
         place: map["place"],
         audience: map["audience"],
         fee: map["fee"],
@@ -90,11 +91,13 @@ class ActivityData {
         description: map["description"],
         imageUrl: map["imageUrl"],
         members: (map["members"] as List?)?.map((e) => e.toString()).toList(),
-        calendar: (map["calendar"] as List?)?.map((e) {
-          return ActivityCalendarData(
-              date: (e?["date"] as Timestamp?)?.toDate(),
-              morning: e?["morning"],
-              afternoon: e?["afternoon"]);
-        }).toList(),
+        calendar: (map["calendar"] as List?)
+            ?.map((e) => ActivityCalendarData(
+                date: (e?["date"] as Timestamp?)?.toDate(),
+                begin: (e?["begin"] as Timestamp?)?.toDate(),
+                end: (e?["end"] as Timestamp?)?.toDate(),
+                morning: e?["morning"],
+                afternoon: e?["afternoon"]))
+            .toList(),
       );
 }

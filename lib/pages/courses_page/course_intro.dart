@@ -90,29 +90,54 @@ class _CourseIntroState extends State<CourseIntro> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("課程介紹", style: _subTitleStyle),
+                                Row(
+                                  children: [
+                                    Icon(Icons.description),
+                                    SizedBox(width: 10),
+                                    Text("課程介紹", style: _subTitleStyle),
+                                  ],
+                                ),
                                 const SizedBox(height: 20),
                                 Text(courseData.description,
                                     style: _contentStyle),
                                 const SizedBox(height: 40),
-                                Text("適合對象", style: _subTitleStyle),
+                                Row(
+                                  children: [
+                                    Icon(Icons.people),
+                                    SizedBox(width: 10),
+                                    Text("適合對象", style: _subTitleStyle),
+                                  ],
+                                ),
                                 const SizedBox(height: 20),
                                 Text(courseData.audience, style: _contentStyle),
                                 const SizedBox(height: 40),
-                                Text("開發環境", style: _subTitleStyle),
+                                Row(
+                                  children: [
+                                    Icon(Icons.computer),
+                                    SizedBox(width: 10),
+                                    Text("開發環境", style: _subTitleStyle),
+                                  ],
+                                ),
                                 const SizedBox(height: 20),
                                 Text(courseData.environment,
                                     style: _contentStyle),
                                 const SizedBox(height: 40),
-                                Text("課程大綱", style: _subTitleStyle),
+                                Row(
+                                  children: [
+                                    Icon(Icons.list),
+                                    SizedBox(width: 10),
+                                    Text("課程大綱", style: _subTitleStyle),
+                                  ],
+                                ),
                                 const SizedBox(height: 20),
                                 MyMarkdown(courseData.outline,
                                     selectable: false),
-                                const SizedBox(height: 40),
+                                // const SizedBox(height: 40),
                               ]),
                         ),
                       ),
                     ]),
+                const SizedBox(height: 40),
                 Align(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(

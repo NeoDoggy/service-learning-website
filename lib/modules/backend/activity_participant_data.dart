@@ -20,4 +20,8 @@ class ActivityParticipantData {
   MealType mealType;
   String maelRemark;
   String parentPhone;
+
+  Map<String, dynamic> toJson() => {
+
+  };
 }

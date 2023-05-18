@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/backend/user_permission.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page_activities.dart';
+import 'package:service_learning_website/pages/admin_page/admin_page_articles.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page_courses.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page_users.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
@@ -18,7 +19,14 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
-  final List<String> _items = ["營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"];
+  final List<String> _items = [
+    "營隊管理",
+    "文章管理",
+    "課程管理",
+    "使用者管理",
+    "常見問題",
+    "表單回覆",
+  ];
 
   int _selectedIndex = 0;
   Widget _showingWidget = const SizedBox(height: 2000, child: Placeholder());
@@ -36,7 +44,7 @@ class _AdminPageState extends State<AdminPage> {
         _showingWidget = const AdminPageActivities();
         break;
       case 1:
-        _showingWidget = Container(height: 2000, color: Colors.orange);
+        _showingWidget = const AdminPageArticles();
         break;
       case 2:
         _showingWidget = const AdminPageCourses();

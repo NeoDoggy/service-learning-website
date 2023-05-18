@@ -30,7 +30,7 @@ class _OnlineCourseCardState extends State<OnlineCourseCard> {
   @override
   Widget build(BuildContext context) {
     // final scale = MediaQuery.of(context).size.width / 1440.0;
-    if (_imageByte == null) {
+    if (_imageByte == null && widget.imageUrl != "") {
       http
           .get(Uri.parse(widget.imageUrl))
           .timeout(Duration(seconds: 5))
