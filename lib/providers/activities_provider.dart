@@ -106,4 +106,31 @@ class ActivitiesProvider with ChangeNotifier {
     });
     notifyListeners();
   }
+
+  Future<String> uploadPhoto(
+      String activityId, String filename, Uint8List file) async {
+    final fileId = RandomId.generate();
+    final fileRef = _imgStorage.child("$activityId/$fileId");
+    await fileRef.putData(file);
+    final fileUrl = await fileRef.getDownloadURL();
+    _activitiesData[activityId]!
+        .photos
+        .add(ActivityFileData(id: fileId, filename: filename, url: fileUrl));
+    await _collection.doc(activityId).update({
+      "photos":
+          _activitiesData[activityId]!.photos.map((e) => e.toJson()).toList()
+    });
+    notifyListeners();
+    return fileId;
+  }
+
+  Future<void> deletePhoto(String activityId, String fileId) async {
+    _activitiesData[activityId]!.photos.removeWhere((e) => e.id == fileId);
+    await _imgStorage.child("$activityId/$fileId").delete();
+    await _collection.doc(activityId).update({
+      "photos":
+          _activitiesData[activityId]!.photos.map((e) => e.toJson()).toList()
+    });
+    notifyListeners();
+  }
 }
