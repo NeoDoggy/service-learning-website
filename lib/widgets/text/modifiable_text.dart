@@ -41,12 +41,14 @@ class _ModifiableTextState extends State<ModifiableText> {
   @override
   Widget build(BuildContext context) {
     if (_isEditing) {
-      _showingWidget = TextField(
-        controller: _controller,
-        autofocus: true,
-        textInputAction: TextInputAction.done,
-        onTapOutside: (_) => _handleEditingComplete(),
-        onEditingComplete: () => _handleEditingComplete(),
+      _showingWidget = IntrinsicWidth(
+        child: TextField(
+          controller: _controller,
+          autofocus: true,
+          textInputAction: TextInputAction.done,
+          onTapOutside: (_) => _handleEditingComplete(),
+          onEditingComplete: () => _handleEditingComplete(),
+        ),
       );
     } else {
       _showingWidget = InkWell(

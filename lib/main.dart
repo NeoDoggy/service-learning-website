@@ -7,6 +7,7 @@ import 'package:service_learning_website/firebase_options.dart';
 import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/providers/articles_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
+import 'package:service_learning_website/providers/floating_window_provider.dart';
 import 'package:service_learning_website/providers/users_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => FloatingWindowProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => UsersProvider()),
         ChangeNotifierProvider(create: (_) => CoursesProvider()),

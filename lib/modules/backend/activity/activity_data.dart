@@ -18,6 +18,7 @@ class ActivityData {
     this.imageUrl = "",
     List<String>? members,
     List<ActivityFileData>? files,
+    List<ActivityFileData>? photos,
     List<ActivityCalendarData>? calendar,
     List<ActivityQuestionData>? questions,
     Map<String, ActivityParticipantData>? participants,
@@ -26,6 +27,7 @@ class ActivityData {
         deadline = deadline ?? DateTime.now(),
         members = members ?? [],
         files = files ?? [],
+        photos = photos ?? [],
         calendar = calendar ?? [],
         questions = questions ?? [],
         participants = participants ?? {};
@@ -42,6 +44,7 @@ class ActivityData {
   String imageUrl;
   List<String> members;
   List<ActivityFileData> files;
+  List<ActivityFileData> photos;
   List<ActivityCalendarData> calendar;
   List<ActivityQuestionData> questions;
 
@@ -61,6 +64,7 @@ class ActivityData {
         "imageUrl": imageUrl,
         "members": members,
         "files": files.map((e) => e.toJson()).toList(),
+        "photos": photos.map((e) => e.toJson()).toList(),
         "calendar": calendar.map((e) => e.toJson()).toList(),
         "questions": questions.map((e) => e.toJson()).toList(),
       };
@@ -78,6 +82,9 @@ class ActivityData {
       imageUrl: map["imageUrl"],
       members: (map["members"] as List?)?.map((e) => e.toString()).toList(),
       files: (map["files"] as List?)
+          ?.map((e) => ActivityFileData.fromJson(e))
+          .toList(),
+      photos: (map["photos"] as List?)
           ?.map((e) => ActivityFileData.fromJson(e))
           .toList(),
       calendar: (map["calendar"] as List?)
