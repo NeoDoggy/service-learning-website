@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/backend/user/user_permission.dart';
-import 'package:service_learning_website/pages/admin_page/course_editing_page/course_editing_page_chapters.dart';
+import 'package:service_learning_website/pages/admin_page/course_editing_page/course_editing_page_chapter.dart';
 import 'package:service_learning_website/pages/admin_page/course_editing_page/course_editing_page_info.dart';
 import 'package:service_learning_website/pages/admin_page/course_editing_page/course_editing_page_permission.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
@@ -52,7 +52,7 @@ class _CourseEditingPageState extends State<CourseEditingPage> {
         _showingWidget = CourseEditingPageInfo(widget.id);
         break;
       case 1:
-        _showingWidget = CourseEditingPageChapters(widget.id);
+        _showingWidget = CourseEditingPageChapter(widget.id);
         break;
       case 2:
         _showingWidget = CourseEditingPagePermission(widget.id);
