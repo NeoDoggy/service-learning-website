@@ -6,8 +6,8 @@ import 'package:service_learning_website/modules/my_router.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
 
-class CourseEditingPageChapters extends StatefulWidget {
-  const CourseEditingPageChapters(
+class CourseEditingPageChapter extends StatefulWidget {
+  const CourseEditingPageChapter(
     this.courseId, {
     super.key,
   });
@@ -15,11 +15,11 @@ class CourseEditingPageChapters extends StatefulWidget {
   final String courseId;
 
   @override
-  State<CourseEditingPageChapters> createState() =>
-      _CourseEditingPageChaptersState();
+  State<CourseEditingPageChapter> createState() =>
+      _CourseEditingPageChapterState();
 }
 
-class _CourseEditingPageChaptersState extends State<CourseEditingPageChapters> {
+class _CourseEditingPageChapterState extends State<CourseEditingPageChapter> {
   bool _canEdit = false;
 
   @override

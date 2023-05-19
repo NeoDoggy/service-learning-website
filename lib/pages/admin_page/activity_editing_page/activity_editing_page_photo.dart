@@ -10,7 +10,6 @@ import 'package:service_learning_website/modules/url_downloader.dart';
 import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/widgets/image_preview.dart';
-import 'package:service_learning_website/widgets/text/modifiable_text.dart';
 import 'package:http/http.dart' as http;
 
 class ActivityEditingPagePhoto extends StatefulWidget {
@@ -87,24 +86,25 @@ class _ActivityEditingPagePhotoState extends State<ActivityEditingPagePhoto> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Text("檔名："),
-                                if (_canEdit)
-                                  ModifiableText(
-                                    fileData.filename,
-                                    onEditingCompleted: (value) {
-                                      fileData.filename = value;
-                                      activitiesProvider
-                                          .updateActivity(widget.id);
-                                    },
-                                  )
-                                else
-                                  Text(fileData.filename),
-                                const Icon(Icons.edit),
-                              ],
-                            ),
+                            // Row(
+                            //   mainAxisSize: MainAxisSize.min,
+                            //   children: [
+                            //     const Text("檔名："),
+                            //     if (_canEdit)
+                            //       ModifiableText(
+                            //         fileData.filename,
+                            //         onEditingCompleted: (value) {
+                            //           activitiesProvider
+                            //               .updateActivity(widget.id);
+                            //           setState(() => fileData.filename = value);
+                            //         },
+                            //       )
+                            //     else
+                            //       Text(fileData.filename),
+                            //     const Icon(Icons.edit),
+                            //   ],
+                            // ),
+                            Text("檔名：${fileData.filename}"),
                             Text(
                                 "上傳時間：${DateFormat('yyyy/MM/dd HH:mm:ss').format(fileData.uploadedTime)}"),
                             const SizedBox(height: 20),
