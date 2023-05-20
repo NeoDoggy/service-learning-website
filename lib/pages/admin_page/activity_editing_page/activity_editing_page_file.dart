@@ -59,7 +59,7 @@ class _ActivityEditingPageFileState extends State<ActivityEditingPageFile> {
                 DataColumn(label: Text("刪除")),
               ],
               rows: [
-                for (var fileData in activityData.files)
+                for (var fileData in activityData.files.values)
                   DataRow(
                     cells: [
                       DataCell(
@@ -69,7 +69,7 @@ class _ActivityEditingPageFileState extends State<ActivityEditingPageFile> {
                                   onEditingCompleted: (value) {
                                     fileData.filename = value;
                                     activitiesProvider
-                                        .updateActivity(widget.id);
+                                        .updateFile(widget.id, fileData.id);
                                   },
                                 )
                               : Text(fileData.filename),

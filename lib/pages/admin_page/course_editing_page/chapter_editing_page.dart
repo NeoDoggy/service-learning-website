@@ -82,7 +82,7 @@ class _ChapterEditingPageState extends State<ChapterEditingPage> {
                         widget.courseId, widget.chapterId);
                     setState(() => _isEdited = false);
                   },
-                  child: const Text("儲存變更")),
+                  child: const IgnorePointer(child: Text("儲存變更"))),
             if (_isEdited) const SizedBox(height: 40),
             TextField(
               readOnly: !_canEdit,

@@ -38,31 +38,33 @@ class PageSkeleton extends StatelessWidget {
             NestedScrollView(
               headerSliverBuilder: (context, innerBoxIsScrolled) =>
                   [navigationBar ?? const AppBarG()],
-              body: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // navigationBar ?? const NavBar(),
-                    ConstrainedBox(
-                      constraints: BoxConstraints(minHeight: windowHeight),
-                      child: Container(
-                        padding: EdgeInsets.only(
-                          left: isPadding
-                              ? MediaQuery.of(context).size.width / 1440 * 150
-                              : 0,
-                          right: isPadding
-                              ? MediaQuery.of(context).size.width / 1440 * 150
-                              : 0,
-                          top: 60,
-                          bottom: 100,
+              body: SelectionArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // navigationBar ?? const NavBar(),
+                      ConstrainedBox(
+                        constraints: BoxConstraints(minHeight: windowHeight),
+                        child: Container(
+                          padding: EdgeInsets.only(
+                            left: isPadding
+                                ? MediaQuery.of(context).size.width / 1440 * 150
+                                : 0,
+                            right: isPadding
+                                ? MediaQuery.of(context).size.width / 1440 * 150
+                                : 0,
+                            top: 60,
+                            bottom: 100,
+                          ),
+                          child: body,
                         ),
-                        child: body,
                       ),
-                    ),
-                    footer ?? const Footer(),
-                  ],
+                      footer ?? const Footer(),
+                    ],
+                  ),
                 ),
               ),
             ),

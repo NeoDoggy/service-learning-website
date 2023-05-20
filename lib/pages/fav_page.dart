@@ -82,7 +82,7 @@ class _MyStatefulWidgetState extends State<FavPage>
                       child: Container(
                         padding: const EdgeInsets.all(8),
                         child: const Center(
-                            child: SelectableText(
+                            child: Text(
                                 "單位：國立中央大學資訊工程學系\n地址：(320317) 桃園市中壢區中大路300號\n聯絡電話：03-422-7151\nemail：ncu4500@ncu.edu.tw")),
                       ),
                     ),

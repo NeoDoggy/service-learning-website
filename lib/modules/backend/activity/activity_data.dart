@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:service_learning_website/modules/backend/activity/activity_calendar_data.dart';
 import 'package:service_learning_website/modules/backend/activity/activity_file_data.dart';
+import 'package:service_learning_website/modules/backend/activity/activity_lecture_data.dart';
 import 'package:service_learning_website/modules/backend/activity/activity_participant_data.dart';
 import 'package:service_learning_website/modules/backend/activity/activity_question_data.dart';
 
@@ -17,20 +18,22 @@ class ActivityData {
     this.description = "",
     this.imageUrl = "",
     List<String>? members,
-    List<ActivityFileData>? files,
-    List<ActivityFileData>? photos,
     List<ActivityCalendarData>? calendar,
     List<ActivityQuestionData>? questions,
+    Map<String, ActivityFileData>? files,
+    Map<String, ActivityFileData>? photos,
     Map<String, ActivityParticipantData>? participants,
+    Map<String, ActivityLectureData>? lecture,
   })  : createdTime = createdTime ?? DateTime.now(),
         // holdingTime = holdingTime ?? [],
         deadline = deadline ?? DateTime.now(),
         members = members ?? [],
-        files = files ?? [],
-        photos = photos ?? [],
         calendar = calendar ?? [],
         questions = questions ?? [],
-        participants = participants ?? {};
+        files = files ?? {},
+        photos = photos ?? {},
+        participants = participants ?? {},
+        lecture = lecture ?? {};
 
   String id;
   DateTime createdTime;
@@ -43,13 +46,18 @@ class ActivityData {
   String description;
   String imageUrl;
   List<String> members;
-  List<ActivityFileData> files;
-  List<ActivityFileData> photos;
   List<ActivityCalendarData> calendar;
   List<ActivityQuestionData> questions;
 
+  /// <uid, file data>
+  Map<String, ActivityFileData> files;
+  Map<String, ActivityFileData> photos;
+
   /// <uid, participant data>
   Map<String, ActivityParticipantData> participants;
+
+  /// <id, lecture data>
+  Map<String, ActivityLectureData> lecture;
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -63,8 +71,6 @@ class ActivityData {
         "description": description,
         "imageUrl": imageUrl,
         "members": members,
-        "files": files.map((e) => e.toJson()).toList(),
-        "photos": photos.map((e) => e.toJson()).toList(),
         "calendar": calendar.map((e) => e.toJson()).toList(),
         "questions": questions.map((e) => e.toJson()).toList(),
       };
@@ -81,12 +87,6 @@ class ActivityData {
       description: map["description"],
       imageUrl: map["imageUrl"],
       members: (map["members"] as List?)?.map((e) => e.toString()).toList(),
-      files: (map["files"] as List?)
-          ?.map((e) => ActivityFileData.fromJson(e))
-          .toList(),
-      photos: (map["photos"] as List?)
-          ?.map((e) => ActivityFileData.fromJson(e))
-          .toList(),
       calendar: (map["calendar"] as List?)
           ?.map((e) => ActivityCalendarData.fromJson(e))
           .toList(),

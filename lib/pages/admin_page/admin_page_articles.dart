@@ -45,7 +45,7 @@ class _AdminPageArticlesState extends State<AdminPageArticles> {
                 if (permission >= UserPermission.ta)
                   ElevatedButton(
                     onPressed: () => articlesProvider.createArticle(authProvider.userData!),
-                    child: const Text("新增文章"),
+                    child: const IgnorePointer(child: Text("新增文章")),
                   ),
                 if (permission >= UserPermission.ta) const SizedBox(height: 40),
                 Scrollbar(
@@ -68,10 +68,10 @@ class _AdminPageArticlesState extends State<AdminPageArticles> {
                             in articlesProvider.articlesData.values)
                           DataRow(
                             cells: [
-                              DataCell(SelectableText(articleData.title)),
-                              DataCell(SelectableText(DateFormat("yyyy-MM-dd")
+                              DataCell(Text(articleData.title)),
+                              DataCell(Text(DateFormat("yyyy-MM-dd")
                                   .format(articleData.createdTime))),
-                              DataCell(SelectableText(articleData.authorName)),
+                              DataCell(Text(articleData.authorName)),
                               DataCell(
                                 IconButton(
                                   onPressed: () => context.push(

@@ -40,7 +40,7 @@ class _CourseEditingPageChapterState extends State<CourseEditingPageChapter> {
             if (_canEdit)
               ElevatedButton(
                 onPressed: () => coursesProvider.createChapter(widget.courseId),
-                child: const Text("新增章節"),
+                child: const IgnorePointer(child: Text("新增章節")),
               ),
             if (_canEdit) const SizedBox(height: 40),
             DataTable(columns: [
@@ -52,8 +52,8 @@ class _CourseEditingPageChapterState extends State<CourseEditingPageChapter> {
             ], rows: [
               for (int i = 0; i < chaptersList.length; i++)
                 DataRow(cells: [
-                  DataCell(SelectableText("${chaptersList[i].number + 1}")),
-                  DataCell(SelectableText(chaptersList[i].title)),
+                  DataCell(Text("${chaptersList[i].number + 1}")),
+                  DataCell(Text(chaptersList[i].title)),
                   DataCell(IconButton(
                     onPressed: () => context.push(
                         "/${MyRouter.admin}/${MyRouter.courses}/${widget.courseId}/${chaptersList[i].id}"),

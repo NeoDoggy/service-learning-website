@@ -12,7 +12,7 @@ class Footer extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(top: 30, bottom: 30),
         child: const Center(
-            child: SelectableText(
+            child: Text(
           "單位：國立中央大學資訊工程學系\n地址：(320317) 桃園市中壢區中大路300號\n聯絡電話：03-422-7151\nEmail：ncu4500@ncu.edu.tw",
           style: TextStyle(color: Color(0xFFFFFFFF)),
         )),

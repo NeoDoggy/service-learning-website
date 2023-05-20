@@ -19,7 +19,7 @@ class UsersProvider with ChangeNotifier {
           snapshot.docs.map((doc) => UserData.fromJson(doc.data())).toList(),
           key: (v) => (v as UserData).uid);
       if (kDebugMode) {
-        print("admin_page_users_provider -> loaded");
+        print("users_provider -> loaded");
       }
       // _usersData.sort((x, y) {
       //   if (x.permission < y.permission) {
@@ -41,7 +41,7 @@ class UsersProvider with ChangeNotifier {
           final data = value.data();
           usersData[uid] = UserData.fromJson(data!);
           if (kDebugMode) {
-            print("admin_page_users_provider -> updated");
+            print("users_provider -> updated");
           }
           notifyListeners();
         });
