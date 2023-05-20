@@ -74,7 +74,6 @@ class CoursesProvider with ChangeNotifier {
     _coursesData[courseId]!.chapters = Map.fromIterable(
         cSnapshot.docs.map((doc) => CourseChapterData.fromJson(doc.data())),
         key: (v) => (v as CourseChapterData).id);
-
     notifyListeners();
   }
 

@@ -58,7 +58,7 @@ class _BlankQuestionState extends State<BlankQuestion> {
         const SizedBox(height: 20),
         ElevatedButton(
           onPressed: checkAnswer,
-          child: const Text('Submit'),
+          child: const IgnorePointer(child: Text('Submit')),
         ),
         const SizedBox(height: 20),
         Text(

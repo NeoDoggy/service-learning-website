@@ -87,7 +87,7 @@ class _ActivityEditingPageInfoState extends State<ActivityEditingPageInfo> {
                           image: _imageEdited ? _imageByte : null);
                       setState(() => _isEdited = false);
                     },
-                    child: const Text("儲存變更")),
+                    child: const IgnorePointer(child: Text("儲存變更"))),
               if (_isEdited) const SizedBox(height: 40),
               TextField(
                 readOnly: !_canEdit,
@@ -164,7 +164,8 @@ class _ActivityEditingPageInfoState extends State<ActivityEditingPageInfo> {
                 if (_canEdit) const SizedBox(width: 10),
                 if (_canEdit)
                   ElevatedButton(
-                      onPressed: () => _pickFile(), child: const Text("瀏覽檔案")),
+                      onPressed: () => _pickFile(),
+                      child: const IgnorePointer(child: Text("瀏覽檔案"))),
               ]),
               const SizedBox(height: 20),
               if (_imageByte != null) Image.memory(_imageByte!, width: 400),

@@ -9,4 +9,12 @@ class FloatingWindowProvider with ChangeNotifier {
     _child = child;
     notifyListeners();
   }
+
+  void refresh() {
+    final tmp = _child;
+    _child = null;
+    notifyListeners();
+    _child = tmp;
+    notifyListeners();
+  }
 }

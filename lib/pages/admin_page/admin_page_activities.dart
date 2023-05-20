@@ -45,7 +45,7 @@ class _AdminPageActivitiesState extends State<AdminPageActivities> {
                 if (permission >= UserPermission.ta)
                   ElevatedButton(
                     onPressed: () => activitiesProvider.createActivity(),
-                    child: const Text("建立活動"),
+                    child: const IgnorePointer(child: Text("建立活動")),
                   ),
                 if (permission >= UserPermission.ta) const SizedBox(height: 40),
                 Scrollbar(
@@ -66,8 +66,8 @@ class _AdminPageActivitiesState extends State<AdminPageActivities> {
                             in activitiesProvider.activitiesData.values)
                           DataRow(
                             cells: [
-                              DataCell(SelectableText(activityData.title)),
-                              DataCell(SelectableText(DateFormat("yyyy-MM-dd")
+                              DataCell(Text(activityData.title)),
+                              DataCell(Text(DateFormat("yyyy-MM-dd")
                                   .format(activityData.createdTime))),
                               DataCell(
                                 IconButton(

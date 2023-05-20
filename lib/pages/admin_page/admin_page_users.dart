@@ -103,9 +103,9 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
                                     .contains(_keyword) ||
                                 element.permission.name.contains(_keyword))))
                           DataRow(cells: [
-                            DataCell(SelectableText(userData.name)),
-                            DataCell(SelectableText(userData.uid)),
-                            DataCell(SelectableText(userData.email)),
+                            DataCell(Text(userData.name)),
+                            DataCell(Text(userData.uid)),
+                            DataCell(Text(userData.email)),
                             DataCell(
                               ChoosableText(
                                 items: UserPermission.values

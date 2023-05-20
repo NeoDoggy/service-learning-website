@@ -60,7 +60,7 @@ class _ActivityEditingPagePermissionState
                       activitiesProvider.updateActivity(widget.id);
                       _isEdited = false;
                     },
-                    child: const Text("儲存變更"),
+                    child: const IgnorePointer(child: Text("儲存變更")),
                   ),
                 if (_isEdited) const SizedBox(height: 40),
                 const Text("組員",
@@ -75,12 +75,12 @@ class _ActivityEditingPagePermissionState
                 ], rows: [
                   for (String uid in _membersUid)
                     DataRow(cells: [
-                      DataCell(SelectableText(
+                      DataCell(Text(
                           usersProvider.usersData[uid]?.name ?? "")),
-                      DataCell(SelectableText(
+                      DataCell(Text(
                           usersProvider.usersData[uid]?.studentId.toString() ??
                               "")),
-                      DataCell(SelectableText(
+                      DataCell(Text(
                           usersProvider.usersData[uid]?.email ?? "")),
                       DataCell(
                         IconButton(
@@ -136,9 +136,9 @@ class _ActivityEditingPagePermissionState
                               element.email.contains(_keyword) ||
                               element.studentId.toString().contains(_keyword))))
                     DataRow(cells: [
-                      DataCell(SelectableText(userData.name)),
-                      DataCell(SelectableText(userData.studentId.toString())),
-                      DataCell(SelectableText(userData.email)),
+                      DataCell(Text(userData.name)),
+                      DataCell(Text(userData.studentId.toString())),
+                      DataCell(Text(userData.email)),
                       DataCell(
                         IconButton(
                             onPressed: () => setState(() {

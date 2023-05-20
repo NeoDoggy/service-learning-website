@@ -53,7 +53,7 @@ class _ModifiableTextState extends State<ModifiableText> {
     } else {
       _showingWidget = InkWell(
         onTap: () => _toggleEditing(true),
-        child: Text(widget.text),
+        child: IgnorePointer(child: Text(_controller.text)),
       );
     }
 

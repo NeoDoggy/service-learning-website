@@ -45,7 +45,7 @@ class _AdminPageCoursesState extends State<AdminPageCourses> {
                 if (permission >= UserPermission.ta)
                   ElevatedButton(
                     onPressed: () => coursesProvider.createCourse(),
-                    child: const Text("建立課程"),
+                    child: const IgnorePointer(child: Text("建立課程")),
                   ),
                 if (permission >= UserPermission.ta) const SizedBox(height: 40),
                 Scrollbar(
@@ -65,8 +65,8 @@ class _AdminPageCoursesState extends State<AdminPageCourses> {
                         for (var courseData
                             in coursesProvider.coursesData.values)
                           DataRow(cells: [
-                            DataCell(SelectableText(courseData.title)),
-                            DataCell(SelectableText(DateFormat("yyyy-MM-dd")
+                            DataCell(Text(courseData.title)),
+                            DataCell(Text(DateFormat("yyyy-MM-dd")
                                 .format(courseData.createdTime))),
                             DataCell(IconButton(
                               onPressed: () => context.push(

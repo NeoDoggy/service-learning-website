@@ -55,10 +55,21 @@ class ActivitiesProvider with ChangeNotifier {
   Future<void> loadActivity(String activityId) async {
     final pSnapshot =
         await _collection.doc(activityId).collection("participants").get();
+    final fSnapshot =
+        await _collection.doc(activityId).collection("files").get();
+    final iSnapshot =
+        await _collection.doc(activityId).collection("photos").get();
     _activitiesData[activityId]!.participants = Map.fromIterable(
         pSnapshot.docs
             .map((doc) => ActivityParticipantData.fromJson(doc.data())),
         key: (v) => (v as ActivityParticipantData).uid);
+    _activitiesData[activityId]!.files = Map.fromIterable(
+        fSnapshot.docs.map((doc) => ActivityFileData.fromJson(doc.data())),
+        key: (v) => (v as ActivityFileData).id);
+    _activitiesData[activityId]!.photos = Map.fromIterable(
+        iSnapshot.docs.map((doc) => ActivityFileData.fromJson(doc.data())),
+        key: (v) => (v as ActivityFileData).id);
+    notifyListeners();
   }
 
   Future<void> addParticipant(String activityId, String uid) async {
@@ -87,23 +98,29 @@ class ActivitiesProvider with ChangeNotifier {
     final fileRef = _fileStorage.child("$activityId/$fileId");
     await fileRef.putData(file);
     final fileUrl = await fileRef.getDownloadURL();
-    _activitiesData[activityId]!
-        .files
-        .add(ActivityFileData(id: fileId, filename: filename, url: fileUrl));
-    await _collection.doc(activityId).update({
-      "files":
-          _activitiesData[activityId]!.files.map((e) => e.toJson()).toList()
-    });
+    _activitiesData[activityId]!.files[fileId] =
+        (ActivityFileData(id: fileId, filename: filename, url: fileUrl));
+    await _collection
+        .doc(activityId)
+        .collection("files")
+        .doc(fileId)
+        .set(_activitiesData[activityId]!.files[fileId]!.toJson());
+    notifyListeners();
+  }
+
+  Future<void> updateFile(String activityId, String fileId) async {
+    await _collection
+        .doc(activityId)
+        .collection("files")
+        .doc(fileId)
+        .update(_activitiesData[activityId]!.files[fileId]!.toJson());
     notifyListeners();
   }
 
   Future<void> deleteFile(String activityId, String fileId) async {
-    _activitiesData[activityId]!.files.removeWhere((e) => e.id == fileId);
+    _activitiesData[activityId]!.files.remove(fileId);
     await _fileStorage.child("$activityId/$fileId").delete();
-    await _collection.doc(activityId).update({
-      "files":
-          _activitiesData[activityId]!.files.map((e) => e.toJson()).toList()
-    });
+    await _collection.doc(activityId).collection("files").doc(fileId).delete();
     notifyListeners();
   }
 
@@ -113,24 +130,30 @@ class ActivitiesProvider with ChangeNotifier {
     final fileRef = _imgStorage.child("$activityId/$fileId");
     await fileRef.putData(file);
     final fileUrl = await fileRef.getDownloadURL();
-    _activitiesData[activityId]!
-        .photos
-        .add(ActivityFileData(id: fileId, filename: filename, url: fileUrl));
-    await _collection.doc(activityId).update({
-      "photos":
-          _activitiesData[activityId]!.photos.map((e) => e.toJson()).toList()
-    });
+    _activitiesData[activityId]!.photos[fileId] =
+        (ActivityFileData(id: fileId, filename: filename, url: fileUrl));
+    await _collection
+        .doc(activityId)
+        .collection("photos")
+        .doc(fileId)
+        .set(_activitiesData[activityId]!.photos[fileId]!.toJson());
     notifyListeners();
     return fileId;
   }
 
+  Future<void> updatePhoto(String activityId, String fileId) async {
+    await _collection
+        .doc(activityId)
+        .collection("photos")
+        .doc(fileId)
+        .update(_activitiesData[activityId]!.photos[fileId]!.toJson());
+    notifyListeners();
+  }
+
   Future<void> deletePhoto(String activityId, String fileId) async {
-    _activitiesData[activityId]!.photos.removeWhere((e) => e.id == fileId);
+    _activitiesData[activityId]!.photos.remove(fileId);
     await _imgStorage.child("$activityId/$fileId").delete();
-    await _collection.doc(activityId).update({
-      "photos":
-          _activitiesData[activityId]!.photos.map((e) => e.toJson()).toList()
-    });
+    await _collection.doc(activityId).collection("photos").doc(fileId).delete();
     notifyListeners();
   }
 }
