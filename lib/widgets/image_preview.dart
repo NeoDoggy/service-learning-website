@@ -47,7 +47,7 @@ class _ImagePreviewState extends State<ImagePreview> {
                 Image.memory(widget.image,
                     width: MediaQuery.of(context).size.width * 0.6,
                     fit: BoxFit.fitWidth),
-                const SizedBox(width: 20),
+                if (widget.sideWidget != null) const SizedBox(width: 20),
                 if (widget.sideWidget != null) widget.sideWidget!,
               ],
             ),

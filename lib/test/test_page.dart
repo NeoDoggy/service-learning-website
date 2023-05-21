@@ -3,14 +3,12 @@ import 'package:service_learning_website/pages/fav_page.dart';
 import 'package:service_learning_website/pages/login_page.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/test/window_size.dart';
-import 'package:service_learning_website/widgets/blank_question.dart';
 import 'package:service_learning_website/widgets/bottom.dart';
 import 'package:service_learning_website/widgets/mcq.dart';
 import 'package:service_learning_website/widgets/my_progress_bar.dart';
 import 'package:service_learning_website/widgets/online_course_card.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
-import 'package:service_learning_website/widgets/my_download_button.dart';
 import 'package:service_learning_website/widgets/schedule_column.dart';
 import 'package:service_learning_website/widgets/my_album.dart';
 
@@ -22,23 +20,15 @@ class TestPage extends StatelessWidget {
     return PageSkeleton(
       body: Column(
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: const [
+            children: [
               UserIcon(size: 32),
             ],
           ),
           const SideMenu(
               width: 260,
               items: ["營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"]),
-          // MyMarkdown(mdContent),
-          const SizedBox(height: 20),
-          const MyDownloadButton(),
-          const SizedBox(height: 20),
-          const MyDownloadButton(),
-          const SizedBox(height: 20),
-          const MyDownloadButton(),
-          const SizedBox(height: 20),
           ScheduleColumn(
             dateTime: DateTime.now(),
             morning: "早上早上早上",
