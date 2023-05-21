@@ -18,6 +18,6 @@ enum MealType {
     }
   }
 
-  factory MealType.fromId(int id)
-    => values.firstWhere((element) => element.id == id);
+  factory MealType.fromId(int? id)
+    => values.firstWhere((element) => element.id == (id ?? 0));
 }

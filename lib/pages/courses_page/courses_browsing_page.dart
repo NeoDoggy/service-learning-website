@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:service_learning_website/modules/backend/course_data.dart';
+import 'package:service_learning_website/modules/backend/course/course_data.dart';
 import 'package:service_learning_website/modules/my_router.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
 import 'package:service_learning_website/widgets/online_course_card.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
 
-class CourseBrowsingPage extends StatelessWidget {
-  const CourseBrowsingPage({super.key});
+class CoursesBrowsingPage extends StatelessWidget {
+  const CoursesBrowsingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class CourseBrowsingPage extends StatelessWidget {
                 final colWidth = constraint.maxWidth;
                 int cardCount;
                 for (cardCount = 0;
-                    colWidth >= cardWidth * (cardCount + 1) + 60 * cardCount;
+                    colWidth >= cardWidth * (cardCount + 1) + 40 * cardCount;
                     cardCount++) {}
                 return Wrap(
                   spacing: (colWidth - cardWidth * cardCount) / (cardCount - 1),

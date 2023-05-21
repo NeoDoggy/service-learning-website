@@ -16,20 +16,39 @@ class AppBarG extends StatelessWidget {
       iconTheme: const IconThemeData(
         color: Color(0xFF858585),
       ),
-      title: Row(
-        children: const [
-          Icon(
-            Icons.logo_dev,
-            color: Color(0xFF474747),
+      // title: const Row(
+      //   children: [
+      //     Icon(
+      //       Icons.logo_dev,
+      //       color: Color(0xFF474747),
+      //     ),
+      //     SizedBox(width: 3),
+      //     Text(
+      //       'ServiceSite_LOGO',
+      //       style: TextStyle(
+      //         color: Color(0xFF474747),
+      //       ),
+      //     ),
+      //   ],
+      // ),
+
+      leadingWidth: 200,
+      leading: GestureDetector(
+        onTap: () => context.push("/"),
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: Image.asset(
+            "assets/images/logo2.png",
           ),
-          SizedBox(width: 3),
-          Text(
-            'ServiceSite_LOGO',
-            style: TextStyle(
-              color: Color(0xFF474747),
-            ),
-          ),
-        ],
+        ),
+      ),
+      title: GestureDetector(
+        onTap: () => context.go("/"),
+        child: const MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: Text("中央資訊教育平台",
+              style: TextStyle(fontWeight: FontWeight.bold)),
+        ),
       ),
       backgroundColor: const Color(0xFFffffff),
       pinned: false,
@@ -56,7 +75,7 @@ class AppBarG extends StatelessWidget {
               return InkWell(
                 hoverColor: Colors.transparent,
                 onTap: () {
-                  context.push('/');
+                  context.push('/${MyRouter.activities}');
                 },
                 child: const Text(
                   "營隊活動",

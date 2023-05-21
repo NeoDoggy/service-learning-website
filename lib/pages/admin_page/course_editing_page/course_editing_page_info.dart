@@ -4,7 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/modules/backend/user/user_permission.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
 
@@ -83,7 +83,7 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
                           image: _imageEdited ? _imageByte : null);
                       setState(() => _isEdited = false);
                     },
-                    child: const Text("儲存變更")),
+                    child: const SelectionContainer.disabled(child: Text("儲存變更"))),
               if (_isEdited) const SizedBox(height: 40),
               TextField(
                 readOnly: !_canEdit,
@@ -128,7 +128,7 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
                 maxLines: null,
                 decoration: const InputDecoration(
                   labelText: "課程大綱",
-                  hintText: "使用 Markdown 語法，可多換行輸入",
+                  hintText: "使用 Markdown 語法，可換行輸入",
                   icon: Icon(Icons.list),
                 ),
               ),
@@ -138,7 +138,7 @@ class _CourseEditingPageInfoState extends State<CourseEditingPageInfo> {
                 if (_canEdit) const SizedBox(width: 10),
                 if (_canEdit)
                   ElevatedButton(
-                      onPressed: () => _pickFile(), child: const Text("瀏覽檔案")),
+                      onPressed: () => _pickFile(), child: const SelectionContainer.disabled(child: Text("瀏覽檔案"))),
               ]),
               const SizedBox(height: 20),
               if (_imageByte != null) Image.memory(_imageByte!, width: 400),

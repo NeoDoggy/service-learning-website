@@ -30,7 +30,7 @@ class _OnlineCourseCardState extends State<OnlineCourseCard> {
   @override
   Widget build(BuildContext context) {
     // final scale = MediaQuery.of(context).size.width / 1440.0;
-    if (_imageByte == null) {
+    if (_imageByte == null && widget.imageUrl != "") {
       http
           .get(Uri.parse(widget.imageUrl))
           .timeout(Duration(seconds: 5))
@@ -82,13 +82,15 @@ class _OnlineCourseCardState extends State<OnlineCourseCard> {
                 alignment: Alignment.centerLeft,
                 child: Container(
                   margin: EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 20.0),
-                  child: Text(
-                    widget.courseName,
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.w400,
-                      height: 29.0 / 24.0,
-                      color: Color(0xff000000),
+                  child: SelectionContainer.disabled(
+                    child: Text(
+                      widget.courseName,
+                      style: TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.w400,
+                        height: 29.0 / 24.0,
+                        color: Color(0xff000000),
+                      ),
                     ),
                   ),
                 ),

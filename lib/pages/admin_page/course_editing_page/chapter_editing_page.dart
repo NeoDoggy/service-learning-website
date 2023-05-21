@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/modules/backend/course/course_chapter_data.dart';
+import 'package:service_learning_website/modules/backend/user/user_permission.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
@@ -75,14 +76,9 @@ class _ChapterEditingPageState extends State<ChapterEditingPage> {
             if (_isEdited)
               ElevatedButton(
                   onPressed: () {
-                    chapterData.title = _titleTextController.text;
-                    chapterData.videoUrl = _videoUrlTextController.text;
-                    chapterData.mdContent = _mdContentTextController.text;
-                    coursesProvider.updateChapter(
-                        widget.courseId, widget.chapterId);
-                    setState(() => _isEdited = false);
+                    _save(chapterData, coursesProvider);
                   },
-                  child: const Text("儲存變更")),
+                  child: const SelectionContainer.disabled(child: Text("儲存變更"))),
             if (_isEdited) const SizedBox(height: 40),
             TextField(
               readOnly: !_canEdit,
@@ -113,9 +109,22 @@ class _ChapterEditingPageState extends State<ChapterEditingPage> {
                 icon: Icon(Icons.description),
               ),
             ),
+            if (_isEdited) const SizedBox(height: 40),
+            if (_isEdited)
+              ElevatedButton(
+                  onPressed: () => _save(chapterData, coursesProvider),
+                  child: const SelectionContainer.disabled(child: Text("儲存變更"))),
           ],
         );
       },
     ));
+  }
+
+  void _save(CourseChapterData chapterData, CoursesProvider coursesProvider) {
+    chapterData.title = _titleTextController.text;
+    chapterData.videoUrl = _videoUrlTextController.text;
+    chapterData.mdContent = _mdContentTextController.text;
+    coursesProvider.updateChapter(widget.courseId, widget.chapterId);
+    setState(() => _isEdited = false);
   }
 }

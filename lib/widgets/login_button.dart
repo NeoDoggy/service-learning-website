@@ -42,7 +42,8 @@ class _LoginButtonState extends State<LoginButton> {
                 height: 40,
               ),
               const SizedBox(width: 40),
-              const Text("以 Google 帳戶登入", style: TextStyle(fontSize: 24)),
+              const SelectionContainer.disabled(
+                  child: Text("以 Google 帳戶登入", style: TextStyle(fontSize: 24))),
             ],
           ),
         ),

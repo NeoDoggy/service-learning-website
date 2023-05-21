@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:service_learning_website/modules/backend/user_data.dart';
-import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/modules/backend/user/user_data.dart';
+import 'package:service_learning_website/modules/backend/user/user_permission.dart';
 
 class UsersProvider with ChangeNotifier {
   UsersProvider() {
@@ -19,7 +19,7 @@ class UsersProvider with ChangeNotifier {
           snapshot.docs.map((doc) => UserData.fromJson(doc.data())).toList(),
           key: (v) => (v as UserData).uid);
       if (kDebugMode) {
-        print("admin_page_users_provider -> loaded");
+        print("users_provider -> loaded");
       }
       // _usersData.sort((x, y) {
       //   if (x.permission < y.permission) {
@@ -41,7 +41,7 @@ class UsersProvider with ChangeNotifier {
           final data = value.data();
           usersData[uid] = UserData.fromJson(data!);
           if (kDebugMode) {
-            print("admin_page_users_provider -> updated");
+            print("users_provider -> updated");
           }
           notifyListeners();
         });

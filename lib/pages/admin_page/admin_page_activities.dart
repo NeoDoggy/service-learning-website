@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/modules/backend/user/user_permission.dart';
 import 'package:service_learning_website/modules/my_router.dart';
 import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
@@ -36,10 +36,6 @@ class _AdminPageActivitiesState extends State<AdminPageActivities> {
         final UserPermission permission =
             authProvider.userData?.permission ?? UserPermission.none;
 
-        // if (permission < UserPermission.student) {
-        //   return const Text("你沒有權限");
-        // }
-
         return Consumer<ActivitiesProvider>(
           builder: (context, activitiesProvider, child) {
             return Column(
@@ -49,7 +45,7 @@ class _AdminPageActivitiesState extends State<AdminPageActivities> {
                 if (permission >= UserPermission.ta)
                   ElevatedButton(
                     onPressed: () => activitiesProvider.createActivity(),
-                    child: const Text("建立活動"),
+                    child: const SelectionContainer.disabled(child: Text("建立活動")),
                   ),
                 if (permission >= UserPermission.ta) const SizedBox(height: 40),
                 Scrollbar(
@@ -70,8 +66,8 @@ class _AdminPageActivitiesState extends State<AdminPageActivities> {
                             in activitiesProvider.activitiesData.values)
                           DataRow(
                             cells: [
-                              DataCell(SelectableText(activityData.title)),
-                              DataCell(SelectableText(DateFormat("yyyy-MM-dd")
+                              DataCell(Text(activityData.title)),
+                              DataCell(Text(DateFormat("yyyy-MM-dd")
                                   .format(activityData.createdTime))),
                               DataCell(
                                 IconButton(

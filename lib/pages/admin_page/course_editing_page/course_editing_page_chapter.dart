@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:service_learning_website/modules/backend/course_chapter_data.dart';
-import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/modules/backend/user/user_permission.dart';
 import 'package:service_learning_website/modules/my_router.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
 
-class CourseEditingPageChapters extends StatefulWidget {
-  const CourseEditingPageChapters(
+class CourseEditingPageChapter extends StatefulWidget {
+  const CourseEditingPageChapter(
     this.courseId, {
     super.key,
   });
@@ -16,11 +15,11 @@ class CourseEditingPageChapters extends StatefulWidget {
   final String courseId;
 
   @override
-  State<CourseEditingPageChapters> createState() =>
-      _CourseEditingPageChaptersState();
+  State<CourseEditingPageChapter> createState() =>
+      _CourseEditingPageChapterState();
 }
 
-class _CourseEditingPageChaptersState extends State<CourseEditingPageChapters> {
+class _CourseEditingPageChapterState extends State<CourseEditingPageChapter> {
   bool _canEdit = false;
 
   @override
@@ -41,7 +40,7 @@ class _CourseEditingPageChaptersState extends State<CourseEditingPageChapters> {
             if (_canEdit)
               ElevatedButton(
                 onPressed: () => coursesProvider.createChapter(widget.courseId),
-                child: const Text("新增章節"),
+                child: const SelectionContainer.disabled(child: Text("新增章節")),
               ),
             if (_canEdit) const SizedBox(height: 40),
             DataTable(columns: [
@@ -53,8 +52,8 @@ class _CourseEditingPageChaptersState extends State<CourseEditingPageChapters> {
             ], rows: [
               for (int i = 0; i < chaptersList.length; i++)
                 DataRow(cells: [
-                  DataCell(SelectableText("${chaptersList[i].number + 1}")),
-                  DataCell(SelectableText(chaptersList[i].title)),
+                  DataCell(Text("${chaptersList[i].number + 1}")),
+                  DataCell(Text(chaptersList[i].title)),
                   DataCell(IconButton(
                     onPressed: () => context.push(
                         "/${MyRouter.admin}/${MyRouter.courses}/${widget.courseId}/${chaptersList[i].id}"),
@@ -65,7 +64,6 @@ class _CourseEditingPageChaptersState extends State<CourseEditingPageChapters> {
                   if (_canEdit)
                     DataCell(Row(children: [
                       IconButton(
-                          disabledColor: Colors.grey,
                           onPressed: i == 0
                               ? null
                               : () {
@@ -80,7 +78,6 @@ class _CourseEditingPageChaptersState extends State<CourseEditingPageChapters> {
                                 },
                           icon: const Icon(Icons.arrow_upward)),
                       IconButton(
-                          disabledColor: Colors.grey,
                           onPressed: i == chaptersList.length - 1
                               ? null
                               : () {
@@ -98,7 +95,6 @@ class _CourseEditingPageChaptersState extends State<CourseEditingPageChapters> {
                   if (_canEdit)
                     DataCell(
                       IconButton(
-                          disabledColor: Colors.grey,
                           onPressed: () {
                             setState(() {
                               for (int j = i + 1;
