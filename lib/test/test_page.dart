@@ -9,8 +9,8 @@ import 'package:service_learning_website/widgets/my_progress_bar.dart';
 import 'package:service_learning_website/widgets/online_course_card.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
-import 'package:service_learning_website/widgets/my_download_button.dart';
 import 'package:service_learning_website/widgets/schedule_column.dart';
+import 'package:service_learning_website/widgets/my_album.dart';
 
 class TestPage extends StatelessWidget {
   const TestPage({super.key});
@@ -20,23 +20,15 @@ class TestPage extends StatelessWidget {
     return PageSkeleton(
       body: Column(
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: const [
+            children: [
               UserIcon(size: 32),
             ],
           ),
           const SideMenu(
               width: 260,
               items: ["營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"]),
-          // MyMarkdown(mdContent),
-          const SizedBox(height: 20),
-          const MyDownloadButton(),
-          const SizedBox(height: 20),
-          const MyDownloadButton(),
-          const SizedBox(height: 20),
-          const MyDownloadButton(),
-          const SizedBox(height: 20),
           ScheduleColumn(
             dateTime: DateTime.now(),
             morning: "早上早上早上",
@@ -59,6 +51,11 @@ class TestPage extends StatelessWidget {
           const OnlineCourseCard(
             imageUrl: "assets/images/google.png",
             courseName: "123",
+          ),
+          const MyAlbum(
+            width: 128,
+            height: 128,
+            imageUrl: "assets/images/20230504_184123.jpg",
           ),
         ],
       ),

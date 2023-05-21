@@ -130,7 +130,6 @@ class _ActivityEditingPageState extends State<ActivityEditingPage> {
           ),
         ],
       ),
-      bottomSheet: const WindowSize(),
     );
   }
 }

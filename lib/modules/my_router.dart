@@ -10,6 +10,7 @@ import 'package:service_learning_website/pages/articles_page/article_page.dart';
 import 'package:service_learning_website/pages/admin_page/course_editing_page/chapter_editing_page.dart';
 import 'package:service_learning_website/pages/admin_page/course_editing_page/course_editing_page.dart';
 import 'package:service_learning_website/pages/articles_page/articles_browsing_page.dart';
+import 'package:service_learning_website/pages/backstage_page/backstage_activity_page.dart';
 import 'package:service_learning_website/pages/courses_page/course_intro.dart';
 import 'package:service_learning_website/pages/courses_page/course_page.dart';
 import 'package:service_learning_website/pages/courses_page/courses_browsing_page.dart';
@@ -40,9 +41,20 @@ class MyRouter {
                 builder: (context, state) => const TestPage(),
               ),
               GoRoute(
-                path: MyRouter.backstage,
-                builder: (context, state) => const BackstagePage(),
-              ),
+                  path: MyRouter.backstage,
+                  builder: (context, state) => const BackstagePage(),
+                  redirect: (context, state) {
+                    return FirebaseAuth.instance.currentUser == null
+                        ? "/${MyRouter.login}"
+                        : null;
+                  },
+                  routes: [
+                    GoRoute(
+                      path: "${MyRouter.activities}/:activityId",
+                      builder: (context, state) =>
+                          BackstageActivityPage(state.params["activityId"]!),
+                    )
+                  ]),
               GoRoute(
                 path: MyRouter.activities,
                 builder: (context, state) => const ActivitiesBrowsingPage(),
