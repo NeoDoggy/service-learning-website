@@ -145,6 +145,8 @@ class _CourseIntroState extends State<CourseIntro> {
                           if (!_isParticipant) {
                             await coursesProvider.addParticipant(
                                 widget.courseId, authProvider.userData!.uid);
+                            userData!.joinedCourses.add(widget.courseId);
+                            authProvider.updateUser(userData.uid);
                           }
                           if (context.mounted) {
                             context.push(
