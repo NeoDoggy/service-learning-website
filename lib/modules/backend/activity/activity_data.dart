@@ -23,7 +23,7 @@ class ActivityData {
     Map<String, ActivityFileData>? files,
     Map<String, ActivityFileData>? photos,
     Map<String, ActivityParticipantData>? participants,
-    Map<String, ActivityLectureData>? lecture,
+    Map<String, ActivityLectureData>? lectures,
   })  : createdTime = createdTime ?? DateTime.now(),
         // holdingTime = holdingTime ?? [],
         deadline = deadline ?? DateTime.now(),
@@ -33,7 +33,7 @@ class ActivityData {
         files = files ?? {},
         photos = photos ?? {},
         participants = participants ?? {},
-        lecture = lecture ?? {};
+        lectures = lectures ?? {};
 
   String id;
   DateTime createdTime;
@@ -49,7 +49,7 @@ class ActivityData {
   List<ActivityCalendarData> calendar;
   List<ActivityQuestionData> questions;
 
-  /// <uid, file data>
+  /// <id, file data>
   Map<String, ActivityFileData> files;
   Map<String, ActivityFileData> photos;
 
@@ -57,7 +57,7 @@ class ActivityData {
   Map<String, ActivityParticipantData> participants;
 
   /// <id, lecture data>
-  Map<String, ActivityLectureData> lecture;
+  Map<String, ActivityLectureData> lectures;
 
   Map<String, dynamic> toJson() => {
         "id": id,

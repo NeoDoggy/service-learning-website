@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:service_learning_website/modules/backend/course/course_chapter_data.dart';
+import 'package:service_learning_website/modules/backend/activity/activity_lecture_data.dart';
 import 'package:service_learning_website/modules/backend/user/user_permission.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
+import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
-import 'package:service_learning_website/providers/courses_provider.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
 
-class ChapterEditingPage extends StatefulWidget {
-  const ChapterEditingPage(this.courseId, this.chapterId, {super.key});
+class LectureEditingPage extends StatefulWidget {
+  const LectureEditingPage(this.activiyId, this.lectureId, {super.key});
 
-  final String courseId;
-  final String chapterId;
+  final String activiyId;
+  final String lectureId;
 
   @override
-  State<ChapterEditingPage> createState() => _ChapterEditingPageState();
+  State<LectureEditingPage> createState() => _LectureEditingPageState();
 }
 
-class _ChapterEditingPageState extends State<ChapterEditingPage> {
+class _LectureEditingPageState extends State<LectureEditingPage> {
   final _titleTextController = TextEditingController();
-  final _videoUrlTextController = TextEditingController();
   final _mdContentTextController = TextEditingController();
 
   bool _loaded = false;
@@ -29,7 +28,6 @@ class _ChapterEditingPageState extends State<ChapterEditingPage> {
   @override
   void dispose() {
     _titleTextController.dispose();
-    _videoUrlTextController.dispose();
     _mdContentTextController.dispose();
     super.dispose();
   }
@@ -42,41 +40,40 @@ class _ChapterEditingPageState extends State<ChapterEditingPage> {
       return const Scaffold(body: Center(child: Text("Permission denied")));
     }
 
-    final coursesProvider = Provider.of<CoursesProvider>(context);
+    final activitiesProvider = Provider.of<ActivitiesProvider>(context);
     if (!_loaded) {
       _loaded = true;
-      coursesProvider.loadCourse(widget.courseId);
+      activitiesProvider.loadActivity(widget.activiyId);
     }
-    if (coursesProvider
-            .coursesData[widget.courseId]?.chapters[widget.chapterId] ==
+    if (activitiesProvider
+            .activitiesData[widget.activiyId]?.lectures[widget.lectureId] ==
         null) {
       return const Scaffold(body: Center(child: Text("Loading")));
     }
 
-    return PageSkeleton(body: Consumer2<AuthProvider, CoursesProvider>(
-      builder: (context, authProvider, coursesProvider, child) {
-        final courseData = coursesProvider.coursesData[widget.courseId]!;
-        final chapterData = courseData.chapters[widget.chapterId]!;
+    return PageSkeleton(body: Consumer2<AuthProvider, ActivitiesProvider>(
+      builder: (context, authProvider, activitiesProvider, child) {
+        final activityData = activitiesProvider.activitiesData[widget.activiyId]!;
+        final lectureData = activityData.lectures[widget.lectureId]!;
         _canEdit = (authProvider.userData?.permission ?? UserPermission.none) >=
                 UserPermission.ta ||
-            courseData.members.contains(authProvider.userData?.uid);
+            activityData.members.contains(authProvider.userData?.uid);
 
         if (!_isEdited) {
-          _titleTextController.text = chapterData.title;
-          _videoUrlTextController.text = chapterData.videoUrl;
-          _mdContentTextController.text = chapterData.mdContent;
+          _titleTextController.text = lectureData.title;
+          _mdContentTextController.text = lectureData.mdContent;
         }
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TitleTextBox("${chapterData.number + 1}. ${chapterData.title}"),
+            TitleTextBox("${lectureData.number + 1}. ${lectureData.title}"),
             const SizedBox(height: 60),
             if (_isEdited)
               ElevatedButton(
                   onPressed: () {
-                    _save(chapterData, coursesProvider);
+                    _save(lectureData, activitiesProvider);
                   },
                   child: const SelectionContainer.disabled(child: Text("儲存變更"))),
             if (_isEdited) const SizedBox(height: 40),
@@ -87,15 +84,6 @@ class _ChapterEditingPageState extends State<ChapterEditingPage> {
               decoration: const InputDecoration(
                 labelText: "章節標題",
                 icon: Icon(Icons.text_fields),
-              ),
-            ),
-            TextField(
-              readOnly: !_canEdit,
-              controller: _videoUrlTextController,
-              onChanged: (_) => setState(() => _isEdited = true),
-              decoration: const InputDecoration(
-                labelText: "YouTube 影片連結",
-                icon: Icon(Icons.video_collection),
               ),
             ),
             TextField(
@@ -112,7 +100,7 @@ class _ChapterEditingPageState extends State<ChapterEditingPage> {
             if (_isEdited) const SizedBox(height: 40),
             if (_isEdited)
               ElevatedButton(
-                  onPressed: () => _save(chapterData, coursesProvider),
+                  onPressed: () => _save(lectureData, activitiesProvider),
                   child: const SelectionContainer.disabled(child: Text("儲存變更"))),
           ],
         );
@@ -120,11 +108,10 @@ class _ChapterEditingPageState extends State<ChapterEditingPage> {
     ));
   }
 
-  void _save(CourseChapterData chapterData, CoursesProvider coursesProvider) {
-    chapterData.title = _titleTextController.text;
-    chapterData.videoUrl = _videoUrlTextController.text;
-    chapterData.mdContent = _mdContentTextController.text;
-    coursesProvider.updateChapter(widget.courseId, widget.chapterId);
+  void _save(ActivityLectureData lectureData, ActivitiesProvider coursesProvider) {
+    lectureData.title = _titleTextController.text;
+    lectureData.mdContent = _mdContentTextController.text;
+    coursesProvider.updateLecture(widget.activiyId, widget.lectureId);
     setState(() => _isEdited = false);
   }
 }

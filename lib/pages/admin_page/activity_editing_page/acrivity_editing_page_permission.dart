@@ -60,7 +60,7 @@ class _ActivityEditingPagePermissionState
                       activitiesProvider.updateActivity(widget.id);
                       _isEdited = false;
                     },
-                    child: const IgnorePointer(child: Text("儲存變更")),
+                    child: const SelectionContainer.disabled(child: Text("儲存變更")),
                   ),
                 if (_isEdited) const SizedBox(height: 40),
                 const Text("組員",

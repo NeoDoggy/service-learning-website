@@ -208,7 +208,7 @@ class EditCard extends StatelessWidget {
                           onPressed: () {},
                           child: const Padding(
                             padding: EdgeInsets.all(5),
-                            child: IgnorePointer(child: Text("儲存")),
+                            child: SelectionContainer.disabled(child: Text("儲存")),
                           )),
                       const SizedBox(
                         width: 10,
@@ -227,7 +227,7 @@ class EditCard extends StatelessWidget {
                           onPressed: () {},
                           child: const Padding(
                             padding: EdgeInsets.all(5),
-                            child: IgnorePointer(child: Text("刪除")),
+                            child: SelectionContainer.disabled(child: Text("刪除")),
                           )),
                       const SizedBox(
                         width: 10,
@@ -248,7 +248,7 @@ class EditCard extends StatelessWidget {
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(5),
-                            child: IgnorePointer(
+                            child: SelectionContainer.disabled(
                                 child: Text(
                               "取消",
                               style: TextStyle(color: Color(0xFF474747)),

@@ -168,7 +168,7 @@ class _MyStatefulWidgetState extends State<LoginPage> with TickerProviderStateMi
                                           horizontal: 15, vertical: 6),
                                       duration: const Duration(milliseconds: 600),
                                       child: const Center(
-                                        child: IgnorePointer(
+                                        child: SelectionContainer.disabled(
                                           child: Text(
                                             'LOGIN',
                                             style: TextStyle(

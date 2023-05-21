@@ -5,6 +5,7 @@ import 'package:service_learning_website/pages/admin_page/activity_editing_page/
 import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page_calendar.dart';
 import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page_file.dart';
 import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page_info.dart';
+import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page_lecture.dart';
 import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page_photo.dart';
 import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page_question.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
@@ -70,7 +71,7 @@ class _ActivityEditingPageState extends State<ActivityEditingPage> {
         _showingWidget = ActivityEditingPageQuestion(widget.id);
         break;
       case 3:
-        _showingWidget = Container(height: 2000, color: Colors.orange);
+        _showingWidget = ActivityEditingPageLecture(widget.id);
         break;
       case 4:
         _showingWidget = ActivityEditingPageFile(widget.id);

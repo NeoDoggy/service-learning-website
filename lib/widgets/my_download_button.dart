@@ -44,7 +44,7 @@ class MyDownloadButton extends StatelessWidget {
             SizedBox(width: 15),
             Icon(Icons.insert_link, size: 64),
             SizedBox(width: 15),
-            IgnorePointer(child: Text('下載', style: TextStyle(fontSize: 32, height: 0.5))),
+            SelectionContainer.disabled(child: Text('下載', style: TextStyle(fontSize: 32, height: 0.5))),
           ],
         ),
       ),

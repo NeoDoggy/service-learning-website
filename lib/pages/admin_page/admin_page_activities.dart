@@ -45,7 +45,7 @@ class _AdminPageActivitiesState extends State<AdminPageActivities> {
                 if (permission >= UserPermission.ta)
                   ElevatedButton(
                     onPressed: () => activitiesProvider.createActivity(),
-                    child: const IgnorePointer(child: Text("建立活動")),
+                    child: const SelectionContainer.disabled(child: Text("建立活動")),
                   ),
                 if (permission >= UserPermission.ta) const SizedBox(height: 40),
                 Scrollbar(

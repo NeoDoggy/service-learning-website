@@ -157,7 +157,7 @@ class _CourseIntroState extends State<CourseIntro> {
                             MaterialStateProperty.all(TextStyle(fontSize: 24)),
                         padding: MaterialStateProperty.all(EdgeInsets.all(20)),
                       ),
-                      child: IgnorePointer(child: Text(_isParticipant ? "進入課程" : "加入課程"))),
+                      child: SelectionContainer.disabled(child: Text(_isParticipant ? "進入課程" : "加入課程"))),
                 ),
               ]);
         },

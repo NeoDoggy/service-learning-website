@@ -30,7 +30,7 @@ class _EnhancedTextState extends State<EnhancedText> {
         onEnter: (event) => setState(() => _isHovered = true),
         onExit: (event) => setState(() => _isHovered = false),
         cursor: SystemMouseCursors.click,
-        child: IgnorePointer(
+        child: SelectionContainer.disabled(
           child: Text(
             widget.text,
             style: widget.style.copyWith(

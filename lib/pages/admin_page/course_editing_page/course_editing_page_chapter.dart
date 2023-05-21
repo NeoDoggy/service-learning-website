@@ -40,7 +40,7 @@ class _CourseEditingPageChapterState extends State<CourseEditingPageChapter> {
             if (_canEdit)
               ElevatedButton(
                 onPressed: () => coursesProvider.createChapter(widget.courseId),
-                child: const IgnorePointer(child: Text("新增章節")),
+                child: const SelectionContainer.disabled(child: Text("新增章節")),
               ),
             if (_canEdit) const SizedBox(height: 40),
             DataTable(columns: [

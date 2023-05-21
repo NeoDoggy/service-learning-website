@@ -206,7 +206,7 @@ class _ActivityIntroState extends State<ActivityIntro> {
                             MaterialStateProperty.all(TextStyle(fontSize: 24)),
                         padding: MaterialStateProperty.all(EdgeInsets.all(20)),
                       ),
-                      child: IgnorePointer(child: Text(_isParticipant ? "進入後台" : "報名參加"))),
+                      child: SelectionContainer.disabled(child: Text(_isParticipant ? "進入後台" : "報名參加"))),
                 ),
               ]);
         },

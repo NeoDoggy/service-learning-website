@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:service_learning_website/modules/backend/activity/activity_data.dart';
 import 'package:service_learning_website/modules/backend/activity/activity_file_data.dart';
+import 'package:service_learning_website/modules/backend/activity/activity_lecture_data.dart';
 import 'package:service_learning_website/modules/backend/activity/activity_participant_data.dart';
 import 'package:service_learning_website/modules/random_id.dart';
 
@@ -59,6 +60,8 @@ class ActivitiesProvider with ChangeNotifier {
         await _collection.doc(activityId).collection("files").get();
     final iSnapshot =
         await _collection.doc(activityId).collection("photos").get();
+    final lSnapshot =
+        await _collection.doc(activityId).collection("lectures").get();
     _activitiesData[activityId]!.participants = Map.fromIterable(
         pSnapshot.docs
             .map((doc) => ActivityParticipantData.fromJson(doc.data())),
@@ -69,6 +72,9 @@ class ActivitiesProvider with ChangeNotifier {
     _activitiesData[activityId]!.photos = Map.fromIterable(
         iSnapshot.docs.map((doc) => ActivityFileData.fromJson(doc.data())),
         key: (v) => (v as ActivityFileData).id);
+    _activitiesData[activityId]!.lectures = Map.fromIterable(
+        lSnapshot.docs.map((doc) => ActivityLectureData.fromJson(doc.data())),
+        key: (v) => (v as ActivityLectureData).id);
     notifyListeners();
   }
 
@@ -154,6 +160,38 @@ class ActivitiesProvider with ChangeNotifier {
     _activitiesData[activityId]!.photos.remove(fileId);
     await _imgStorage.child("$activityId/$fileId").delete();
     await _collection.doc(activityId).collection("photos").doc(fileId).delete();
+    notifyListeners();
+  }
+
+  Future<void> createLecture(String activityId) async {
+    final String id = RandomId.generate();
+    final lectureData = ActivityLectureData(
+        id: id, title: id, number: _activitiesData[activityId]!.lectures.length);
+    await _collection
+        .doc(activityId)
+        .collection("lectures")
+        .doc(id)
+        .set(lectureData.toJson());
+    _activitiesData[activityId]!.lectures[id] = lectureData;
+    notifyListeners();
+  }
+
+  Future<void> deleteLecture(String activityId, String lectureId) async {
+    await _collection
+        .doc(activityId)
+        .collection("lectures")
+        .doc(lectureId)
+        .delete();
+    _activitiesData[activityId]!.lectures.remove(lectureId);
+    notifyListeners();
+  }
+
+  Future<void> updateLecture(String courseId, String chapterId) async {
+    await _collection
+        .doc(courseId)
+        .collection("lectures")
+        .doc(chapterId)
+        .update(_activitiesData[courseId]!.lectures[chapterId]!.toJson());
     notifyListeners();
   }
 }

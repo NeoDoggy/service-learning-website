@@ -45,7 +45,7 @@ class ChoosableText extends StatelessWidget {
           items: menu,
         );
       },
-      child: IgnorePointer(child: Text(items[defaultIndex])),
+      child: SelectionContainer.disabled(child: Text(items[defaultIndex])),
     );
   }
 }
