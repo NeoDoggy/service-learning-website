@@ -148,7 +148,7 @@ class ClassCard extends StatelessWidget {
                     onPressed: () {},
                     child: Padding(
                       padding: const EdgeInsets.all(5),
-                      child: addIn ? const IgnorePointer(child: Text("加入課程")) : const Text("進入課程"),
+                      child: addIn ? const SelectionContainer.disabled(child: Text("加入課程")) : const Text("進入課程"),
                     )),
               ),
               const SizedBox(

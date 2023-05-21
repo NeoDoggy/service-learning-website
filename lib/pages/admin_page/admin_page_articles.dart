@@ -45,7 +45,7 @@ class _AdminPageArticlesState extends State<AdminPageArticles> {
                 if (permission >= UserPermission.ta)
                   ElevatedButton(
                     onPressed: () => articlesProvider.createArticle(authProvider.userData!),
-                    child: const IgnorePointer(child: Text("新增文章")),
+                    child: const SelectionContainer.disabled(child: Text("新增文章")),
                   ),
                 if (permission >= UserPermission.ta) const SizedBox(height: 40),
                 Scrollbar(

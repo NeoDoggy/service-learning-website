@@ -45,7 +45,7 @@ class _AdminPageCoursesState extends State<AdminPageCourses> {
                 if (permission >= UserPermission.ta)
                   ElevatedButton(
                     onPressed: () => coursesProvider.createCourse(),
-                    child: const IgnorePointer(child: Text("建立課程")),
+                    child: const SelectionContainer.disabled(child: Text("建立課程")),
                   ),
                 if (permission >= UserPermission.ta) const SizedBox(height: 40),
                 Scrollbar(

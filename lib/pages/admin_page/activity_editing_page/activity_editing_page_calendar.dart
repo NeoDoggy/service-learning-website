@@ -73,7 +73,7 @@ class _ActivityEditingPageCalendarState
                         _isEdited = true;
                       });
                     },
-                    child: const IgnorePointer(child: Text("新增")),
+                    child: const SelectionContainer.disabled(child: Text("新增")),
                   ),
                 if (_canEdit) const SizedBox(width: 20),
                 if (_isEdited)
@@ -87,7 +87,7 @@ class _ActivityEditingPageCalendarState
                       calender.sort((a, b) => a.date.compareTo(b.date));
                       activitiesProvider.updateActivity(widget.id);
                     },
-                    child: const IgnorePointer(child: Text("儲存變更")),
+                    child: const SelectionContainer.disabled(child: Text("儲存變更")),
                   ),
               ],
             ),
@@ -169,7 +169,7 @@ class _ActivityEditingPageCalendarState
                       _afternoonControllers.removeAt(i);
                       _isEdited = true;
                     }),
-                    child: const IgnorePointer(child: Text("刪除")),
+                    child: const SelectionContainer.disabled(child: Text("刪除")),
                   ),
                   const Divider(height: 40),
                 ],

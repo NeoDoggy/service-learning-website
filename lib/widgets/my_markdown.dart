@@ -7,7 +7,7 @@ class MyMarkdown extends StatelessWidget {
   const MyMarkdown(
     this.data, {
     super.key,
-    this.selectable = true,
+    this.selectable = false,
   });
 
   /// Markdown 原始碼

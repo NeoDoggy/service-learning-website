@@ -32,14 +32,16 @@ class PageSkeleton extends StatelessWidget {
     return Scaffold(
       body:
           Consumer<FloatingWindowProvider>(builder: (context, provider, child) {
-        return Stack(
-          alignment: Alignment.center,
-          children: [
-            NestedScrollView(
-              headerSliverBuilder: (context, innerBoxIsScrolled) =>
-                  [navigationBar ?? const AppBarG()],
-              body: SelectionArea(
-                child: SingleChildScrollView(
+        return SelectionArea(
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              NestedScrollView(
+                headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                  SelectionContainer.disabled(
+                      child: navigationBar ?? const AppBarG())
+                ],
+                body: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -67,17 +69,17 @@ class PageSkeleton extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-            if (provider.child != null)
-              GestureDetector(
-                onTap: () => provider.child = null,
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.contextMenu,
-                  child: Container(color: Colors.black45),
+              if (provider.child != null)
+                GestureDetector(
+                  onTap: () => provider.child = null,
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.contextMenu,
+                    child: Container(color: Colors.black45),
+                  ),
                 ),
-              ),
-            if (provider.child != null) provider.child!,
-          ],
+              if (provider.child != null) provider.child!,
+            ],
+          ),
         );
       }),
       // bottomSheet: bottomSheet,

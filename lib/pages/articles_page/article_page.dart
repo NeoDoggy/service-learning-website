@@ -20,6 +20,11 @@ class ArticlePage extends StatefulWidget {
 class _MyStatefulWidgetState extends State<ArticlePage> {
   @override
   Widget build(BuildContext context) {
+    final articlesProvider = Provider.of<ArticlesProvider>(context);
+    if (articlesProvider.articlesData[widget.articleId] == null) {
+      return const Scaffold(body: Center(child: Text("Loading")));
+    }
+
     return PageSkeleton(
       body: Consumer<ArticlesProvider>(
         builder: (context, articlesProvider, child) {
