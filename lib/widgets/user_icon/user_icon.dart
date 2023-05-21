@@ -38,7 +38,7 @@ class UserIcon extends StatelessWidget {
           onTap: () => context.push(
               authProvider.userData!.permission >= UserPermission.student
                   ? "/${MyRouter.admin}"
-                  : "/"),
+                  : "/${MyRouter.backstage}"),
           // 這東西最多只能顯示 31 個字
           child: Column(
             mainAxisSize: MainAxisSize.max,
