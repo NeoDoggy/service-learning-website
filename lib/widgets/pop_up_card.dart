@@ -37,7 +37,7 @@ class PopUpCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(
+                  Row(
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
