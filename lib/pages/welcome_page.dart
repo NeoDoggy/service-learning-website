@@ -44,8 +44,8 @@ class _WelcomePageState extends State<WelcomePage>
                 Center(
                   child: Container(
                     padding: const EdgeInsets.only(left: 100, right: 100),
-                    height: 450,
-                    width: 1000,
+                    height: MediaQuery.of(context).size.height/794*450,
+                    width: MediaQuery.of(context).size.width/1474*1000,
                     decoration: const BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -54,7 +54,7 @@ class _WelcomePageState extends State<WelcomePage>
                         ),
                       ],
                     ),
-                    child: const Card(
+                    child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       color: Color(0xFF1F6AFB),
@@ -66,23 +66,23 @@ class _WelcomePageState extends State<WelcomePage>
                           Text(
                             "中央資訊教育平台",
                             style: TextStyle(
-                                fontSize: 75, color: Color(0xFFFFFFFF)),
+                                fontSize: MediaQuery.of(context).size.width/1474*75, color: Color(0xFFFFFFFF)),
                           ),
                           SizedBox(
-                            height: 75,
+                            height: MediaQuery.of(context).size.height/794*75,
                           ),
                           Text(
                             "NCU Computer Science Tutorial Platform",
                             style: TextStyle(
-                                fontSize: 24, color: Color(0xFFFFFFFF)),
+                                fontSize: MediaQuery.of(context).size.width/1474*24, color: Color(0xFFFFFFFF)),
                           ),
                         ],
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 120,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height/794*120,
                 ),
                 const Icon(
                   Icons.expand_more_outlined,
@@ -108,7 +108,7 @@ class _WelcomePageState extends State<WelcomePage>
               padding: const EdgeInsets.only(left: 100, right: 100, top: 50),
               height: 450,
               width: 1000,
-              child: const Column(
+              child: Column(
                 children: [
                   Text(
                     "關於我們",
@@ -299,7 +299,7 @@ class _WelcomePageState extends State<WelcomePage>
             ),
             width: double.maxFinite,
             height: MediaQuery.of(context).size.height,
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -383,7 +383,7 @@ class _WelcomePageState extends State<WelcomePage>
             ),
             width: double.maxFinite,
             height: MediaQuery.of(context).size.height,
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

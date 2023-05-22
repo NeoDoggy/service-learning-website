@@ -10,7 +10,7 @@ class LoginPage extends StatelessWidget {
     return PageSkeleton(
       body: Container(
         alignment: Alignment.center,
-        child: const Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("登入", 
