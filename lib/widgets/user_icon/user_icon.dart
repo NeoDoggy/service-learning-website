@@ -35,10 +35,10 @@ class UserIcon extends StatelessWidget {
       // 有登入顯示的 menu
       if (authProvider.isAuthed)
         PopupMenuItem(
-          onTap: () => context.push(
-              authProvider.userData!.permission >= UserPermission.student
-                  ? "/${MyRouter.admin}"
-                  : "/${MyRouter.backstage}"),
+          // onTap: () => context.push(
+          //     authProvider.userData!.permission >= UserPermission.student
+          //         ? "/${MyRouter.admin}"
+          //         : "/${MyRouter.backstage}"),
           // 這東西最多只能顯示 31 個字
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -48,6 +48,18 @@ class UserIcon extends StatelessWidget {
               Text(_cutdown(email, 31)),
             ],
           ),
+        ),
+      if (authProvider.isAuthed) const PopupMenuDivider(height: 10),
+      if (authProvider.isAuthed)
+        PopupMenuItem(
+          onTap: () => context.push("/${MyRouter.backstage}"),
+          child: const Text("我的營隊與課程"),
+        ),
+      if (authProvider.isAuthed &&
+          authProvider.userData!.permission >= UserPermission.student)
+        PopupMenuItem(
+          onTap: () => context.push("/${MyRouter.admin}"),
+          child: const Text("管理者後台"),
         ),
       if (authProvider.isAuthed) const PopupMenuDivider(height: 10),
       if (authProvider.isAuthed)
