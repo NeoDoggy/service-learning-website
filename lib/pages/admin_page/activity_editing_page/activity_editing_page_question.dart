@@ -76,7 +76,7 @@ class _ActivityEditingPageQuestionState
                           })
                       : null,
                   icon: const Icon(Icons.add),
-                  label: const Text("新增問題"),
+                  label: const SelectionContainer.disabled(child: Text("新增問題")),
                 ),
                 const SizedBox(width: 10),
                 if (_isEdited)
@@ -99,7 +99,8 @@ class _ActivityEditingPageQuestionState
                           }
                         : null,
                     icon: const Icon(Icons.save),
-                    label: const Text("儲存變更"),
+                    label:
+                        const SelectionContainer.disabled(child: Text("儲存變更")),
                   ),
               ],
             ),
@@ -129,7 +130,8 @@ class _ActivityEditingPageQuestionState
                                 })
                             : null,
                         icon: const Icon(Icons.add),
-                        label: const Text("新增選項"),
+                        label: const SelectionContainer.disabled(
+                            child: Text("新增選項")),
                       ),
                       const SizedBox(width: 20),
                       OutlinedButton.icon(
@@ -143,7 +145,7 @@ class _ActivityEditingPageQuestionState
                                 })
                             : null,
                         icon: const Icon(Icons.arrow_upward),
-                        label: const Text("上移"),
+                        label: const SelectionContainer.disabled(child: Text("上移")),
                       ),
                       const SizedBox(width: 20),
                       OutlinedButton.icon(
@@ -158,7 +160,7 @@ class _ActivityEditingPageQuestionState
                                     })
                                 : null,
                         icon: const Icon(Icons.arrow_downward),
-                        label: const Text("下移"),
+                        label: const SelectionContainer.disabled(child: Text("下移")),
                       ),
                       const SizedBox(width: 20),
                       OutlinedButton.icon(
@@ -174,7 +176,7 @@ class _ActivityEditingPageQuestionState
                                 })
                             : null,
                         icon: const Icon(Icons.delete),
-                        label: const Text("刪除題目"),
+                        label: const SelectionContainer.disabled(child: Text("刪除題目")),
                       ),
                     ],
                   ),

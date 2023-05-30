@@ -4,18 +4,18 @@ import 'package:service_learning_website/modules/backend/activity/grade.dart';
 import 'package:service_learning_website/modules/backend/activity/meal_type.dart';
 
 class ActivityParticipantData {
-  ActivityParticipantData(
-      {required this.uid,
-      this.name = "",
-      this.email = "",
-      this.school = "",
-      this.grade = Grade.other,
-      this.mealType = MealType.none,
-      this.maelRemark = "",
-      this.parentPhone = "",
-      this.registrated = false,
-      Map<String, String>? additional})
-      : additional = additional ?? {} {
+  ActivityParticipantData({
+    required this.uid,
+    this.name = "",
+    this.email = "",
+    this.school = "",
+    this.grade = Grade.other,
+    this.mealType = MealType.none,
+    this.maelRemark = "",
+    this.parentPhone = "",
+    this.registrated = false,
+    Map<String, String>? additional,
+  }) : additional = additional ?? {} {
     parentPhone = parentPhone.replaceAll(RegExp(r"[^0-9]"), "");
   }
 

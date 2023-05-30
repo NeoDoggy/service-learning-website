@@ -79,22 +79,11 @@ class ActivitiesProvider with ChangeNotifier {
   }
 
   Future<void> addParticipant(String activityId, String uid) async {
-    _activitiesData[activityId]!.participants[uid] =
-        ActivityParticipantData(uid: uid);
     await _collection
         .doc(activityId)
         .collection("participants")
         .doc(uid)
         .set(_activitiesData[activityId]!.participants[uid]!.toJson());
-    notifyListeners();
-  }
-
-  Future<void> updateParticipant(String activityId, String uid) async {
-    await _collection
-        .doc(activityId)
-        .collection("participants")
-        .doc(uid)
-        .update(_activitiesData[activityId]!.participants[uid]!.toJson());
     notifyListeners();
   }
 

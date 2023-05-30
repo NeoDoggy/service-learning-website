@@ -194,16 +194,12 @@ class _ActivityIntroState extends State<ActivityIntro> {
                       onPressed: () async {
                         if (!authProvider.isAuthed) {
                           context.push("/${MyRouter.login}");
-                        } else {
-                          if (!_isParticipant) {
-                            // await activitiesProvider.addParticipant(
-                            //     widget.activityId, authProvider.userData!.uid);
-                            // if (context.mounted) {
-                              context.read<FloatingWindowProvider>().child =
-                                  ActivityEnrolling(
-                                      widget.activityId, userData!.uid);
-                            // }
-                          }
+                        } else if (!_isParticipant) {
+                          context.read<FloatingWindowProvider>().child =
+                              ActivityEnrolling(
+                                  widget.activityId, userData!.uid);
+                        } else if (context.mounted) {
+                          context.push("/${MyRouter.backstage}");
                         }
                       },
                       style: ButtonStyle(
