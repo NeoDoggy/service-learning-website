@@ -59,7 +59,7 @@ class _WelcomePageState extends State<WelcomePage>
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       color: Color(0xFF1F6AFB),
                       elevation: 0,
-                      child:const Column(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -108,7 +108,7 @@ class _WelcomePageState extends State<WelcomePage>
               padding: const EdgeInsets.only(left: 100, right: 100, top: 50),
               height: 450,
               width: 1000,
-              child: Column(
+              child: const Column(
                 children: [
                   Text(
                     "關於我們",
@@ -299,7 +299,7 @@ class _WelcomePageState extends State<WelcomePage>
             ),
             width: double.maxFinite,
             height: MediaQuery.of(context).size.height,
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -383,7 +383,7 @@ class _WelcomePageState extends State<WelcomePage>
             ),
             width: double.maxFinite,
             height: MediaQuery.of(context).size.height,
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
