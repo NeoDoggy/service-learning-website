@@ -29,11 +29,13 @@ class _EnhancedTextState extends State<EnhancedText> {
       child: MouseRegion(
         onEnter: (event) => setState(() => _isHovered = true),
         onExit: (event) => setState(() => _isHovered = false),
-        cursor: _isHovered ? SystemMouseCursors.click : SystemMouseCursors.basic,
-        child: Text(
-          widget.text,
-          style: widget.style.copyWith(
-            fontWeight: _isHovered ? FontWeight.bold : FontWeight.normal
+        cursor: SystemMouseCursors.click,
+        child: SelectionContainer.disabled(
+          child: Text(
+            widget.text,
+            style: widget.style.copyWith(
+              fontWeight: _isHovered ? FontWeight.bold : FontWeight.normal
+            ),
           ),
         ),
       )

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/modules/backend/user/user_permission.dart';
 import 'package:service_learning_website/providers/users_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/widgets/permission_denied.dart';
@@ -103,9 +103,9 @@ class _AdminPageUsersState extends State<AdminPageUsers> {
                                     .contains(_keyword) ||
                                 element.permission.name.contains(_keyword))))
                           DataRow(cells: [
-                            DataCell(SelectableText(userData.name)),
-                            DataCell(SelectableText(userData.uid)),
-                            DataCell(SelectableText(userData.email)),
+                            DataCell(Text(userData.name)),
+                            DataCell(Text(userData.uid)),
+                            DataCell(Text(userData.email)),
                             DataCell(
                               ChoosableText(
                                 items: UserPermission.values

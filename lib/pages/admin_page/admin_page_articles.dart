@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/modules/backend/user/user_permission.dart';
 import 'package:service_learning_website/modules/my_router.dart';
 import 'package:service_learning_website/providers/articles_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
@@ -36,10 +36,6 @@ class _AdminPageArticlesState extends State<AdminPageArticles> {
         final UserPermission permission =
             authProvider.userData?.permission ?? UserPermission.none;
 
-        // if (permission < UserPermission.student) {
-        //   return const Text("你沒有權限");
-        // }
-
         return Consumer<ArticlesProvider>(
           builder: (context, articlesProvider, child) {
             return Column(
@@ -49,7 +45,7 @@ class _AdminPageArticlesState extends State<AdminPageArticles> {
                 if (permission >= UserPermission.ta)
                   ElevatedButton(
                     onPressed: () => articlesProvider.createArticle(authProvider.userData!),
-                    child: const Text("新增文章"),
+                    child: const SelectionContainer.disabled(child: Text("新增文章")),
                   ),
                 if (permission >= UserPermission.ta) const SizedBox(height: 40),
                 Scrollbar(
@@ -72,10 +68,10 @@ class _AdminPageArticlesState extends State<AdminPageArticles> {
                             in articlesProvider.articlesData.values)
                           DataRow(
                             cells: [
-                              DataCell(SelectableText(articleData.title)),
-                              DataCell(SelectableText(DateFormat("yyyy-MM-dd")
+                              DataCell(Text(articleData.title)),
+                              DataCell(Text(DateFormat("yyyy-MM-dd")
                                   .format(articleData.createdTime))),
-                              DataCell(SelectableText(articleData.authorName)),
+                              DataCell(Text(articleData.authorName)),
                               DataCell(
                                 IconButton(
                                   onPressed: () => context.push(
@@ -89,7 +85,6 @@ class _AdminPageArticlesState extends State<AdminPageArticles> {
                               ),
                               DataCell(
                                 IconButton(
-                                  disabledColor: Colors.grey,
                                   onPressed: (permission >= UserPermission.ta ||
                                           articleData.authorUid ==
                                               authProvider.userData!.uid)

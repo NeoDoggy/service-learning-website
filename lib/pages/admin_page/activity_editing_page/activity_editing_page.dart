@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/modules/backend/user/user_permission.dart';
 import 'package:service_learning_website/pages/admin_page/activity_editing_page/acrivity_editing_page_permission.dart';
 import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page_calendar.dart';
+import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page_file.dart';
 import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page_info.dart';
+import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page_lecture.dart';
+import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page_photo.dart';
+import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page_question.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
-import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
 
@@ -28,7 +31,7 @@ class _ActivityEditingPageState extends State<ActivityEditingPage> {
     "營隊基本資訊",
     "行事曆",
     "附加報名問題",
-    "講義上傳",
+    "課程講義",
     "檔案上傳",
     "活動照片",
     "已報名學生",
@@ -64,16 +67,16 @@ class _ActivityEditingPageState extends State<ActivityEditingPage> {
         _showingWidget = ActivityEditingPageCalendar(widget.id);
         break;
       case 2:
-        _showingWidget = Container(height: 2000, color: Colors.red);
+        _showingWidget = ActivityEditingPageQuestion(widget.id);
         break;
       case 3:
-        _showingWidget = Container(height: 2000, color: Colors.orange);
+        _showingWidget = ActivityEditingPageLecture(widget.id);
         break;
       case 4:
-        _showingWidget = Container(height: 2000, color: Colors.yellow);
+        _showingWidget = ActivityEditingPageFile(widget.id);
         break;
       case 5:
-        _showingWidget = Container(height: 2000, color: Colors.green);
+        _showingWidget = ActivityEditingPagePhoto(widget.id);
         break;
       case 6:
         _showingWidget = Container(height: 2000, color: Colors.blue);
@@ -88,7 +91,8 @@ class _ActivityEditingPageState extends State<ActivityEditingPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TitleTextBox(activitiesProvider.activitiesData[widget.id]?.title ?? ""),
+          TitleTextBox(
+              activitiesProvider.activitiesData[widget.id]?.title ?? ""),
           const SizedBox(height: 60),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -125,7 +129,6 @@ class _ActivityEditingPageState extends State<ActivityEditingPage> {
           ),
         ],
       ),
-      bottomSheet: const WindowSize(),
     );
   }
 }

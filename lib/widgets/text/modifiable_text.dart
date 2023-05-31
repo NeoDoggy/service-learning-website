@@ -12,10 +12,10 @@ class ModifiableText extends StatefulWidget {
   final String text;
   final double? width;
 
-  final void Function(String)? onEditingCompleted;
+  final void Function(String value)? onEditingCompleted;
 
   /// 回傳 false 表示該值不被允許
-  final bool Function(String)? restriction;
+  final bool Function(String value)? restriction;
 
   @override
   State<ModifiableText> createState() => _ModifiableTextState();
@@ -41,17 +41,19 @@ class _ModifiableTextState extends State<ModifiableText> {
   @override
   Widget build(BuildContext context) {
     if (_isEditing) {
-      _showingWidget = TextField(
-        controller: _controller,
-        autofocus: true,
-        textInputAction: TextInputAction.done,
-        onTapOutside: (_) => _handleEditingComplete(),
-        onEditingComplete: () => _handleEditingComplete(),
+      _showingWidget = IntrinsicWidth(
+        child: TextField(
+          controller: _controller,
+          autofocus: true,
+          textInputAction: TextInputAction.done,
+          onTapOutside: (_) => _handleEditingComplete(),
+          onEditingComplete: () => _handleEditingComplete(),
+        ),
       );
     } else {
       _showingWidget = InkWell(
         onTap: () => _toggleEditing(true),
-        child: Text(widget.text),
+        child: SelectionContainer.disabled(child: Text(_controller.text)),
       );
     }
 

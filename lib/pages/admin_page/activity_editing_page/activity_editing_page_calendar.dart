@@ -1,8 +1,8 @@
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:service_learning_website/modules/backend/activity_calendar_data.dart';
-import 'package:service_learning_website/modules/backend/user_permission.dart';
+import 'package:service_learning_website/modules/backend/activity/activity_calendar_data.dart';
+import 'package:service_learning_website/modules/backend/user/user_permission.dart';
 import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 
@@ -73,21 +73,21 @@ class _ActivityEditingPageCalendarState
                         _isEdited = true;
                       });
                     },
-                    child: const Text("新增"),
+                    child: const SelectionContainer.disabled(child: Text("新增")),
                   ),
                 if (_canEdit) const SizedBox(width: 20),
                 if (_isEdited)
                   ElevatedButton(
                     onPressed: () {
+                      _isEdited = false;
                       for (int i = 0; i < calender.length; i++) {
                         calender[i].morning = _morningControllers[i].text;
                         calender[i].afternoon = _afternoonControllers[i].text;
                       }
                       calender.sort((a, b) => a.date.compareTo(b.date));
                       activitiesProvider.updateActivity(widget.id);
-                      _isEdited = false;
                     },
-                    child: const Text("儲存變更"),
+                    child: const SelectionContainer.disabled(child: Text("儲存變更")),
                   ),
               ],
             ),
@@ -163,11 +163,13 @@ class _ActivityEditingPageCalendarState
                   OutlinedButton(
                     onPressed: () => setState(() {
                       calender.removeAt(i);
+                      _morningControllers[i].dispose();
                       _morningControllers.removeAt(i);
+                      _afternoonControllers[i].dispose();
                       _afternoonControllers.removeAt(i);
                       _isEdited = true;
                     }),
-                    child: const Text("刪除"),
+                    child: const SelectionContainer.disabled(child: Text("刪除")),
                   ),
                   const Divider(height: 40),
                 ],

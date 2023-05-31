@@ -22,7 +22,7 @@ class EditCard extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top:8),
+              padding: const EdgeInsets.only(top: 8),
               child: Text(
                 '編輯：$name',
                 style: const TextStyle(
@@ -32,7 +32,8 @@ class EditCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, top: 25, bottom: 25,right: 20),
+              padding: const EdgeInsets.only(
+                  left: 20, top: 25, bottom: 25, right: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -40,42 +41,70 @@ class EditCard extends StatelessWidget {
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text("課程圖示",style: TextStyle(fontWeight: FontWeight.bold,color: Color(0xFF474747)),),
-                          SizedBox(height: 10,),
+                        children: [
+                          Text(
+                            "課程圖示",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF474747)),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
                           SizedBox(
                             width: 100,
                             height: 100,
                             child: Card(
                               elevation: 0,
                               color: Color(0xFFf5f5f5),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15))),
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(width: 20,),
+                      SizedBox(
+                        width: 20,
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text("課程横幅",style: TextStyle(fontWeight: FontWeight.bold,color: Color(0xFF474747)),),
-                          SizedBox(height: 10,),
+                        children: [
+                          Text(
+                            "課程横幅",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF474747)),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
                           SizedBox(
                             width: 300,
                             height: 100,
                             child: Card(
                               elevation: 0,
                               color: Color(0xFFf5f5f5),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15))),
                             ),
                           ),
                         ],
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20,),
-                  const Text("課程名稱",style: TextStyle(fontWeight: FontWeight.bold,color: Color(0xFF474747)),),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    "課程名稱",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xFF474747)),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   TextFormField(
                     cursorColor: const Color(0xFF474747),
                     style: const TextStyle(color: Color(0xFF474747)),
@@ -83,21 +112,30 @@ class EditCard extends StatelessWidget {
                       filled: true,
                       fillColor: Color(0xFFf5f5f5),
                       enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 0,color: Colors.transparent)
-                      ),
+                          borderSide:
+                              BorderSide(width: 0, color: Colors.transparent)),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1,color: Color(0xFF474747))
-                      ),
+                          borderSide:
+                              BorderSide(width: 1, color: Color(0xFF474747))),
                       focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 0,color: Color(0xFFff4060))
-                      ),
+                          borderSide:
+                              BorderSide(width: 0, color: Color(0xFFff4060))),
                       //labelText: '課程名稱',
-                      labelStyle: TextStyle(color: Color(0xFF474747),fontSize: 12),
+                      labelStyle:
+                          TextStyle(color: Color(0xFF474747), fontSize: 12),
                     ),
                   ),
-                  const SizedBox(height: 20,),
-                  const Text("課程敘述",style: TextStyle(fontWeight: FontWeight.bold,color: Color(0xFF474747)),),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    "課程敘述",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xFF474747)),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   TextFormField(
                     cursorColor: const Color(0xFF474747),
                     style: const TextStyle(color: Color(0xFF474747)),
@@ -105,21 +143,30 @@ class EditCard extends StatelessWidget {
                       filled: true,
                       fillColor: Color(0xFFf5f5f5),
                       enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 0,color: Colors.transparent)
-                      ),
+                          borderSide:
+                              BorderSide(width: 0, color: Colors.transparent)),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1,color: Color(0xFF474747))
-                      ),
+                          borderSide:
+                              BorderSide(width: 1, color: Color(0xFF474747))),
                       focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 0,color: Color(0xFFff4060))
-                      ),
+                          borderSide:
+                              BorderSide(width: 0, color: Color(0xFFff4060))),
                       //labelText: '課程名稱',
-                      labelStyle: TextStyle(color: Color(0xFF474747),fontSize: 12),
+                      labelStyle:
+                          TextStyle(color: Color(0xFF474747), fontSize: 12),
                     ),
                   ),
-                  const SizedBox(height: 20,),
-                  const Text("地點",style: TextStyle(fontWeight: FontWeight.bold,color: Color(0xFF474747)),),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    "地點",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xFF474747)),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   TextFormField(
                     cursorColor: const Color(0xFF474747),
                     style: const TextStyle(color: Color(0xFF474747)),
@@ -127,19 +174,22 @@ class EditCard extends StatelessWidget {
                       filled: true,
                       fillColor: Color(0xFFf5f5f5),
                       enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 0,color: Colors.transparent)
-                      ),
+                          borderSide:
+                              BorderSide(width: 0, color: Colors.transparent)),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1,color: Color(0xFF474747))
-                      ),
+                          borderSide:
+                              BorderSide(width: 1, color: Color(0xFF474747))),
                       focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 0,color: Color(0xFFff4060))
-                      ),
+                          borderSide:
+                              BorderSide(width: 0, color: Color(0xFFff4060))),
                       //labelText: '課程名稱',
-                      labelStyle: TextStyle(color: Color(0xFF474747),fontSize: 12),
+                      labelStyle:
+                          TextStyle(color: Color(0xFF474747), fontSize: 12),
                     ),
                   ),
-                  const SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -158,9 +208,11 @@ class EditCard extends StatelessWidget {
                           onPressed: () {},
                           child: const Padding(
                             padding: EdgeInsets.all(5),
-                            child: Text("儲存"),
+                            child: SelectionContainer.disabled(child: Text("儲存")),
                           )),
-                      const SizedBox(width: 10,),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
@@ -175,9 +227,11 @@ class EditCard extends StatelessWidget {
                           onPressed: () {},
                           child: const Padding(
                             padding: EdgeInsets.all(5),
-                            child: Text("刪除"),
+                            child: SelectionContainer.disabled(child: Text("刪除")),
                           )),
-                      const SizedBox(width: 10,),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
@@ -194,7 +248,11 @@ class EditCard extends StatelessWidget {
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(5),
-                            child: Text("取消",style: TextStyle(color: Color(0xFF474747)),),
+                            child: SelectionContainer.disabled(
+                                child: Text(
+                              "取消",
+                              style: TextStyle(color: Color(0xFF474747)),
+                            )),
                           )),
                     ],
                   ),

@@ -3,12 +3,16 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:service_learning_website/modules/my_router.dart';
+import 'package:service_learning_website/pages/activities_page/activity_enrolling.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
+import 'package:service_learning_website/providers/floating_window_provider.dart';
 import 'package:service_learning_website/widgets/schedule_column.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
 
@@ -51,7 +55,7 @@ class _ActivityIntroState extends State<ActivityIntro> {
               activitiesProvider.activitiesData[widget.activityId]!;
 
           _isParticipant =
-              activityData.participants[userData?.uid ?? ""] != null;
+              userData?.joinedActivities.contains(activityData.id) ?? false;
 
           if (_imageByte == null && activityData.imageUrl != "") {
             http
@@ -79,97 +83,95 @@ class _ActivityIntroState extends State<ActivityIntro> {
                       const SizedBox(width: 400, child: Placeholder()),
                     const SizedBox(width: 100),
                     Flexible(
-                      child: SelectionArea(
-                        child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(Icons.description),
-                                  SizedBox(width: 10),
-                                  Text("課程介紹", style: _subTitleStyle),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                              Text(activityData.description,
-                                  style: _contentStyle),
-                              const SizedBox(height: 40),
-                              //
-                              Row(
-                                children: [
-                                  Icon(Icons.schedule),
-                                  SizedBox(width: 10),
-                                  Text("時間", style: _subTitleStyle),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                              for (var schedule in activityData.calendar)
-                                Text(
-                                    "${DateFormat('yyyy/MM/dd').format(schedule.date)} ${DateFormat('HH:mm').format(schedule.begin)}~${DateFormat('HH:mm').format(schedule.end)}",
-                                    style: _contentStyle),
-                              const SizedBox(height: 40),
-                              //
-                              Row(
-                                children: [
-                                  Icon(Icons.place),
-                                  SizedBox(width: 10),
-                                  Text("地點", style: _subTitleStyle),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                              Text(activityData.place, style: _contentStyle),
-                              const SizedBox(height: 40),
-                              //
-                              Row(
-                                children: [
-                                  Icon(Icons.people),
-                                  SizedBox(width: 10),
-                                  Text("適合對象", style: _subTitleStyle),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                              Text(activityData.audience, style: _contentStyle),
-                              const SizedBox(height: 40),
-                              //
-                              Row(
-                                children: [
-                                  Icon(Icons.attach_money),
-                                  SizedBox(width: 10),
-                                  Text("費用", style: _subTitleStyle),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                              Text(activityData.fee, style: _contentStyle),
-                              const SizedBox(height: 40),
-                              //
-                              Row(
-                                children: [
-                                  Icon(Icons.calendar_today),
-                                  SizedBox(width: 10),
-                                  Text("報名截止", style: _subTitleStyle),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
+                      child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.description),
+                                SizedBox(width: 10),
+                                Text("課程介紹", style: _subTitleStyle),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Text(activityData.description,
+                                style: _contentStyle),
+                            const SizedBox(height: 40),
+                            //
+                            Row(
+                              children: [
+                                Icon(Icons.schedule),
+                                SizedBox(width: 10),
+                                Text("時間", style: _subTitleStyle),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            for (var schedule in activityData.calendar)
                               Text(
-                                  DateFormat("yyyy/MM/dd")
-                                      .format(activityData.deadline),
+                                  "${DateFormat('yyyy/MM/dd').format(schedule.date)} ${DateFormat('HH:mm').format(schedule.begin)}~${DateFormat('HH:mm').format(schedule.end)}",
                                   style: _contentStyle),
-                              const SizedBox(height: 40),
-                              //
-                              Row(
-                                children: [
-                                  Icon(Icons.track_changes),
-                                  SizedBox(width: 10),
-                                  Text("課程目標", style: _subTitleStyle),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                              Text(activityData.goal, style: _contentStyle),
-                              // const SizedBox(height: 40),
-                            ]),
-                      ),
+                            const SizedBox(height: 40),
+                            //
+                            Row(
+                              children: [
+                                Icon(Icons.place),
+                                SizedBox(width: 10),
+                                Text("地點", style: _subTitleStyle),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Text(activityData.place, style: _contentStyle),
+                            const SizedBox(height: 40),
+                            //
+                            Row(
+                              children: [
+                                Icon(Icons.people),
+                                SizedBox(width: 10),
+                                Text("適合對象", style: _subTitleStyle),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Text(activityData.audience, style: _contentStyle),
+                            const SizedBox(height: 40),
+                            //
+                            Row(
+                              children: [
+                                Icon(Icons.attach_money),
+                                SizedBox(width: 10),
+                                Text("費用", style: _subTitleStyle),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Text(activityData.fee, style: _contentStyle),
+                            const SizedBox(height: 40),
+                            //
+                            Row(
+                              children: [
+                                Icon(Icons.calendar_today),
+                                SizedBox(width: 10),
+                                Text("報名截止", style: _subTitleStyle),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                                DateFormat("yyyy/MM/dd")
+                                    .format(activityData.deadline),
+                                style: _contentStyle),
+                            const SizedBox(height: 40),
+                            //
+                            Row(
+                              children: [
+                                Icon(Icons.track_changes),
+                                SizedBox(width: 10),
+                                Text("課程目標", style: _subTitleStyle),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Text(activityData.goal, style: _contentStyle),
+                            // const SizedBox(height: 40),
+                          ]),
                     ),
                   ],
                 ),
@@ -190,25 +192,23 @@ class _ActivityIntroState extends State<ActivityIntro> {
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
                       onPressed: () async {
-                        // if (!authProvider.isAuthed) {
-                        //   context.push("/${MyRouter.login}");
-                        // } else {
-                        //   if (!_isParticipant) {
-                        //     await activitiesProvider.addParticipant(
-                        //         widget.activityId, authProvider.userData!.uid);
-                        //   }
-                        //   if (context.mounted) {
-                        //     context.push(
-                        //         "/${MyRouter.courses}/${widget.activityId}");
-                        //   }
-                        // }
+                        if (!authProvider.isAuthed) {
+                          context.push("/${MyRouter.login}");
+                        } else if (!_isParticipant) {
+                          context.read<FloatingWindowProvider>().child =
+                              ActivityEnrolling(
+                                  widget.activityId, userData!.uid);
+                        } else if (context.mounted) {
+                          context.push("/${MyRouter.backstage}");
+                        }
                       },
                       style: ButtonStyle(
                         textStyle:
                             MaterialStateProperty.all(TextStyle(fontSize: 24)),
                         padding: MaterialStateProperty.all(EdgeInsets.all(20)),
                       ),
-                      child: Text(_isParticipant ? "進入後台" : "報名參加")),
+                      child: SelectionContainer.disabled(
+                          child: Text(_isParticipant ? "進入後台" : "報名參加"))),
                 ),
               ]);
         },

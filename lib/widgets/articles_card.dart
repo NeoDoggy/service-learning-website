@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:service_learning_website/modules/backend/article_data.dart';
+import 'package:service_learning_website/modules/backend/article/article_data.dart';
 import 'package:service_learning_website/modules/my_router.dart';
 import 'package:http/http.dart' as http;
 

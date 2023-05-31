@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:service_learning_website/modules/backend/user_data.dart';
+import 'package:service_learning_website/modules/backend/user/user_data.dart';
 
 class AuthProvider with ChangeNotifier {
   AuthProvider() {
     _authSubscription =
         FirebaseAuth.instance.authStateChanges().listen((newUser) async {
       _user = newUser;
-      await _updateUser();
+      await _load();
       notifyListeners();
     });
   }
@@ -23,6 +23,8 @@ class AuthProvider with ChangeNotifier {
   // User? get user => _user;
   UserData? get userData => _userData;
 
+  final _collection = FirebaseFirestore.instance.collection("users");
+
   @override
   void dispose() {
     if (_authSubscription != null) {
@@ -32,10 +34,9 @@ class AuthProvider with ChangeNotifier {
     super.dispose();
   }
 
-  Future<void> _updateUser() async {
+  Future<void> _load() async {
     if (_user != null) {
-      final doc =
-          FirebaseFirestore.instance.collection("users").doc(_user!.uid);
+      final doc = _collection.doc(_user!.uid);
       final spanshot = await doc.get();
       final data = spanshot.data();
       _userData =
@@ -51,6 +52,11 @@ class AuthProvider with ChangeNotifier {
         print("auth_provider -> updated");
       }
     }
+  }
+
+  Future<void> updateUser(String uid) async {
+    await _collection.doc(uid).update(_userData!.toJson());
+    notifyListeners();
   }
 
   // Google Sign In

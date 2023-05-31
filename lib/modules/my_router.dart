@@ -3,12 +3,14 @@ import 'package:go_router/go_router.dart';
 import 'package:service_learning_website/pages/activities_page/activities_browsing_page.dart';
 import 'package:service_learning_website/pages/activities_page/activity_intro.dart';
 import 'package:service_learning_website/pages/admin_page/activity_editing_page/activity_editing_page.dart';
+import 'package:service_learning_website/pages/admin_page/activity_editing_page/lecture_editing_page.dart';
 import 'package:service_learning_website/pages/admin_page/admin_page.dart';
 import 'package:service_learning_website/pages/admin_page/article_editing_page/article_editing_page.dart';
 import 'package:service_learning_website/pages/articles_page/article_page.dart';
 import 'package:service_learning_website/pages/admin_page/course_editing_page/chapter_editing_page.dart';
 import 'package:service_learning_website/pages/admin_page/course_editing_page/course_editing_page.dart';
 import 'package:service_learning_website/pages/articles_page/articles_browsing_page.dart';
+import 'package:service_learning_website/pages/backstage_page/backstage_activity_page.dart';
 import 'package:service_learning_website/pages/courses_page/course_intro.dart';
 import 'package:service_learning_website/pages/courses_page/course_page.dart';
 import 'package:service_learning_website/pages/courses_page/courses_browsing_page.dart';
@@ -39,9 +41,20 @@ class MyRouter {
                 builder: (context, state) => const TestPage(),
               ),
               GoRoute(
-                path: MyRouter.backstage,
-                builder: (context, state) => const BackstagePage(),
-              ),
+                  path: MyRouter.backstage,
+                  builder: (context, state) => const BackstagePage(),
+                  redirect: (context, state) {
+                    return FirebaseAuth.instance.currentUser == null
+                        ? "/${MyRouter.login}"
+                        : null;
+                  },
+                  routes: [
+                    GoRoute(
+                      path: "${MyRouter.activities}/:activityId",
+                      builder: (context, state) =>
+                          BackstageActivityPage(state.params["activityId"]!),
+                    )
+                  ]),
               GoRoute(
                 path: MyRouter.activities,
                 builder: (context, state) => const ActivitiesBrowsingPage(),
@@ -100,6 +113,13 @@ class MyRouter {
                     path: "${MyRouter.activities}/:activityId",
                     builder: (context, state) =>
                         ActivityEditingPage(state.params["activityId"]!),
+                    routes: [
+                      GoRoute(
+                          path: ":lectureId",
+                          builder: (context, state) => LectureEditingPage(
+                              state.params["activityId"]!,
+                              state.params["lectureId"]!))
+                    ],
                   ),
                   GoRoute(
                     path: "${MyRouter.articles}/:articleId",
@@ -112,10 +132,12 @@ class MyRouter {
                         CourseEditingPage(state.params["courseId"]!),
                     routes: [
                       GoRoute(
-                          path: ":chapterId",
-                          builder: (context, state) => ChapterEditingPage(
-                              state.params["courseId"]!,
-                              state.params["chapterId"]!))
+                        path: ":chapterId",
+                        builder: (context, state) => ChapterEditingPage(
+                          state.params["courseId"]!,
+                          state.params["chapterId"]!,
+                        ),
+                      ),
                     ],
                   ),
                 ],

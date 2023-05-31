@@ -13,13 +13,13 @@ class LoginPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SelectableText("登入", 
+            Text("登入", 
               style: TextStyle(fontSize: 64, fontWeight: FontWeight.bold)
             ),
             SizedBox(height: 60),
             SizedBox(
               width: 415,
-              child: SelectableText("登入「中央資訊教育平台」以使用活動報名管理、線上課程系統、與其他更多功能服務。",
+              child: Text("登入「中央資訊教育平台」以使用活動報名管理、線上課程系統、與其他更多功能服務。",
                 style: TextStyle(fontSize: 24),
               ),
             ),

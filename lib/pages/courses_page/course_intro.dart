@@ -84,57 +84,54 @@ class _CourseIntroState extends State<CourseIntro> {
                         const SizedBox(width: 400, child: Placeholder()),
                       const SizedBox(width: 100),
                       Flexible(
-                        child: SelectionArea(
-                          child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.description),
-                                    SizedBox(width: 10),
-                                    Text("課程介紹", style: _subTitleStyle),
-                                  ],
-                                ),
-                                const SizedBox(height: 20),
-                                Text(courseData.description,
-                                    style: _contentStyle),
-                                const SizedBox(height: 40),
-                                Row(
-                                  children: [
-                                    Icon(Icons.people),
-                                    SizedBox(width: 10),
-                                    Text("適合對象", style: _subTitleStyle),
-                                  ],
-                                ),
-                                const SizedBox(height: 20),
-                                Text(courseData.audience, style: _contentStyle),
-                                const SizedBox(height: 40),
-                                Row(
-                                  children: [
-                                    Icon(Icons.computer),
-                                    SizedBox(width: 10),
-                                    Text("開發環境", style: _subTitleStyle),
-                                  ],
-                                ),
-                                const SizedBox(height: 20),
-                                Text(courseData.environment,
-                                    style: _contentStyle),
-                                const SizedBox(height: 40),
-                                Row(
-                                  children: [
-                                    Icon(Icons.list),
-                                    SizedBox(width: 10),
-                                    Text("課程大綱", style: _subTitleStyle),
-                                  ],
-                                ),
-                                const SizedBox(height: 20),
-                                MyMarkdown(courseData.outline,
-                                    selectable: false),
-                                // const SizedBox(height: 40),
-                              ]),
-                        ),
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(Icons.description),
+                                  SizedBox(width: 10),
+                                  Text("課程介紹", style: _subTitleStyle),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              Text(courseData.description,
+                                  style: _contentStyle),
+                              const SizedBox(height: 40),
+                              Row(
+                                children: [
+                                  Icon(Icons.people),
+                                  SizedBox(width: 10),
+                                  Text("適合對象", style: _subTitleStyle),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              Text(courseData.audience, style: _contentStyle),
+                              const SizedBox(height: 40),
+                              Row(
+                                children: [
+                                  Icon(Icons.computer),
+                                  SizedBox(width: 10),
+                                  Text("開發環境", style: _subTitleStyle),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              Text(courseData.environment,
+                                  style: _contentStyle),
+                              const SizedBox(height: 40),
+                              Row(
+                                children: [
+                                  Icon(Icons.list),
+                                  SizedBox(width: 10),
+                                  Text("課程大綱", style: _subTitleStyle),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              MyMarkdown(courseData.outline, selectable: false),
+                              // const SizedBox(height: 40),
+                            ]),
                       ),
                     ]),
                 const SizedBox(height: 40),
@@ -148,6 +145,8 @@ class _CourseIntroState extends State<CourseIntro> {
                           if (!_isParticipant) {
                             await coursesProvider.addParticipant(
                                 widget.courseId, authProvider.userData!.uid);
+                            userData!.joinedCourses.add(widget.courseId);
+                            authProvider.updateUser(userData.uid);
                           }
                           if (context.mounted) {
                             context.push(
@@ -160,7 +159,7 @@ class _CourseIntroState extends State<CourseIntro> {
                             MaterialStateProperty.all(TextStyle(fontSize: 24)),
                         padding: MaterialStateProperty.all(EdgeInsets.all(20)),
                       ),
-                      child: Text(_isParticipant ? "進入課程" : "加入課程")),
+                      child: SelectionContainer.disabled(child: Text(_isParticipant ? "進入課程" : "加入課程"))),
                 ),
               ]);
         },

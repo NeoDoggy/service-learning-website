@@ -1,7 +1,7 @@
 enum MealType {
-  none(0),
   meat(1),
-  vegetarian(2);
+  vegetarian(2),
+  none(0);
 
   const MealType(this.id);
   final int id;
@@ -18,6 +18,6 @@ enum MealType {
     }
   }
 
-  factory MealType.fromId(int id)
-    => values.firstWhere((element) => element.id == id);
+  factory MealType.fromId(int? id)
+    => values.firstWhere((element) => element.id == (id ?? 0));
 }
