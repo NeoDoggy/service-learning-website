@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/pages/backstage_page/backstage_activity_page_file.dart';
-import 'package:service_learning_website/pages/backstage_page/backstage_activity_page_lecture.dart';
 import 'package:service_learning_website/pages/backstage_page/backstage_activity_page_photo.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/activities_provider.dart';
@@ -9,8 +8,6 @@ import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:service_learning_website/widgets/my_markdown.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
-
-import 'backstage_activity_page_info.dart';
 
 class BackstageActivityPage extends StatefulWidget {
   const BackstageActivityPage(

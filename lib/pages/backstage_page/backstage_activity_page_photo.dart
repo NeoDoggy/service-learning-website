@@ -1,10 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/backend/activity/activity_file_data.dart';
-import 'package:service_learning_website/modules/url_downloader.dart';
 import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/widgets/image_preview.dart';
 import 'package:http/http.dart' as http;

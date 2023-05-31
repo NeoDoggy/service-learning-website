@@ -48,7 +48,7 @@ class _ActivityEditingPageFileState extends State<ActivityEditingPageFile> {
                     }
                   : null,
               icon: const Icon(Icons.upload_file),
-              label: const Text("上傳檔案"),
+              label: const SelectionContainer.disabled(child: Text("上傳檔案")),
             ),
             const SizedBox(height: 40),
             DataTable(
@@ -68,8 +68,8 @@ class _ActivityEditingPageFileState extends State<ActivityEditingPageFile> {
                                   fileData.filename,
                                   onEditingCompleted: (value) {
                                     fileData.filename = value;
-                                    activitiesProvider
-                                        .updateFile(widget.id, fileData.id);
+                                    activitiesProvider.updateFile(
+                                        widget.id, fileData.id);
                                   },
                                 )
                               : Text(fileData.filename),

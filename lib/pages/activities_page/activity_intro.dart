@@ -3,12 +3,16 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:service_learning_website/modules/my_router.dart';
+import 'package:service_learning_website/pages/activities_page/activity_enrolling.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
+import 'package:service_learning_website/providers/floating_window_provider.dart';
 import 'package:service_learning_website/widgets/schedule_column.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
 
@@ -51,7 +55,7 @@ class _ActivityIntroState extends State<ActivityIntro> {
               activitiesProvider.activitiesData[widget.activityId]!;
 
           _isParticipant =
-              activityData.participants[userData?.uid ?? ""] != null;
+              userData?.joinedActivities.contains(activityData.id) ?? false;
 
           if (_imageByte == null && activityData.imageUrl != "") {
             http
@@ -188,25 +192,23 @@ class _ActivityIntroState extends State<ActivityIntro> {
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
                       onPressed: () async {
-                        // if (!authProvider.isAuthed) {
-                        //   context.push("/${MyRouter.login}");
-                        // } else {
-                        //   if (!_isParticipant) {
-                        //     await activitiesProvider.addParticipant(
-                        //         widget.activityId, authProvider.userData!.uid);
-                        //   }
-                        //   if (context.mounted) {
-                        //     context.push(
-                        //         "/${MyRouter.courses}/${widget.activityId}");
-                        //   }
-                        // }
+                        if (!authProvider.isAuthed) {
+                          context.push("/${MyRouter.login}");
+                        } else if (!_isParticipant) {
+                          context.read<FloatingWindowProvider>().child =
+                              ActivityEnrolling(
+                                  widget.activityId, userData!.uid);
+                        } else if (context.mounted) {
+                          context.push("/${MyRouter.backstage}");
+                        }
                       },
                       style: ButtonStyle(
                         textStyle:
                             MaterialStateProperty.all(TextStyle(fontSize: 24)),
                         padding: MaterialStateProperty.all(EdgeInsets.all(20)),
                       ),
-                      child: SelectionContainer.disabled(child: Text(_isParticipant ? "進入後台" : "報名參加"))),
+                      child: SelectionContainer.disabled(
+                          child: Text(_isParticipant ? "進入後台" : "報名參加"))),
                 ),
               ]);
         },
