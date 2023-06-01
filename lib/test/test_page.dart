@@ -11,6 +11,10 @@ import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 import 'package:service_learning_website/widgets/schedule_column.dart';
 import 'package:service_learning_website/widgets/my_album.dart';
+import 'package:service_learning_website/widgets/course_card.dart';
+import 'package:service_learning_website/widgets/question_column.dart';
+import 'package:service_learning_website/widgets/asking_question_form.dart';
+import 'package:service_learning_website/widgets/question_menu.dart';
 
 class TestPage extends StatelessWidget {
   const TestPage({super.key});
@@ -29,11 +33,24 @@ class TestPage extends StatelessWidget {
           const SideMenu(
               width: 260,
               items: ["營隊管理", "文章管理", "課程管理", "使用者管理", "常見問題", "表單回覆"]),
+          const SizedBox(height: 20),
           ScheduleColumn(
             dateTime: DateTime.now(),
             morning: "早上早上早上",
             afternoon: "下午下午下午",
           ),
+          const SizedBox(height: 20),
+          const Course_card(),
+          const SizedBox(height: 20),
+          const Question_column(),
+          const SizedBox(height: 20),
+          const Question_menu(),
+          const SizedBox(height: 20),
+          const SideMenu(
+              width: 260,
+              items: ["分類一", "分類二", "分類三", "分類四"]),   
+          const SizedBox(height: 20), 
+          const Asking_question_form(),
           const SizedBox(height: 20),
           const MyProgressBar(all: 10, finished: 8),
           const Bottom(
