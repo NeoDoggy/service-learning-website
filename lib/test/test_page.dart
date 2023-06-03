@@ -11,7 +11,6 @@ import 'package:service_learning_website/widgets/side_menu.dart';
 import 'package:service_learning_website/widgets/user_icon/user_icon.dart';
 import 'package:service_learning_website/widgets/schedule_column.dart';
 import 'package:service_learning_website/widgets/my_album.dart';
-import 'package:service_learning_website/widgets/course_card.dart';
 import 'package:service_learning_website/widgets/question_column.dart';
 import 'package:service_learning_website/widgets/asking_question_form.dart';
 import 'package:service_learning_website/widgets/question_menu.dart';
@@ -24,7 +23,7 @@ class TestPage extends StatelessWidget {
     return PageSkeleton(
       body: Column(
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               UserIcon(size: 32),
@@ -40,7 +39,6 @@ class TestPage extends StatelessWidget {
             afternoon: "下午下午下午",
           ),
           const SizedBox(height: 20),
-          const Course_card(),
           const SizedBox(height: 20),
           const Question_column(),
           const SizedBox(height: 20),

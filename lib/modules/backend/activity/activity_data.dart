@@ -76,21 +76,22 @@ class ActivityData {
       };
 
   factory ActivityData.fromJson(Map<String, dynamic> map) => ActivityData(
-      id: map["id"],
-      createdTime: (map["createdTime"] as Timestamp?)?.toDate(),
-      title: map["title"],
-      place: map["place"],
-      audience: map["audience"],
-      fee: map["fee"],
-      deadline: (map["deadline"] as Timestamp?)?.toDate(),
-      goal: map["goal"],
-      description: map["description"],
-      imageUrl: map["imageUrl"],
-      members: (map["members"] as List?)?.map((e) => e.toString()).toList(),
-      calendar: (map["calendar"] as List?)
-          ?.map((e) => ActivityCalendarData.fromJson(e))
-          .toList(),
-      questions: (map["questions"] as List?)
-          ?.map((e) => ActivityQuestionData.fromJson(e))
-          .toList());
+        id: map["id"],
+        createdTime: (map["createdTime"] as Timestamp?)?.toDate(),
+        title: map["title"],
+        place: map["place"],
+        audience: map["audience"],
+        fee: map["fee"],
+        deadline: (map["deadline"] as Timestamp?)?.toDate(),
+        goal: map["goal"],
+        description: map["description"],
+        imageUrl: map["imageUrl"],
+        members: (map["members"] as List?)?.map((e) => e.toString()).toList(),
+        calendar: (map["calendar"] as List?)
+            ?.map((e) => ActivityCalendarData.fromJson(e))
+            .toList(),
+        questions: (map["questions"] as List?)
+            ?.map((e) => ActivityQuestionData.fromJson(e))
+            .toList(),
+      );
 }
