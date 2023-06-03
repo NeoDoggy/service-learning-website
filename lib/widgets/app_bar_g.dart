@@ -38,7 +38,7 @@ class AppBarG extends StatelessWidget {
         child: MouseRegion(
           cursor: SystemMouseCursors.click,
           child: Image.asset(
-            "assets/images/logo2.png",
+            "assets/images/logo3.PNG",
           ),
         ),
       ),
@@ -46,8 +46,8 @@ class AppBarG extends StatelessWidget {
         onTap: () => context.go("/"),
         child: const MouseRegion(
           cursor: SystemMouseCursors.click,
-          child: Text("中央資訊教育平台",
-              style: TextStyle(fontWeight: FontWeight.bold)),
+          child:
+              Text("中央資訊教育平台", style: TextStyle(fontWeight: FontWeight.bold)),
         ),
       ),
       backgroundColor: const Color(0xFFffffff),
