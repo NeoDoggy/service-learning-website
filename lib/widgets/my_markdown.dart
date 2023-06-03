@@ -18,7 +18,7 @@ class MyMarkdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 1000),
+      constraints: const BoxConstraints(maxWidth: 800),
       child: MarkdownWidget(
         data: data,
         selectable: selectable,

@@ -87,6 +87,17 @@ class ActivitiesProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateParticipants(String activityId) async {
+    for (var participant in _activitiesData[activityId]!.participants.values) {
+      await _collection
+          .doc(activityId)
+          .collection("participants")
+          .doc(participant.uid)
+          .update(participant.toJson());
+    }
+    notifyListeners();
+  }
+
   Future<void> uploadFile(
       String activityId, String filename, Uint8List file) async {
     final fileId = RandomId.generate();
@@ -155,7 +166,9 @@ class ActivitiesProvider with ChangeNotifier {
   Future<void> createLecture(String activityId) async {
     final String id = RandomId.generate();
     final lectureData = ActivityLectureData(
-        id: id, title: id, number: _activitiesData[activityId]!.lectures.length);
+        id: id,
+        title: id,
+        number: _activitiesData[activityId]!.lectures.length);
     await _collection
         .doc(activityId)
         .collection("lectures")

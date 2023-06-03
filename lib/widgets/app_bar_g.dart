@@ -114,7 +114,7 @@ class AppBarG extends StatelessWidget {
               return InkWell(
                 hoverColor: Colors.transparent,
                 onTap: () {
-                  context.push('/${MyRouter.test}'); // 借我放一下測試
+                  context.push('/${MyRouter.problems}'); // 借我放一下測試
                 },
                 child: const Text(
                   "Q&A",

@@ -15,6 +15,7 @@ import 'package:service_learning_website/pages/courses_page/course_intro.dart';
 import 'package:service_learning_website/pages/courses_page/course_page.dart';
 import 'package:service_learning_website/pages/courses_page/courses_browsing_page.dart';
 import 'package:service_learning_website/pages/login_page.dart';
+import 'package:service_learning_website/pages/problems_page/problems_page.dart';
 import 'package:service_learning_website/pages/welcome_page.dart';
 import 'package:service_learning_website/test/test_page.dart';
 import 'package:service_learning_website/pages/backstage_page/backstage_page.dart';
@@ -28,6 +29,7 @@ class MyRouter {
   static const String intro = "intro";
   static const String articles = "articles";
   static const String backstage = "backstage";
+  static const String problems = "problems";
 
   GoRouter get router => GoRouter(
         initialLocation: "/",
@@ -92,6 +94,10 @@ class MyRouter {
                         CourseIntro(courseId: state.params["courseId"]!),
                   ),
                 ],
+              ),
+              GoRoute(
+                path: MyRouter.problems,
+                builder: (context, state) => const ProblemsPage(),
               ),
               GoRoute(
                 path: MyRouter.login,

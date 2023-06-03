@@ -44,7 +44,7 @@ enum Grade {
         return "高三";
       case 0:
       default:
-        return "其他";
+        return "大學以上";
     }
   }
 

@@ -157,7 +157,7 @@ class _ActivityEnrollingState extends State<ActivityEnrolling> {
                   TextFormField(
                     controller: _mealRemarkTextController,
                     decoration: const InputDecoration(
-                      labelText: "飲食需求",
+                      labelText: "飲食需求（可留空）",
                       hintText: "過敏原、宗教信仰",
                       icon: Icon(Icons.comment),
                     ),
@@ -225,7 +225,7 @@ class _ActivityEnrollingState extends State<ActivityEnrolling> {
                               _phoneTextController.text;
                           participantData.additional = {
                             for (int i = 0; i < questions.length; i++)
-                              questions[i].title: _addiTextControllers[i].text
+                              questions[i].id: _addiTextControllers[i].text
                           };
 
                           activitiesProvider.addParticipant(
