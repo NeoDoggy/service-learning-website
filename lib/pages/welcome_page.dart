@@ -28,7 +28,7 @@ class _WelcomePageState extends State<WelcomePage>
           SizedBox(
             // decoration: const BoxDecoration(
             //   image: DecorationImage(
-            //     image: AssetImage('../images/helloIMG3.png'),
+            //     image: AssetImage('assets/images/helloIMG3.png'),
             //     colorFilter: ColorFilter.mode(
             //         Color(0x9F000000), BlendMode.darken),
             //     repeat: ImageRepeat.repeat,
@@ -55,9 +55,9 @@ class _WelcomePageState extends State<WelcomePage>
                       ],
                     ),
                     child: Card(
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-                      color: Color(0xFF1F6AFB),
+                      color: const Color(0xFF1F6AFB),
                       elevation: 0,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +66,7 @@ class _WelcomePageState extends State<WelcomePage>
                           Text(
                             "中央資訊教育平台",
                             style: TextStyle(
-                                fontSize: MediaQuery.of(context).size.width/1474*75, color: Color(0xFFFFFFFF)),
+                                fontSize: MediaQuery.of(context).size.width/1474*75, color: const Color(0xFFFFFFFF)),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height/794*75,
@@ -74,7 +74,7 @@ class _WelcomePageState extends State<WelcomePage>
                           Text(
                             "NCU Computer Science Tutorial Platform",
                             style: TextStyle(
-                                fontSize: MediaQuery.of(context).size.width/1474*24, color: Color(0xFFFFFFFF)),
+                                fontSize: MediaQuery.of(context).size.width/1474*24, color: const Color(0xFFFFFFFF)),
                           ),
                         ],
                       ),
@@ -95,7 +95,7 @@ class _WelcomePageState extends State<WelcomePage>
           Container(
             // decoration: const BoxDecoration(
             //   image: DecorationImage(
-            //     image: AssetImage('../images/Wong2.png'),
+            //     image: AssetImage('assets/images/Wong2.png'),
             //     colorFilter: ColorFilter.mode(
             //         Color(0x9F000000), BlendMode.darken),
             //     repeat: ImageRepeat.repeat,
@@ -108,7 +108,7 @@ class _WelcomePageState extends State<WelcomePage>
               padding: const EdgeInsets.only(left: 100, right: 100, top: 50),
               height: 450,
               width: 1000,
-              child: Column(
+              child: const Column(
                 children: [
                   Text(
                     "關於我們",
@@ -291,7 +291,7 @@ class _WelcomePageState extends State<WelcomePage>
             padding: const EdgeInsets.only(left: 100, right: 100),
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('../images/helloIMG1.png'),
+                image: AssetImage('assets/images/helloIMG1.png'),
                 fit: BoxFit.cover,
                 colorFilter:
                     ColorFilter.mode(Color(0x9F000000), BlendMode.darken),
@@ -299,7 +299,7 @@ class _WelcomePageState extends State<WelcomePage>
             ),
             width: double.maxFinite,
             height: MediaQuery.of(context).size.height,
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -321,7 +321,7 @@ class _WelcomePageState extends State<WelcomePage>
             padding: const EdgeInsets.only(left: 100, right: 100),
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('../images/Wong1.png'),
+                image: AssetImage('assets/images/Wong1.png'),
                 colorFilter:
                     ColorFilter.mode(Color(0x9F000000), BlendMode.darken),
                 repeat: ImageRepeat.repeat,
@@ -374,7 +374,7 @@ class _WelcomePageState extends State<WelcomePage>
             padding: const EdgeInsets.only(left: 100, right: 100),
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('../images/helloIMG2.png'),
+                image: AssetImage('assets/images/helloIMG2.png'),
                 colorFilter:
                     ColorFilter.mode(Color(0x9F000000), BlendMode.darken),
                 fit: BoxFit.cover,
@@ -383,7 +383,7 @@ class _WelcomePageState extends State<WelcomePage>
             ),
             width: double.maxFinite,
             height: MediaQuery.of(context).size.height,
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -405,7 +405,7 @@ class _WelcomePageState extends State<WelcomePage>
             padding: const EdgeInsets.only(left: 100, right: 100),
             // decoration: const BoxDecoration(
             //   image: DecorationImage(
-            //     image: AssetImage('../images/helloIMG2.png'),
+            //     image: AssetImage('assets/images/helloIMG2.png'),
             //     colorFilter: ColorFilter.mode(
             //         Color(0x9F000000), BlendMode.darken),
             //     fit: BoxFit.cover,

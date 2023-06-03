@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:service_learning_website/modules/backend/activity/grade.dart';
 import 'package:service_learning_website/modules/backend/activity/meal_type.dart';
 
@@ -13,9 +14,11 @@ class ActivityParticipantData {
     this.mealType = MealType.none,
     this.maelRemark = "",
     this.parentPhone = "",
-    this.registrated = false,
+    DateTime? registrationTime,
+    this.registrated = 0,
     Map<String, String>? additional,
-  }) : additional = additional ?? {} {
+  })  : registrationTime = registrationTime ?? DateTime.now(),
+        additional = additional ?? {} {
     parentPhone = parentPhone.replaceAll(RegExp(r"[^0-9]"), "");
   }
 
@@ -27,7 +30,12 @@ class ActivityParticipantData {
   MealType mealType;
   String maelRemark;
   String parentPhone;
-  bool registrated;
+  DateTime registrationTime;
+
+  /// 0：未處理、
+  /// 正數：序號、
+  /// 負數：候補序位，-1 較 -2 優先
+  int registrated;
 
   /// <question id, response>
   Map<String, String> additional;
@@ -41,6 +49,7 @@ class ActivityParticipantData {
         "mealType": mealType.id,
         "maelRemark": maelRemark,
         "parentPhone": parentPhone,
+        "registrationTime": registrationTime,
         "registrated": registrated,
         "additional": additional,
       };
@@ -55,6 +64,7 @@ class ActivityParticipantData {
         mealType: MealType.fromId(map["mealType"]),
         maelRemark: map["maelRemark"],
         parentPhone: map["parentPhone"],
+        registrationTime: (map["registrationTime"] as Timestamp?)?.toDate(),
         registrated: map["registrated"],
         additional: (map["additional"] as LinkedHashMap?)
             ?.map((key, value) => MapEntry(key, value.toString())),
