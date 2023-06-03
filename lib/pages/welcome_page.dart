@@ -28,7 +28,7 @@ class _WelcomePageState extends State<WelcomePage>
           SizedBox(
             // decoration: const BoxDecoration(
             //   image: DecorationImage(
-            //     image: AssetImage('../images/helloIMG3.png'),
+            //     image: AssetImage('assets/images/helloIMG3.png'),
             //     colorFilter: ColorFilter.mode(
             //         Color(0x9F000000), BlendMode.darken),
             //     repeat: ImageRepeat.repeat,
@@ -95,7 +95,7 @@ class _WelcomePageState extends State<WelcomePage>
           Container(
             // decoration: const BoxDecoration(
             //   image: DecorationImage(
-            //     image: AssetImage('../images/Wong2.png'),
+            //     image: AssetImage('assets/images/Wong2.png'),
             //     colorFilter: ColorFilter.mode(
             //         Color(0x9F000000), BlendMode.darken),
             //     repeat: ImageRepeat.repeat,
@@ -291,7 +291,7 @@ class _WelcomePageState extends State<WelcomePage>
             padding: const EdgeInsets.only(left: 100, right: 100),
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('../images/helloIMG1.png'),
+                image: AssetImage('assets/images/helloIMG1.png'),
                 fit: BoxFit.cover,
                 colorFilter:
                     ColorFilter.mode(Color(0x9F000000), BlendMode.darken),
@@ -321,7 +321,7 @@ class _WelcomePageState extends State<WelcomePage>
             padding: const EdgeInsets.only(left: 100, right: 100),
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('../images/Wong1.png'),
+                image: AssetImage('assets/images/Wong1.png'),
                 colorFilter:
                     ColorFilter.mode(Color(0x9F000000), BlendMode.darken),
                 repeat: ImageRepeat.repeat,
@@ -374,7 +374,7 @@ class _WelcomePageState extends State<WelcomePage>
             padding: const EdgeInsets.only(left: 100, right: 100),
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('../images/helloIMG2.png'),
+                image: AssetImage('assets/images/helloIMG2.png'),
                 colorFilter:
                     ColorFilter.mode(Color(0x9F000000), BlendMode.darken),
                 fit: BoxFit.cover,
@@ -405,7 +405,7 @@ class _WelcomePageState extends State<WelcomePage>
             padding: const EdgeInsets.only(left: 100, right: 100),
             // decoration: const BoxDecoration(
             //   image: DecorationImage(
-            //     image: AssetImage('../images/helloIMG2.png'),
+            //     image: AssetImage('assets/images/helloIMG2.png'),
             //     colorFilter: ColorFilter.mode(
             //         Color(0x9F000000), BlendMode.darken),
             //     fit: BoxFit.cover,
