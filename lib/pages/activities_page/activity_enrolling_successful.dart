@@ -15,9 +15,10 @@ class ActicvityEnrollingSuccessful extends StatelessWidget {
       child: const Column(children: [
         Center(
             child: Text("報名資訊",
-                style: TextStyle(fontSize: 64, fontWeight: FontWeight.bold))),
+                style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold))),
         SizedBox(height: 50),
-        Text("報名成功！確認信件已寄送至您的信箱，我們將於報名截止經過審核後以 Email 通知您錄取結果。"),
+        Text("報名成功！確認信件已寄送至您的信箱，我們將於報名截止經過審核後以 Email 通知您錄取結果。",
+            style: TextStyle(fontSize: 16)),
       ]),
     );
   }

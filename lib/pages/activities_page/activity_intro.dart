@@ -190,7 +190,7 @@ class _ActivityIntroState extends State<ActivityIntro> {
                 const SizedBox(height: 40),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: ElevatedButton(
+                  child: ElevatedButton.icon(
                       onPressed: () async {
                         if (!authProvider.isAuthed) {
                           context.push("/${MyRouter.login}");
@@ -203,11 +203,17 @@ class _ActivityIntroState extends State<ActivityIntro> {
                         }
                       },
                       style: ButtonStyle(
-                        textStyle:
-                            MaterialStateProperty.all(TextStyle(fontSize: 24)),
-                        padding: MaterialStateProperty.all(EdgeInsets.all(20)),
-                      ),
-                      child: SelectionContainer.disabled(
+                          backgroundColor:
+                              const MaterialStatePropertyAll(Color(0xFF1F6AFB)),
+                          foregroundColor:
+                              const MaterialStatePropertyAll(Colors.white),
+                          textStyle: MaterialStateProperty.all(
+                              const TextStyle(fontSize: 20)),
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.all(20)),
+                        ),
+                        icon: Icon(_isParticipant ? Icons.input : Icons.how_to_reg),
+                      label: SelectionContainer.disabled(
                           child: Text(_isParticipant ? "進入後台" : "報名參加"))),
                 ),
               ]);

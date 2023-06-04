@@ -4,7 +4,6 @@ import 'package:service_learning_website/pages/login_page.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/test/window_size.dart';
 import 'package:service_learning_website/widgets/bottom.dart';
-import 'package:service_learning_website/widgets/mcq.dart';
 import 'package:service_learning_website/widgets/my_progress_bar.dart';
 import 'package:service_learning_website/widgets/online_course_card.dart';
 import 'package:service_learning_website/widgets/side_menu.dart';
@@ -58,10 +57,6 @@ class TestPage extends StatelessWidget {
           const Bottom(
             txt: '我有問題',
             nextPage: FavPage(),
-          ),
-          SizedBox(
-            width: 800,
-            child: MCQ(question: question[0], options: options),
           ),
           const OnlineCourseCard(
             imageUrl: "assets/images/google.png",
