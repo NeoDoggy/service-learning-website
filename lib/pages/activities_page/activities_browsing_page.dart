@@ -36,6 +36,7 @@ class ActivitiesBrowsingPage extends StatelessWidget {
                       ActivityCard(
                         title: activityData.title,
                         deadline: activityData.deadline,
+                        calendar: activityData.calendar,
                         place: activityData.place,
                         audience: activityData.audience,
                         imageUrl: activityData.imageUrl,

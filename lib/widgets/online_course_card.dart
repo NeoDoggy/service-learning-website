@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
-
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -33,7 +31,7 @@ class _OnlineCourseCardState extends State<OnlineCourseCard> {
     if (_imageByte == null && widget.imageUrl != "") {
       http
           .get(Uri.parse(widget.imageUrl))
-          .timeout(Duration(seconds: 5))
+          .timeout(const Duration(seconds: 5))
           .then((response) => setState(() => _imageByte = response.bodyBytes))
           .catchError((_) => setState(() => _imageByte = null));
     }
@@ -42,7 +40,7 @@ class _OnlineCourseCardState extends State<OnlineCourseCard> {
       width: widget.width,
       // height: 300,
       decoration: BoxDecoration(
-        color: Color(0xffd6e4ff),
+        color: const Color(0xffd6e4ff),
         borderRadius: BorderRadius.circular(30),
       ),
       child: GestureDetector(
@@ -61,7 +59,7 @@ class _OnlineCourseCardState extends State<OnlineCourseCard> {
                 width: widget.width,
                 height: 200,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
                   ),
@@ -73,7 +71,7 @@ class _OnlineCourseCardState extends State<OnlineCourseCard> {
                           fit: BoxFit.cover,
                         );
                       }
-                      return Placeholder();
+                      return const Placeholder();
                     },
                   ),
                 ),
@@ -81,13 +79,13 @@ class _OnlineCourseCardState extends State<OnlineCourseCard> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 20.0),
+                  margin: const EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 20.0),
                   child: SelectionContainer.disabled(
                     child: Text(
                       widget.courseName,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 24.0,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.bold,
                         height: 29.0 / 24.0,
                         color: Color(0xff000000),
                       ),
