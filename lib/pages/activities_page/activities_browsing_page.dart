@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:service_learning_website/modules/my_router.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/widgets/activity_card.dart';
@@ -34,6 +36,8 @@ class ActivitiesBrowsingPage extends StatelessWidget {
                   children: [
                     for (var activityData in activityiesData.values)
                       ActivityCard(
+                        onTap: () => context.go(
+                            "/${MyRouter.activities}/${activityData.id}/${MyRouter.intro}"),
                         title: activityData.title,
                         deadline: activityData.deadline,
                         calendar: activityData.calendar,
