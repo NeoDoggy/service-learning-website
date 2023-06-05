@@ -38,14 +38,14 @@ class _WelcomePageState extends State<WelcomePage>
             height: MediaQuery.of(context).size.height - 56,
             child: Column(
               children: [
-                const SizedBox(
-                  height: 120,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height/794*120,
                 ),
                 Center(
                   child: Container(
-                    padding: const EdgeInsets.only(left: 100, right: 100),
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.height/794*100, right: MediaQuery.of(context).size.height/794*100),
                     height: MediaQuery.of(context).size.height/794*450,
-                    width: MediaQuery.of(context).size.width/1474*1000,
+                    width: MediaQuery.of(context).size.height/794*1000,
                     decoration: const BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -84,10 +84,10 @@ class _WelcomePageState extends State<WelcomePage>
                 SizedBox(
                   height: MediaQuery.of(context).size.height/794*120,
                 ),
-                const Icon(
+                Icon(
                   Icons.expand_more_outlined,
                   color: Color(0xFF000000),
-                  size: 32,
+                  size: MediaQuery.of(context).size.height/794*32,
                 )
               ],
             ),
