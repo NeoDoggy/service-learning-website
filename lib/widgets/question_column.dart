@@ -23,10 +23,10 @@ class Question_column extends StatelessWidget
         ),
       ),
 
-      child: const Stack
+      child: Stack
       (
         children: 
-        [
+        const [
           Positioned
           (
             left: 36.3,

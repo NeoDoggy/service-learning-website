@@ -37,10 +37,10 @@ class MyDownloadButton extends StatelessWidget {
                   side:
                       const BorderSide(color: Color(0xff0e6ba8), width: 2.0))),
         ),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          children: const [
             SizedBox(width: 15),
             Icon(Icons.insert_link, size: 64),
             SizedBox(width: 15),

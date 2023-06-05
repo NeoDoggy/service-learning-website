@@ -22,7 +22,7 @@ class TestPage extends StatelessWidget {
     return PageSkeleton(
       body: Column(
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               UserIcon(size: 32),

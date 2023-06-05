@@ -12,7 +12,7 @@ class ActicvityEnrollingSuccessful extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
         color: Colors.white,
       ),
-      child: const Column(children: [
+      child: Column(children: const [
         Center(
             child: Text("報名資訊",
                 style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold))),
