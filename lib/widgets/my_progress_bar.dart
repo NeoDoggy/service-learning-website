@@ -19,6 +19,7 @@ class MyProgressBar extends StatelessWidget {
       // width: 391,
       height: 24,
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             '完成度',

@@ -97,6 +97,15 @@ class CoursesProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateParticipant(String courseId, String uid) async {
+    await _collection
+        .doc(courseId)
+        .collection("participants")
+        .doc(uid)
+        .update(_coursesData[courseId]!.participants[uid]!.toJson());
+    notifyListeners();
+  }
+
   Future<void> updateChapter(String courseId, String chapterId) async {
     await _collection
         .doc(courseId)

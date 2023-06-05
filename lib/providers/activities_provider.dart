@@ -79,8 +79,6 @@ class ActivitiesProvider with ChangeNotifier {
   }
 
   Future<void> addParticipant(String activityId, String uid) async {
-    _activitiesData[activityId]!.participants[uid] =
-        ActivityParticipantData(uid: uid);
     await _collection
         .doc(activityId)
         .collection("participants")
@@ -89,12 +87,14 @@ class ActivitiesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateParticipant(String activityId, String uid) async {
-    await _collection
-        .doc(activityId)
-        .collection("participants")
-        .doc(uid)
-        .update(_activitiesData[activityId]!.participants[uid]!.toJson());
+  Future<void> updateParticipants(String activityId) async {
+    for (var participant in _activitiesData[activityId]!.participants.values) {
+      await _collection
+          .doc(activityId)
+          .collection("participants")
+          .doc(participant.uid)
+          .update(participant.toJson());
+    }
     notifyListeners();
   }
 
@@ -166,7 +166,9 @@ class ActivitiesProvider with ChangeNotifier {
   Future<void> createLecture(String activityId) async {
     final String id = RandomId.generate();
     final lectureData = ActivityLectureData(
-        id: id, title: id, number: _activitiesData[activityId]!.lectures.length);
+        id: id,
+        title: id,
+        number: _activitiesData[activityId]!.lectures.length);
     await _collection
         .doc(activityId)
         .collection("lectures")

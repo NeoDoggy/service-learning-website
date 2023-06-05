@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:service_learning_website/modules/my_router.dart';
 import 'package:service_learning_website/pages/page_skeleton.dart';
 import 'package:service_learning_website/providers/activities_provider.dart';
-import 'package:service_learning_website/widgets/online_course_card.dart';
+import 'package:service_learning_website/widgets/activity_card.dart';
 import 'package:service_learning_website/widgets/title_text_box.dart';
 
 class ActivitiesBrowsingPage extends StatelessWidget {
@@ -35,11 +35,15 @@ class ActivitiesBrowsingPage extends StatelessWidget {
                   runSpacing: 60,
                   children: [
                     for (var activityData in activityiesData.values)
-                      OnlineCourseCard(
-                        onTap: () => context.go("/${MyRouter.activities}/${activityData.id}/${MyRouter.intro}"),
-                        width: cardWidth,
+                      ActivityCard(
+                        onTap: () => context.go(
+                            "/${MyRouter.activities}/${activityData.id}/${MyRouter.intro}"),
+                        title: activityData.title,
+                        deadline: activityData.deadline,
+                        calendar: activityData.calendar,
+                        place: activityData.place,
+                        audience: activityData.audience,
                         imageUrl: activityData.imageUrl,
-                        courseName: activityData.title,
                       )
                   ],
                 );

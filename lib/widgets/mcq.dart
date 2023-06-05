@@ -1,15 +1,21 @@
-// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
-
 import 'package:flutter/material.dart';
 
 class MCQ extends StatefulWidget {
-  final String question;
-  final List<String> options;
+  const MCQ({
+    super.key,
+    required this.order,
+    required this.title,
+    required this.options,
+    this.onSelectedChange,
+  });
 
-  MCQ({required this.question, required this.options});
+  final int order;
+  final String title;
+  final List<String> options;
+  final void Function(int value)? onSelectedChange;
 
   @override
-  _MCQState createState() => _MCQState();
+  State<MCQ> createState() => _MCQState();
 }
 
 class _MCQState extends State<MCQ> {
@@ -21,20 +27,19 @@ class _MCQState extends State<MCQ> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          widget.question,
-          style: TextStyle(
-            fontSize: 32,
+          "${widget.order}. ${widget.title}",
+          style: const TextStyle(
+            fontSize: 24,
           ),
           textAlign: TextAlign.start,
         ),
-        SizedBox(height: 21),
         Column(
           children: List.generate(widget.options.length, (index) {
             return RadioListTile(
               title: Text(
                 widget.options[index],
-                style: TextStyle(
-                  fontSize: 32,
+                style: const TextStyle(
+                  fontSize: 16,
                 ),
               ),
               value: index,
@@ -43,6 +48,9 @@ class _MCQState extends State<MCQ> {
                 setState(() {
                   selectedIndex = value!;
                 });
+                if (widget.onSelectedChange != null) {
+                  widget.onSelectedChange!.call(selectedIndex);
+                }
               },
             );
           }),

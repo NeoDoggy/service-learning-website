@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables, no_logic_in_create_state
-
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -32,8 +30,9 @@ class CourseIntro extends StatefulWidget {
 }
 
 class _CourseIntroState extends State<CourseIntro> {
-  final _subTitleStyle = TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
-  final _contentStyle = TextStyle(fontSize: 16);
+  final _subTitleStyle =
+      const TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
+  final _contentStyle = const TextStyle(fontSize: 16);
 
   Uint8List? _imageByte;
   bool _loaded = false;
@@ -91,8 +90,8 @@ class _CourseIntroState extends State<CourseIntro> {
                             children: [
                               Row(
                                 children: [
-                                  Icon(Icons.description),
-                                  SizedBox(width: 10),
+                                  const Icon(Icons.description),
+                                  const SizedBox(width: 10),
                                   Text("課程介紹", style: _subTitleStyle),
                                 ],
                               ),
@@ -102,8 +101,8 @@ class _CourseIntroState extends State<CourseIntro> {
                               const SizedBox(height: 40),
                               Row(
                                 children: [
-                                  Icon(Icons.people),
-                                  SizedBox(width: 10),
+                                  const Icon(Icons.people),
+                                  const SizedBox(width: 10),
                                   Text("適合對象", style: _subTitleStyle),
                                 ],
                               ),
@@ -112,8 +111,8 @@ class _CourseIntroState extends State<CourseIntro> {
                               const SizedBox(height: 40),
                               Row(
                                 children: [
-                                  Icon(Icons.computer),
-                                  SizedBox(width: 10),
+                                  const Icon(Icons.computer),
+                                  const SizedBox(width: 10),
                                   Text("開發環境", style: _subTitleStyle),
                                 ],
                               ),
@@ -123,8 +122,8 @@ class _CourseIntroState extends State<CourseIntro> {
                               const SizedBox(height: 40),
                               Row(
                                 children: [
-                                  Icon(Icons.list),
-                                  SizedBox(width: 10),
+                                  const Icon(Icons.list),
+                                  const SizedBox(width: 10),
                                   Text("課程大綱", style: _subTitleStyle),
                                 ],
                               ),
@@ -137,7 +136,7 @@ class _CourseIntroState extends State<CourseIntro> {
                 const SizedBox(height: 40),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: ElevatedButton(
+                  child: ElevatedButton.icon(
                       onPressed: () async {
                         if (!authProvider.isAuthed) {
                           context.push("/${MyRouter.login}");
@@ -155,11 +154,18 @@ class _CourseIntroState extends State<CourseIntro> {
                         }
                       },
                       style: ButtonStyle(
-                        textStyle:
-                            MaterialStateProperty.all(TextStyle(fontSize: 24)),
-                        padding: MaterialStateProperty.all(EdgeInsets.all(20)),
+                        backgroundColor:
+                            const MaterialStatePropertyAll(Color(0xFF1F6AFB)),
+                        foregroundColor:
+                            const MaterialStatePropertyAll(Colors.white),
+                        textStyle: MaterialStateProperty.all(
+                            const TextStyle(fontSize: 20)),
+                        padding:
+                            MaterialStateProperty.all(const EdgeInsets.all(20)),
                       ),
-                      child: SelectionContainer.disabled(child: Text(_isParticipant ? "進入課程" : "加入課程"))),
+                      icon: Icon(_isParticipant ? Icons.input : Icons.how_to_reg),
+                      label: SelectionContainer.disabled(
+                          child: Text(_isParticipant ? "進入課程" : "加入課程"))),
                 ),
               ]);
         },

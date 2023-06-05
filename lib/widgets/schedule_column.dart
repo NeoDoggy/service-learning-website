@@ -59,6 +59,7 @@ class ScheduleColumn extends StatelessWidget {
           const SizedBox(width: 40),
           Flexible(
             child: Container(
+              padding: const EdgeInsets.only(left: 20, right: 20),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30),
@@ -77,6 +78,7 @@ class ScheduleColumn extends StatelessWidget {
           const SizedBox(width: 40),
           Flexible(
             child: Container(
+              padding: const EdgeInsets.only(left: 20, right: 20),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30),

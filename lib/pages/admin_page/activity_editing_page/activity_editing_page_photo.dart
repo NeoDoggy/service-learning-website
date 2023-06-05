@@ -61,7 +61,7 @@ class _ActivityEditingPagePhotoState extends State<ActivityEditingPagePhoto> {
                     }
                   : null,
               icon: const Icon(Icons.upload_file),
-              label: const Text("上傳照片"),
+              label: const SelectionContainer.disabled(child: Text("上傳照片")),
             ),
             const SizedBox(height: 40),
             Builder(builder: (context) {
@@ -113,7 +113,8 @@ class _ActivityEditingPagePhotoState extends State<ActivityEditingPagePhoto> {
                                       _photos[image.key]!.url,
                                       _photos[image.key]!.filename),
                                   icon: const Icon(Icons.download),
-                                  label: const Text("下載")),
+                                  label: const SelectionContainer.disabled(
+                                      child: Text("下載"))),
                               const SizedBox(width: 20),
                               ElevatedButton.icon(
                                   onPressed: _canEdit
@@ -125,7 +126,8 @@ class _ActivityEditingPagePhotoState extends State<ActivityEditingPagePhoto> {
                                         }
                                       : null,
                                   icon: const Icon(Icons.delete),
-                                  label: const Text("刪除")),
+                                  label: const SelectionContainer.disabled(
+                                      child: Text("刪除"))),
                             ],
                           ),
                         ],

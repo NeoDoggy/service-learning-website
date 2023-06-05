@@ -8,6 +8,7 @@ import 'package:service_learning_website/providers/activities_provider.dart';
 import 'package:service_learning_website/providers/articles_provider.dart';
 import 'package:service_learning_website/providers/courses_provider.dart';
 import 'package:service_learning_website/providers/floating_window_provider.dart';
+import 'package:service_learning_website/providers/problems_provider.dart';
 import 'package:service_learning_website/providers/users_provider.dart';
 import 'package:service_learning_website/providers/auth_provider.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CoursesProvider()),
         ChangeNotifierProvider(create: (_) => ActivitiesProvider()),
         ChangeNotifierProvider(create: (_) => ArticlesProvider()),
+        ChangeNotifierProvider(create: (_) => ProblemsProvider()),
       ],
       child: MaterialApp.router(
         title: "NCU CS Tutorial Platform",

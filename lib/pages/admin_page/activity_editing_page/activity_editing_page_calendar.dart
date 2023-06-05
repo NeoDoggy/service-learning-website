@@ -47,13 +47,13 @@ class _ActivityEditingPageCalendarState
                 UserPermission.ta ||
             activityData.members.contains(authProvider.userData?.uid);
 
-        final calender = activityData.calendar;
+        final calendar = activityData.calendar;
         if (!_isEdited) {
-          calender.sort((a, b) => a.date.compareTo(b.date));
-          _morningControllers = calender
+          calendar.sort((a, b) => a.date.compareTo(b.date));
+          _morningControllers = calendar
               .map((e) => TextEditingController(text: e.morning))
               .toList();
-          _afternoonControllers = calender
+          _afternoonControllers = calendar
               .map((e) => TextEditingController(text: e.afternoon))
               .toList();
         }
@@ -67,7 +67,7 @@ class _ActivityEditingPageCalendarState
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        calender.add(ActivityCalendarData());
+                        calendar.add(ActivityCalendarData());
                         _morningControllers.add(TextEditingController());
                         _afternoonControllers.add(TextEditingController());
                         _isEdited = true;
@@ -80,11 +80,11 @@ class _ActivityEditingPageCalendarState
                   ElevatedButton(
                     onPressed: () {
                       _isEdited = false;
-                      for (int i = 0; i < calender.length; i++) {
-                        calender[i].morning = _morningControllers[i].text;
-                        calender[i].afternoon = _afternoonControllers[i].text;
+                      for (int i = 0; i < calendar.length; i++) {
+                        calendar[i].morning = _morningControllers[i].text;
+                        calendar[i].afternoon = _afternoonControllers[i].text;
                       }
-                      calender.sort((a, b) => a.date.compareTo(b.date));
+                      calendar.sort((a, b) => a.date.compareTo(b.date));
                       activitiesProvider.updateActivity(widget.id);
                     },
                     child: const SelectionContainer.disabled(child: Text("儲存變更")),
@@ -92,7 +92,7 @@ class _ActivityEditingPageCalendarState
               ],
             ),
             if (_canEdit || _isEdited) const SizedBox(height: 40),
-            for (int i = 0; i < calender.length; i++)
+            for (int i = 0; i < calendar.length; i++)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -100,11 +100,11 @@ class _ActivityEditingPageCalendarState
                     enabled: _canEdit,
                     onDateSelected: (value) {
                       setState(() {
-                        calender[i].date = value;
+                        calendar[i].date = value;
                         _isEdited = true;
                       });
                     },
-                    selectedDate: calender[i].date,
+                    selectedDate: calendar[i].date,
                     mode: DateTimeFieldPickerMode.date,
                     decoration: const InputDecoration(
                       labelText: "日期",
@@ -115,11 +115,11 @@ class _ActivityEditingPageCalendarState
                     enabled: _canEdit,
                     onDateSelected: (value) {
                       setState(() {
-                        calender[i].begin = value;
+                        calendar[i].begin = value;
                         _isEdited = true;
                       });
                     },
-                    selectedDate: calender[i].begin,
+                    selectedDate: calendar[i].begin,
                     mode: DateTimeFieldPickerMode.time,
                     decoration: const InputDecoration(
                       labelText: "開始時間",
@@ -130,11 +130,11 @@ class _ActivityEditingPageCalendarState
                     enabled: _canEdit,
                     onDateSelected: (value) {
                       setState(() {
-                        calender[i].end = value;
+                        calendar[i].end = value;
                         _isEdited = true;
                       });
                     },
-                    selectedDate: calender[i].end,
+                    selectedDate: calendar[i].end,
                     mode: DateTimeFieldPickerMode.time,
                     decoration: const InputDecoration(
                       labelText: "結束時間",
@@ -162,7 +162,7 @@ class _ActivityEditingPageCalendarState
                   const SizedBox(height: 10),
                   OutlinedButton(
                     onPressed: () => setState(() {
-                      calender.removeAt(i);
+                      calendar.removeAt(i);
                       _morningControllers[i].dispose();
                       _morningControllers.removeAt(i);
                       _afternoonControllers[i].dispose();
